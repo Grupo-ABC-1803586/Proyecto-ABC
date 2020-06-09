@@ -1,0 +1,58 @@
+{
+  "name": "grupo5/proyectoabc",
+  "version": "0.0.1",
+  "type": "project",
+  "keywords": ["console", "tool", "example"],
+  "homepage": "https://google.com",
+  "time": "2020-06-08",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastian Alfonso Martinez",
+      "email": "salfonso90@misena.edu.co",
+      "homepage": "http://www.sena.edu.co",
+      "role": "Lider"
+    },
+    {
+      "name": "Blanca Yolanda Tambo Ramirez",
+      "email": "bytambo@misena.edu.co",
+      "homepage": "http://www.sena.edu.co",
+      "role": "Developer"
+    },
+    {
+      "name": "William Jaime Diaz Roa",
+      "email": "wjdiaz48@misena.edu.co",
+      "homepage": "http://www.sena.edu.co",
+      "role": "Developer"
+    },
+    {
+      "name": "Karen Lizet Grosso Hernandez",
+      "email": "klgrosso@misena.edu.co",
+      "homepage": "http://www.sena.edu.co",
+      "role": "Developer"
+    }
+  ],
+  "require":{
+    "php": ">=7.2.0",
+    "almasaeed2010/adminlte": "^3.0",
+    "vlucas/phpdotenv": "^3.6"
+  },
+  "require-dev": {
+
+  },
+  "autoload": {
+
+  },
+  "scripts": {
+    "post-install-cmd": [
+    ],
+    "post-update-cmd": [
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "extra": {
+
+  }
+}
