@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__.'/../Models/Usuarios.php');
+require(__DIR__ . '/../Models/Unidades.php');
 use App\Models\Usuarios;
 
 if(!empty($_GET['action'])){
