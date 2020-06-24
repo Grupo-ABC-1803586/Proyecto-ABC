@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__.'/../Models/Usuarios.php');
-use App\Models\Usuarios;
+require(__DIR__ . '/../Models/Categorias.php');
+use App\Models\categorias;
 
 if(!empty($_GET['action'])){
     UsuariosController::main($_GET['action']);
@@ -44,10 +44,10 @@ class UsuariosController{
             $arrayUsuario['direccion'] = $_POST['direccion'];
             $arrayUsuario['rol'] = 'Cliente';
             $arrayUsuario['estado'] = 'Activo';
-            if(!Usuarios::usuarioRegistrado($arrayUsuario['documento'])){
-                $Usuario = new Usuarios ($arrayUsuario);
+            if(!categorias::usuarioRegistrado($arrayUsuario['documento'])){
+                $Usuario = new categorias ($arrayUsuario);
                 if($Usuario->create()){
-                    header("Location: ../../views/modules/usuarios/index.php?respuesta=correcto");
+                    header("Location: ../../views/modules/usuarios/conexion.php?respuesta=correcto");
                 }
             }else{
                 header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
@@ -70,7 +70,7 @@ class UsuariosController{
             $arrayUsuario['estado'] = $_POST['estado'];
             $arrayUsuario['id'] = $_POST['id'];
 
-            $user = new Usuarios($arrayUsuario);
+            $user = new categorias($arrayUsuario);
             $user->update();
 
             header("Location: ../../views/modules/usuarios/show.php?id=".$user->getId()."&respuesta=correcto");
@@ -82,37 +82,37 @@ class UsuariosController{
 
     static public function activate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
+            $ObjUsuario = categorias::searchForId($_GET['Id']);
             $ObjUsuario->setEstado("Activo");
             if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+                header("Location: ../../views/modules/usuarios/conexion.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/usuarios/conexion.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
+            $ObjUsuario = categorias::searchForId($_GET['Id']);
             $ObjUsuario->setEstado("Inactivo");
             if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+                header("Location: ../../views/modules/usuarios/conexion.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error");
+            header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error");
         }
     }
 
     static public function searchForID ($id){
         try {
-            return Usuarios::searchForId($id);
+            return categorias::searchForId($id);
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
@@ -121,7 +121,7 @@ class UsuariosController{
 
     static public function getAll (){
         try {
-            return Usuarios::getAll();
+            return categorias::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");

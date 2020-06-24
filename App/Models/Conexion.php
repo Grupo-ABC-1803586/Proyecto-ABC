@@ -8,15 +8,15 @@ namespace App\Models;
  * Date: 10/12/2019
  * Time: 9:17
  */
-abstract class BasicModel {
+abstract class conexion {
 
     public $isConnected;
     protected $datab;
-    private $username = "weber";
-    private $password = "weber2019";
+    private $username = "ABC";
+    private $password = "Abc2020.";
     private $host = "localhost";
     private $driver = "mysql";
-    private $dbname = "weber";
+    private $dbname = "ABC";
 
     # métodos abstractos para ABM de clases que hereden
     abstract protected static function search($query);
