@@ -5,7 +5,7 @@
       <paths name="Laragon">
         <serverdata>
           <mappings>
-            <mapping deploy="\WebER" local="$PROJECT_DIR$" web="/WebER" />
+            <mapping deploy="\Proyecto-ABC" local="$PROJECT_DIR$" web="/Proyecto-ABC" />
           </mappings>
         </serverdata>
       </paths>
