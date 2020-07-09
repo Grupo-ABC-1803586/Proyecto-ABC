@@ -1,12 +1,12 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/UnidadesController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\UnidadesController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> | Editar Unidades</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,11 +24,11 @@ use App\Controllers\UsuariosController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nuevo Usuario</h1>
+                        <h1>Editar Nueva Unidad</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,7 +44,7 @@ use App\Controllers\UsuariosController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al crear el Unidades: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['id'])) { ?>
@@ -64,23 +64,23 @@ use App\Controllers\UsuariosController; ?>
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
                     <p>
                     <?php
-                    $DataUsuario = UsuariosController::searchForID($_GET["id"]);
-                        if(!empty($DataUsuario)){
+                    $DataUnidades = UnidadesController::searchForID($_GET["id"]);
+                        if(!empty($DataUnidades)){
                     ?>
                             <!-- form start -->
                             <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/Controllers/UsuariosController.php?action=edit">
-                                <input id="id" name="id" value="<?php echo $DataUsuario->getId(); ?>" hidden required="required" type="text">
+                                <input id="id" name="id" value="<?php echo $DataUnidades->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label for="nombres" class="col-sm-2 col-form-label">Nombres</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="nombres" name="nombres" value="<?= $DataUsuario->getNombres(); ?>" placeholder="Ingrese sus nombres">
+                                            <input required type="text" class="form-control" id="nombres" name="nombres" value="<?= $DataUnidades->getNombres(); ?>" placeholder="Ingrese sus nombres">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataUsuario->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
+                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataUnidades->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -156,7 +156,7 @@ use App\Controllers\UsuariosController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require ('../../partials/scripts.php');?>

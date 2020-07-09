@@ -66,7 +66,7 @@ class Marca extends BasicModel
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO Proyecto-ABC.Marca VALUES (NULL, ?)", array(
+        $result = $this->insertRow("INSERT INTO proyecto_sena.Marca VALUES (NULL, ?)", array(
                 $this->Nombre,
 
             )
@@ -77,7 +77,7 @@ class Marca extends BasicModel
 
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE Proyecto-ABC.Marca SET Nombre = ? WHERE Id = ?", array(
+        $result = $this->updateRow("UPDATE proyecto_sena.Marca SET Nombre = ? WHERE Id = ?", array(
                 $this->Nombre,
                 $this->Id
             )
@@ -113,7 +113,7 @@ class Marca extends BasicModel
         $Marca = null;
         if ($Id > 0){
             $Marca = new Marca();
-            $getrow = $Marca->getRow("SELECT * FROM Proyecto-ABC.Marca WHERE Id =?", array($Id));
+            $getrow = $Marca->getRow("SELECT * FROM proyecto_sena.Marca WHERE Id =?", array($Id));
             $Marca->Id = $getrow['Id'];
             $Marca->Nombre = $getrow['Nombre'];
 
@@ -124,12 +124,12 @@ class Marca extends BasicModel
 
     public static function getAll() : array
     {
-        return Marca::search("SELECT * FROM Proyecto-ABC.Marca");
+        return Marca::search("SELECT * FROM proyecto_sena.Marca");
     }
 
-    public static function MarcaRegistrada ($Id) : bool
+    public static function MarcaRegistrada ($Nombre) : bool
     {
-        $result = Marca::search("SELECT Id FROM Proyecto-ABC.Marca where Id = ".$Id);
+        $result = Marca::search("SELECT Id FROM proyecto_sena.Marca where Nombre = '".$Nombre."'");
         if (count($result) > 0){
             return true;
         }else{

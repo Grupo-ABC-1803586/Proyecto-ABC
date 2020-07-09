@@ -1,33 +1,33 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Unidades.php');
-use App\Models\Usuarios;
+require(__DIR__ . '/../Models/Marca.php');
+use App\Models\Marca;
 
 if(!empty($_GET['action'])){
-    UsuariosController::main($_GET['action']);
+    MarcaController::main($_GET['action']);
 }
 
-class UsuariosController{
+class MarcaController{
 
     static function main($action)
     {
         if ($action == "create") {
-            UsuariosController::create();
+            MarcaController::create();
         } else if ($action == "edit") {
-            UsuariosController::edit();
+            MarcaController::edit();
         } else if ($action == "searchForID") {
-            UsuariosController::searchForID($_REQUEST['idPersona']);
+            MarcaController::searchForID($_REQUEST['Id']);
         } else if ($action == "searchAll") {
-            UsuariosController::getAll();
+            MarcaController::getAll();
         } else if ($action == "activate") {
-            UsuariosController::activate();
+            MarcaController::activate();
         } else if ($action == "inactivate") {
-            UsuariosController::inactivate();
+            MarcaController::inactivate();
         }/*else if ($action == "login"){
-            UsuariosController::login();
+            UnidadesController::login();
         }else if($action == "cerrarSession"){
-            UsuariosController::cerrarSession();
+            UnidadesController::cerrarSession();
         }*/
 
     }
@@ -35,93 +35,79 @@ class UsuariosController{
     static public function create()
     {
         try {
-            $arrayUsuario = array();
-            $arrayUsuario['nombres'] = $_POST['nombres'];
-            $arrayUsuario['apellidos'] = $_POST['apellidos'];
-            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayUsuario['documento'] = $_POST['documento'];
-            $arrayUsuario['telefono'] = $_POST['telefono'];
-            $arrayUsuario['direccion'] = $_POST['direccion'];
-            $arrayUsuario['rol'] = 'Cliente';
-            $arrayUsuario['estado'] = 'Activo';
-            if(!Usuarios::usuarioRegistrado($arrayUsuario['documento'])){
-                $Usuario = new Usuarios ($arrayUsuario);
-                if($Usuario->create()){
-                    header("Location: ../../views/modules/usuarios/index.php?respuesta=correcto");
+            $arrayMarca = array();
+            $arrayMarca['Nombre'] = $_POST['Nombre'];
+            if(!Marca::MarcaRegistrada($arrayMarca['Nombre'])){
+                $Marca = new Marca ($arrayMarca);
+                if($Marca->create()){
+                    header("Location: ../../views/modules/Marca/index.php?respuesta=correcto");
                 }
             }else{
-                header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
+                header("Location: ../../views/modules/Marca/create.php?respuesta=error&mensaje=Marca ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Marca/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit (){
         try {
-            $arrayUsuario = array();
-            $arrayUsuario['nombres'] = $_POST['nombres'];
-            $arrayUsuario['apellidos'] = $_POST['apellidos'];
-            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayUsuario['documento'] = $_POST['documento'];
-            $arrayUsuario['telefono'] = $_POST['telefono'];
-            $arrayUsuario['direccion'] = $_POST['direccion'];
-            $arrayUsuario['rol'] = $_POST['rol'];
-            $arrayUsuario['estado'] = $_POST['estado'];
-            $arrayUsuario['id'] = $_POST['id'];
+            $arrayMarca = array();
+            $arrayMarca['Nombre'] = $_POST['Nombre'];
+            $arrayMarca['Id'] = $_POST['Id'];
 
-            $user = new Usuarios($arrayUsuario);
+            $user = new Marca($arrayMarca);
             $user->update();
 
-            header("Location: ../../views/modules/usuarios/show.php?id=".$user->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Marca/show.php?id=".$user->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Marca/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
-            $ObjUsuario->setEstado("Activo");
-            if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+            $ObjMarca = Marca::searchForId($_GET['Id']);
+            $ObjMarca->setEstado("Activo");
+            if($ObjMarca->update()){
+                header("Location: ../../views/modules/Marca/index.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Marca/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Marca/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
-            $ObjUsuario->setEstado("Inactivo");
-            if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+            $ObjMarca = Marca::searchForId($_GET['Id']);
+            $ObjMarca->setEstado("Inactivo");
+            if($ObjMarca->update()){
+                header("Location: ../../views/modules/Marca/index.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Marca/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error");
+            header("Location: ../../views/modules/Marca/index.php?respuesta=error");
         }
     }
 
     static public function searchForID ($id){
         try {
-            return Usuarios::searchForId($id);
+            return Marca::searchForId($id);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/Unidades/manager.php?respuesta=error");
         }
     }
 
     static public function getAll (){
         try {
-            return Usuarios::getAll();
+            return Marca::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
@@ -159,7 +145,7 @@ class UsuariosController{
         $htmlSelect .= "<option value='' >Seleccione</option>";
         if(count($arrPersonas) > 0){
             foreach ($arrPersonas as $persona)
-                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
+                if (!UnidadesController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
                     $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
         }
         $htmlSelect .= "</select>";

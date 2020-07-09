@@ -12,11 +12,11 @@ abstract class BasicModel {
 
     public $isConnected;
     protected $datab;
-    private $username = "root";
-    private $password = "12345";
+    private $username = "proyecto_sena";
+    private $password = "Abc2020.";
     private $host = "localhost";
     private $driver = "mysql";
-    private $dbname = "ABC";
+    private $dbname = "proyecto_sena";
 
     # métodos abstractos para ABM de clases que hereden
     abstract protected static function search($query);

@@ -6,7 +6,7 @@
              alt="AdminLTE Logo"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">WebER</span>
+        <span class="brand-text font-weight-light"><?= getenv('ALIASE_SITE') ?></span>
     </a>
 
     <!-- Sidebar -->
@@ -17,7 +17,7 @@
                 <img src="<?= $baseURL ?>/views/components/img/user.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Diego Ojeda</a>
+                <a href="#" class="d-block">Yolanda Tambo</a>
             </div>
         </div>
 
@@ -27,14 +27,97 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="<?= $baseURL; ?>/views/" class="nav-link">
+                    <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Inicio
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">Modulos Principales</li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+
+                        <p>
+                            Unidades
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Crear</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Editar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/Show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mostrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+
+                <li class="nav-item has-treeview menu-open">
+
+                    <a href="#" class="nav-link active">
+
+                        <p>
+                            Marca
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Crear</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Editar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/Show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mostrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
+                </li>
+
             </ul>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>

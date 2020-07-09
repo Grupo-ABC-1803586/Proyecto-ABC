@@ -7,22 +7,22 @@ require('BasicModel.php');
 class Unidades extends BasicModel
 {
     public $Id;
-    public $Nombre;
     public $Tipo;
+    public $Nombre;
 
     /**
      * Unidades constructor.
      * @param $Id
-     * @param $Nombre
      * @param $Tipo
+     * @param $Nombre
 
      */
     public function __construct($Unidades = array())
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
         $this->Id = $Unidades['Id'] ?? null;
-        $this->Nombre = $Unidades['Nombre'] ?? null;
         $this->Tipo = $Unidades['Tipo'] ?? null;
+        $this->Nombre = $Unidades['Nombre'] ?? null;
     }
 
     /* Metodo destructor cierra la conexion. */
@@ -43,23 +43,7 @@ class Unidades extends BasicModel
      */
     public function setId(int $Id): void
     {
-        $this->id = $Id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNombre() : string
-    {
-        return $this->Nombre;
-    }
-
-    /**
-     * @param string $Nombre
-     */
-    public function setNombre(string $Nombre): void
-    {
-        $this->Nombre = $Nombre;
+        $this->Id = $Id;
     }
 
     /**
@@ -78,12 +62,27 @@ class Unidades extends BasicModel
         $this->Tipo = $Tipo;
     }
 
+    /**
+     * @return string
+     */
+    public function getNombre() : string
+    {
+        return $this->Nombre;
+    }
+
+    /**
+     * @param string $Nombre
+     */
+    public function setNombre(string $Nombre): void
+    {
+        $this->Nombre = $Nombre;
+    }
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO Proyecto-ABC.Unidades VALUES (NULL, ?, ?)", array(
-            $this->Nombre,
+        $result = $this->insertRow("INSERT INTO proyecto_sena.Unidades VALUES (NULL, ?, ?)", array(
             $this->Tipo,
+            $this->Nombre,
             )
         );
         $this->Disconnect();
@@ -92,9 +91,10 @@ class Unidades extends BasicModel
 
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE Proyecto-ABC.Unidades SET Nombre = ?,Tipo = ? WHERE Id = ?", array(
-                $this->Nombre,
+        $result = $this->updateRow("UPDATE proyecto_sena.Unidades SET Tipo = ?,Nombre = ? WHERE Id = ?", array(
+
                 $this->Tipo,
+                $this->Nombre,
                 $this->Id
             )
         );
@@ -116,8 +116,8 @@ class Unidades extends BasicModel
         foreach ($getrows as $valor) {
             $Unidades = new Unidades();
             $Unidades->Id = $valor['Id'];
-            $Unidades->Nombre = $valor['Nombre'];
             $Unidades->Tipo = $valor['Tipo'];
+            $Unidades->Nombre = $valor['Nombre'];
             $Unidades->Disconnect();
             array_push($arrUnidades, $Unidades);
         }
@@ -130,10 +130,10 @@ class Unidades extends BasicModel
         $Unidades = null;
         if ($Id > 0){
             $Unidades = new Unidades();
-            $getrow = $Unidades->getRow("SELECT * FROM Proyecto-ABC.Unidades WHERE Id =?", array($Id));
+            $getrow = $Unidades->getRow("SELECT * FROM proyecto_sena.Unidades WHERE Id =?", array($Id));
             $Unidades->Id = $getrow['Id'];
-            $Unidades->Nombre = $getrow['Nombre'];
             $Unidades->Tipo = $getrow['Tipo'];
+            $Unidades->Nombre = $getrow['Nombre'];
 
         }
         $Unidades->Disconnect();
@@ -142,12 +142,12 @@ class Unidades extends BasicModel
 
     public static function getAll() : array
     {
-        return Unidades::search("SELECT * FROM Proyecto-ABC.Unidades");
+        return Unidades::search("SELECT * FROM proyecto_sena.Unidades");
     }
 
-    public static function UnidadesRegistrada ($Id) : bool
+    public static function UnidadesRegistrada ($Nombre) : bool
     {
-        $result = Unidades::search("SELECT Id FROM Proyecto-ABC.Unidades where Id = ".$Id);
+        $result = Unidades::search("SELECT Id FROM proyecto_sena.Unidades where Nombre = '".$Nombre."'");
         if (count($result) > 0){
             return true;
         }else{
