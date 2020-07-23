@@ -1,8 +1,8 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/CategoriaController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +64,7 @@ use App\Controllers\UsuariosController; ?>
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
                     <p>
                     <?php
-                    $DataUsuario = UsuariosController::searchForID($_GET["id"]);
+                    $DataUsuario = CategoriaController::searchForID($_GET["id"]);
                         if(!empty($DataUsuario)){
                     ?>
                             <!-- form start -->

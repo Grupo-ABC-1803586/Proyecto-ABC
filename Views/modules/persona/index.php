@@ -1,7 +1,7 @@
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/CategoriaController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +95,7 @@ use App\Controllers\UsuariosController; ?>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrUsuarios = UsuariosController::getAll();
+                                $arrUsuarios = CategoriaController::getAll();
                                 foreach ($arrUsuarios as $usuario){
                                     ?>
                                     <tr>

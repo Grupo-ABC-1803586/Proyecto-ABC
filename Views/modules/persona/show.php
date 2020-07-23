@@ -1,8 +1,8 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/CategoriaController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +58,7 @@ use App\Controllers\UsuariosController; ?>
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){
-                    $DataUsuario = UsuariosController::searchForID($_GET["id"]);
+                    $DataUsuario = CategoriaController::searchForID($_GET["id"]);
                     if(!empty($DataUsuario)){
                 ?>
                 <div class="card-header">

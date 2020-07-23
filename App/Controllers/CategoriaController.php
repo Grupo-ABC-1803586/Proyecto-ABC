@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Categorias.php');
+require(__DIR__ . '/../Models/Categoria.php');
 use App\Models\categorias;
 
 if(!empty($_GET['action'])){
     UsuariosController::main($_GET['action']);
 }
 
-class UsuariosController{
+class CategoriaController{
 
     static function main($action)
     {
@@ -35,19 +35,13 @@ class UsuariosController{
     static public function create()
     {
         try {
-            $arrayUsuario = array();
-            $arrayUsuario['nombres'] = $_POST['nombres'];
-            $arrayUsuario['apellidos'] = $_POST['apellidos'];
-            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayUsuario['documento'] = $_POST['documento'];
-            $arrayUsuario['telefono'] = $_POST['telefono'];
-            $arrayUsuario['direccion'] = $_POST['direccion'];
-            $arrayUsuario['rol'] = 'Cliente';
-            $arrayUsuario['estado'] = 'Activo';
-            if(!categorias::usuarioRegistrado($arrayUsuario['documento'])){
-                $Usuario = new categorias ($arrayUsuario);
-                if($Usuario->create()){
-                    header("Location: ../../views/modules/usuarios/conexion.php?respuesta=correcto");
+            $arrayCategoria = array();
+            $arrayCategoria['Nombre'] = $_POST['Nombre'];
+
+            if(!Categoria::CategoriaRegistrada($arrayCategoria['Id'])){
+                $Categoria = new Categoria ($arrayCategoria);
+                if($Categoria->create()){
+                    header("Location: ../../Views/modules/Categoria/conexion.php?respuesta=correcto");
                 }
             }else{
                 header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
