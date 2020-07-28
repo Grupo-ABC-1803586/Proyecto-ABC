@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 require('Conexion.php');
 
@@ -151,7 +151,7 @@ class Categoria extends conexion
 
     public static function CategoriaRegistrada ($Id) : bool
     {
-        $result = Categoria::search("SELECT Id FROM proyecto_sena.Categoria where Nombre = ".$Nombre);
+        $result = Categoria::search("SELECT Id FROM proyecto_sena.Categoria where Nombre = ".($Id));
         if (count($result) > 0){
             return true;
         }else{

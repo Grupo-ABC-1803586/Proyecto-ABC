@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Categoria.php');
+require(__DIR__ . '/../models/Categoria.php');
 use App\Models\categorias;
 
 if(!empty($_GET['action'])){
