@@ -2,7 +2,7 @@
     <div class="float-right d-none d-sm-block">
         <b>Version</b> <?= date('Y') ?>
     </div>
-    <strong>Copyright &copy; <?= date('Y') ?> <a href="<?= $baseURL; ?>">WebER</a>.</strong> Derechos Reservados.
+    <strong> &copy; <?= date('Y') ?> <a href="<?= $baseURL; ?>">Sena</a>.</strong>Adsi
 </footer>
 
 <!-- Control Sidebar -->
