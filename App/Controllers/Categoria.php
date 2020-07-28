@@ -3,7 +3,7 @@
 namespace App\Controllers;
 require(_DIR_ . '/../models/Categoria.php');
 
-use App\Models\Categoria;
+use App\models\Categoria;
 
 
 if(!empty($_GET['action'])){

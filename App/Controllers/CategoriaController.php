@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 require(__DIR__ . '/../models/Categoria.php');
-use App\Models\categorias;
+use App\models\Categoria;
 
 if(!empty($_GET['action'])){
     CategoriaController::main($_GET['action']);
@@ -36,7 +36,7 @@ class CategoriaController
             if (!Categoria::CategoriaRegistrada($arrayCategoria['Id'])) {
                 $Categoria = new Categoria ($arrayCategoria);
                 if ($Categoria->create()) {
-                    header("Location: ../../Views/modules/Categoria/conexion.php?respuesta=correcto");
+                    header("Location: ../../Views/modules/Categoria/index.php?respuesta=correcto");
                 }
             } else {
                 header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=Categoria ya registrado");
@@ -53,14 +53,13 @@ class CategoriaController
             $arrayCategoria['Nombre'] = $_POST['Nombre'];
             $arrayCategoria['Id'] = $_POST['Id'];
 
-            $user = new categorias($arrayCategoria);
+            $user = new Categoria($arrayCategoria);
             $user->update();
 
             header("Location: ../../Views/modules/Categoria/show.php?Id=" . $user->getId() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../Views/modules/Categoria/edit.php?respuesta=error&mensaje=" . $e->getMessage());
-        }
+            header("Location: ../../Views/modules/Categoria/edit.php?respuesta=error&mensaje=" . $e->getMessage());        }
     }
 
     static public function activate()
@@ -69,13 +68,13 @@ class CategoriaController
             $ObjCategoria = Categoria::searchForId($_GET['Id']);
             $ObjCategoria->setEstado("Activo");
             if ($ObjCategoria->update()) {
-                header("Location: ../../Views/modules/Categoria/conexion.php");
+                header("Location: ../../Views/modules/Categoria/index.php");
             } else {
-                header("Location: ../../Views/modules/Categoria/conexion.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../Views/modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../Views/modules/Categoria/Conexion.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../Views/modules/Categoria/index.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
@@ -85,13 +84,13 @@ class CategoriaController
             $ObjCategoria = Categoria::searchForId($_GET['Id']);
             $ObjCategoria->setEstado("Inactivo");
             if ($ObjCategoria->update()) {
-                header("Location: ../../Views/modules/Categoria/conexion.php");
+                header("Location: ../../Views/modules/Categoria/index.php");
             } else {
-                header("Location: ../../Views/modules/Categoria/Conexion.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../Views/modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../Views/modules/Categoria/Conexion.php?respuesta=error");
+            header("Location: ../../Views/modules/Categoria/index.php?respuesta=error");
         }
     }
 

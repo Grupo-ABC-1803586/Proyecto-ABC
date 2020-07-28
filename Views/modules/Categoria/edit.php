@@ -74,7 +74,7 @@ use App\Controllers\CategoriaController; ?>
                                     <div class="form-group row">
                                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese sus nombres">
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese el nombre">
                                         </div>
                                     </div>
                                 <!-- /.card-body -->
