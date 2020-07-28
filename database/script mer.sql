@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2020-06-09 10:44
+-- Generated: 2020-07-08 11:35
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -9,186 +9,240 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-ALTER TABLE `proyecto_sena`.`PERSONA` 
-DROP FOREIGN KEY `fk_PERSONA_PROGRAMAFORMACION1`;
+CREATE SCHEMA IF NOT EXISTS `Proyecto_sena` DEFAULT CHARACTER SET utf8 ;
 
-ALTER TABLE `proyecto_sena`.`PRESTAMO` 
-DROP FOREIGN KEY `fk_PRESTAMO_PERSONA1`;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`PERSONA` (
+  `Documento` INT(11) NOT NULL,
+  `Nombre` VARCHAR(50) NOT NULL,
+  `Apellido` VARCHAR(50) NOT NULL,
+  `Telefono` INT(10) UNSIGNED NOT NULL,
+  `Correo` VARCHAR(45) NOT NULL,
+  `Rol` ENUM('Funcionario', 'Aprendiz', 'Pasante') NOT NULL,
+  `Contraseña` VARCHAR(50) NOT NULL,
+  `Programaformacion` INT(11) NOT NULL,
+  `Estado` ENUM('Activo', 'Inactivo') NOT NULL,
+  INDEX `fk_PERSONA_PROGRAMAFORMACION1_idx` (`Programaformacion` ASC),
+  PRIMARY KEY (`Documento`),
+  CONSTRAINT `fk_PERSONA_PROGRAMAFORMACION1`
+    FOREIGN KEY (`Programaformacion`)
+    REFERENCES `Proyecto_sena`.`PROGRAMAFORMACION` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`ELEMENTO` 
-DROP FOREIGN KEY `fk_ELEMENTO_CATEGORIA`;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`PRESTAMO` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `FechaPrestamo` DATETIME NOT NULL,
+  `FechaEntrega` DATETIME NOT NULL,
+  `Observaciones` VARCHAR(200) NOT NULL,
+  `Estado` ENUM('Activo', 'Inactivo') NOT NULL,
+  `Responsable` INT(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_PRESTAMO_PERSONA1_idx` (`Responsable` ASC),
+  CONSTRAINT `fk_PRESTAMO_PERSONA1`
+    FOREIGN KEY (`Responsable`)
+    REFERENCES `Proyecto_sena`.`PERSONA` (`Documento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`ITEMS` 
-DROP FOREIGN KEY `fk_ITEMS_ELEMENTO1`,
-DROP FOREIGN KEY `fk_ITEMS_KIT2`;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`ELEMENTO` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(150) NOT NULL,
+  `Descripcion` VARCHAR(250) NOT NULL,
+  `Serie` VARCHAR(50) NOT NULL,
+  `Categoria` INT(11) NOT NULL,
+  `Material` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_ELEMENTO_CATEGORIA_idx` (`Categoria` ASC),
+  CONSTRAINT `fk_ELEMENTO_CATEGORIA`
+    FOREIGN KEY (`Categoria`)
+    REFERENCES `Proyecto_sena`.`CATEGORIA` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`SANCIONES` 
-DROP FOREIGN KEY `fk_Sanciones_PRESTAMO1`;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`CATEGORIA` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`MANTENIMIENTO` 
-DROP FOREIGN KEY `fk_Mantenimiento_MAQUINARIA1`;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`ITEMS` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Placa` VARCHAR(30) NOT NULL,
+  `Descripcion` VARCHAR(200) NOT NULL,
+  `Costo` DOUBLE NOT NULL,
+  `Ubicacion` VARCHAR(80) NOT NULL,
+  `Imgen` VARCHAR(60) NOT NULL,
+  `Elemento` INT(11) NOT NULL,
+  `Marca` INT(11) NOT NULL,
+  `Kit` INT(11) NULL DEFAULT NULL,
+  `Unidades` INT(11) NOT NULL,
+  `Estado` ENUM('Activo', 'Inactivo') NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_ITEMS_ELEMENTO1_idx` (`Elemento` ASC),
+  INDEX `fk_ITEMS_UNIDADES1_idx` (`Unidades` ASC),
+  INDEX `fk_ITEMS_MARCA1_idx` (`Marca` ASC),
+  INDEX `fk_ITEMS_KIT2_idx` (`Kit` ASC),
+  CONSTRAINT `fk_ITEMS_ELEMENTO1`
+    FOREIGN KEY (`Elemento`)
+    REFERENCES `Proyecto_sena`.`ELEMENTO` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEMS_UNIDADES1`
+    FOREIGN KEY (`Unidades`)
+    REFERENCES `Proyecto_sena`.`UNIDADES` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEMS_MARCA1`
+    FOREIGN KEY (`Marca`)
+    REFERENCES `Proyecto_sena`.`MARCA` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ITEMS_KIT2`
+    FOREIGN KEY (`Kit`)
+    REFERENCES `Proyecto_sena`.`KIT` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`PERSONA` 
-DROP COLUMN `Programaformacion`,
-DROP COLUMN `Telefono`,
-ADD COLUMN `Telefono` INT(10) UNSIGNED NOT NULL AFTER `Apellido`,
-ADD COLUMN `Programaformacion` INT(11) NOT NULL AFTER `Contraseña`,
-ADD INDEX `fk_PERSONA_PROGRAMAFORMACION1_idx` (`Programaformacion` ASC) VISIBLE,
-DROP INDEX `fk_PERSONA_PROGRAMAFORMACION1_idx` ;
-;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`UNIDADES` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` ENUM('Cantidad de sustancia', 'Intensidad de electricidad', 'Intensidad luminosa', 'Longitud', 'Masa', 'Otra') NOT NULL,
+  `Nombre` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`PRESTAMO` 
-DROP COLUMN `Responsable`,
-DROP COLUMN `FechaEntrega`,
-DROP COLUMN `FechaPrestamo`,
-ADD COLUMN `FechaPrestamo` DATETIME NOT NULL AFTER `Id`,
-ADD COLUMN `FechaEntrega` DATETIME NOT NULL AFTER `FechaPrestamo`,
-ADD COLUMN `Responsable` INT(11) NOT NULL AFTER `Estado`,
-ADD INDEX `fk_PRESTAMO_PERSONA1_idx` (`Responsable` ASC) VISIBLE,
-DROP INDEX `fk_PRESTAMO_PERSONA1_idx` ;
-;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`PROGRAMAFORMACION` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `FechaRegistro` DATE NOT NULL,
+  `NumeroFicha` INT(11) NOT NULL,
+  `FechaInicio` DATE NOT NULL,
+  `FechaFinalizacion` DATE NOT NULL,
+  `NombrePrograma` VARCHAR(200) NOT NULL,
+  `NivelPrograma` ENUM('Operario', 'Tecnico', 'Tecnologo', 'ESpecializacion tecnologica') NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`ELEMENTO` 
-DROP COLUMN `Categoria`,
-ADD COLUMN `Categoria` INT(11) NOT NULL AFTER `Serie`,
-ADD INDEX `fk_ELEMENTO_CATEGORIA_idx` (`Categoria` ASC) VISIBLE,
-DROP INDEX `fk_ELEMENTO_CATEGORIA_idx` ;
-;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`SANCIONES` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` ENUM('Perdida', 'Daño') NOT NULL,
+  `Descripcion` TEXT NOT NULL,
+  `Prestamo` INT(11) NOT NULL,
+  `Estado` ENUM('Activo', 'Inactivo') NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_Sanciones_PRESTAMO1_idx` (`Prestamo` ASC),
+  CONSTRAINT `fk_Sanciones_PRESTAMO1`
+    FOREIGN KEY (`Prestamo`)
+    REFERENCES `Proyecto_sena`.`PRESTAMO` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`ITEMS` 
-DROP COLUMN `Unidades`,
-DROP COLUMN `Kit`,
-DROP COLUMN `Marca`,
-DROP COLUMN `Elemento`,
-ADD COLUMN `Elemento` INT(11) NOT NULL AFTER `Imgen`,
-ADD COLUMN `Marca` INT(11) NOT NULL AFTER `Elemento`,
-ADD COLUMN `Kit` INT(11) NULL DEFAULT NULL AFTER `Marca`,
-ADD COLUMN `Unidades` INT(11) NOT NULL AFTER `Kit`,
-ADD INDEX `fk_ITEMS_ELEMENTO1_idx` (`Elemento` ASC) VISIBLE,
-ADD INDEX `fk_ITEMS_MARCA1_idx` (`Marca` ASC) VISIBLE,
-ADD INDEX `fk_ITEMS_KIT2_idx` (`Kit` ASC) VISIBLE,
-DROP INDEX `fk_ITEMS_KIT2_idx` ,
-DROP INDEX `fk_ITEMS_MARCA1_idx` ,
-DROP INDEX `fk_ITEMS_ELEMENTO1_idx` ;
-;
-
-ALTER TABLE `proyecto_sena`.`SANCIONES` 
-DROP COLUMN `Prestamo`,
-ADD COLUMN `Prestamo` INT(11) NOT NULL AFTER `Descripcion`,
-ADD INDEX `fk_Sanciones_PRESTAMO1_idx` (`Prestamo` ASC) VISIBLE,
-DROP INDEX `fk_Sanciones_PRESTAMO1_idx` ;
-;
-
-CREATE TABLE IF NOT EXISTS `proyecto_sena`.`DETALLEPRESTAMO` (
-  `Id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`DETALLEPRESTAMO` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
   `Observaciones` VARCHAR(200) NOT NULL,
   `Items` INT(11) NULL DEFAULT NULL,
   `Prestamo` INT(11) NOT NULL,
   `Kit` INT(11) NULL DEFAULT NULL,
-  INDEX `fk_ITEMS_has_PRESTAMO_PRESTAMO1_idx` (`Prestamo` ASC) VISIBLE,
-  INDEX `fk_ITEMS_has_PRESTAMO_ITEMS1_idx` (`Items` ASC) VISIBLE,
+  INDEX `fk_ITEMS_has_PRESTAMO_PRESTAMO1_idx` (`Prestamo` ASC),
+  INDEX `fk_ITEMS_has_PRESTAMO_ITEMS1_idx` (`Items` ASC),
   PRIMARY KEY (`Id`),
-  INDEX `fk_DETALLEPRESTAMO_KIT1_idx` (`Kit` ASC) VISIBLE,
+  INDEX `fk_DETALLEPRESTAMO_KIT1_idx` (`Kit` ASC),
   CONSTRAINT `fk_ITEMS_has_PRESTAMO_ITEMS1`
     FOREIGN KEY (`Items`)
-    REFERENCES `proyecto_sena`.`ITEMS` (`Id`)
+    REFERENCES `Proyecto_sena`.`ITEMS` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ITEMS_has_PRESTAMO_PRESTAMO1`
     FOREIGN KEY (`Prestamo`)
-    REFERENCES `proyecto_sena`.`PRESTAMO` (`Id`)
+    REFERENCES `Proyecto_sena`.`PRESTAMO` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_DETALLEPRESTAMO_KIT1`
     FOREIGN KEY (`Kit`)
-    REFERENCES `proyecto_sena`.`KIT` (`Id`)
+    REFERENCES `Proyecto_sena`.`KIT` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `proyecto_sena`.`MANTENIMIENTO` 
-DROP COLUMN `Maquinaria`,
-ADD COLUMN `Maquinaria` INT(11) NOT NULL AFTER `Id`,
-ADD INDEX `fk_Mantenimiento_MAQUINARIA1_idx` (`Maquinaria` ASC) VISIBLE,
-DROP INDEX `fk_Mantenimiento_MAQUINARIA1_idx` ;
-;
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`KIT` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(50) NOT NULL,
+  `Descripcion` VARCHAR(200) NOT NULL,
+  `Placa` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `proyecto_sena`.`Elementos_Mantenimiento` (
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`MARCA` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`MAQUINARIA` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Placa` VARCHAR(45) NOT NULL,
+  `Tipo` ENUM('..') NOT NULL,
+  `Fabricante` ENUM('Caterpila', 'Otros') NOT NULL,
+  `Modelo` VARCHAR(50) NOT NULL,
+  `Combustible` VARCHAR(45) NOT NULL,
+  `Ubicacion` VARCHAR(100) NOT NULL,
+  `Seccion` VARCHAR(45) NOT NULL,
+  `CaracteristicasGenerales` TEXT NOT NULL,
+  `CaracteristicasTecnicas` TEXT NOT NULL,
+  `Funcion` TEXT NOT NULL,
+  `Foto` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`MANTENIMIENTO` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Maquinaria` INT(11) NOT NULL,
+  `FechaInicio` DATETIME NOT NULL,
+  `FechaFin` DATETIME NULL DEFAULT NULL,
+  `Descripcion` VARCHAR(45) NOT NULL,
+  `Estado` ENUM('Activo', 'Inactivo') NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_Mantenimiento_MAQUINARIA1_idx` (`Maquinaria` ASC),
+  CONSTRAINT `fk_Mantenimiento_MAQUINARIA1`
+    FOREIGN KEY (`Maquinaria`)
+    REFERENCES `Proyecto_sena`.`MAQUINARIA` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `Proyecto_sena`.`Elementos_Mantenimiento` (
   `Elemento` INT(11) NOT NULL,
   `Mantenimiento` INT(11) NOT NULL,
-  INDEX `fk_Mantenimiento_has_ELEMENTO_ELEMENTO1_idx` (`Elemento` ASC) VISIBLE,
-  INDEX `fk_Mantenimiento_has_ELEMENTO_Mantenimiento1_idx` (`Mantenimiento` ASC) VISIBLE,
+  INDEX `fk_Mantenimiento_has_ELEMENTO_ELEMENTO1_idx` (`Elemento` ASC),
+  INDEX `fk_Mantenimiento_has_ELEMENTO_Mantenimiento1_idx` (`Mantenimiento` ASC),
   CONSTRAINT `fk_Mantenimiento_has_ELEMENTO_ELEMENTO1`
     FOREIGN KEY (`Elemento`)
-    REFERENCES `proyecto_sena`.`ELEMENTO` (`Id`)
+    REFERENCES `Proyecto_sena`.`ELEMENTO` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Mantenimiento_has_ELEMENTO_Mantenimiento1`
     FOREIGN KEY (`Mantenimiento`)
-    REFERENCES `proyecto_sena`.`MANTENIMIENTO` (`Id`)
+    REFERENCES `Proyecto_sena`.`MANTENIMIENTO` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-DROP TABLE IF EXISTS `proyecto_sena`.`elementos_mantenimiento` ;
-
-DROP TABLE IF EXISTS `proyecto_sena`.`detalleprestamo` ;
-
-ALTER TABLE `proyecto_sena`.`PERSONA` 
-ADD CONSTRAINT `fk_PERSONA_PROGRAMAFORMACION1`
-  FOREIGN KEY (`Programaformacion`)
-  REFERENCES `proyecto_sena`.`PROGRAMAFORMACION` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-ALTER TABLE `proyecto_sena`.`PRESTAMO` 
-ADD CONSTRAINT `fk_PRESTAMO_PERSONA1`
-  FOREIGN KEY (`Responsable`)
-  REFERENCES `proyecto_sena`.`PERSONA` (`Documento`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-ALTER TABLE `proyecto_sena`.`ELEMENTO` 
-ADD CONSTRAINT `fk_ELEMENTO_CATEGORIA`
-  FOREIGN KEY (`Categoria`)
-  REFERENCES `proyecto_sena`.`CATEGORIA` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-ALTER TABLE `proyecto_sena`.`ITEMS` 
-DROP FOREIGN KEY `fk_ITEMS_MARCA1`;
-
-ALTER TABLE `proyecto_sena`.`ITEMS` ADD CONSTRAINT `fk_ITEMS_ELEMENTO1`
-  FOREIGN KEY (`Elemento`)
-  REFERENCES `proyecto_sena`.`ELEMENTO` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_ITEMS_MARCA1`
-  FOREIGN KEY (`Marca`)
-  REFERENCES `proyecto_sena`.`MARCA` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_ITEMS_KIT2`
-  FOREIGN KEY (`Kit`)
-  REFERENCES `proyecto_sena`.`KIT` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-ALTER TABLE `proyecto_sena`.`SANCIONES` 
-ADD CONSTRAINT `fk_Sanciones_PRESTAMO1`
-  FOREIGN KEY (`Prestamo`)
-  REFERENCES `proyecto_sena`.`PRESTAMO` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
-ALTER TABLE `proyecto_sena`.`MANTENIMIENTO` 
-ADD CONSTRAINT `fk_Mantenimiento_MAQUINARIA1`
-  FOREIGN KEY (`Maquinaria`)
-  REFERENCES `proyecto_sena`.`MAQUINARIA` (`Id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
