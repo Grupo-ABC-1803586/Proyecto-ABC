@@ -1,7 +1,7 @@
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/CategoriaController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,30 +78,30 @@ use App\Controllers\UsuariosController; ?>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                            <table id="tblCategoria" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Id</th>
                                     <th>Nombres</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrUsuarios = UsuariosController::getAll();
-                                foreach ($arrUsuarios as $usuario){
+                                $arrCategoria = CategoriaController::getAll();
+                                foreach ($arrCategoria as $Categoria){
                                     ?>
                                     <tr>
-                                        <td><?php echo $usuario->getId(); ?></td>
-                                        <td><?php echo $usuario->getNombres(); ?></td>
+                                        <td><?php echo $Categoria->getId(); ?></td>
+                                        <td><?php echo $Categoria->getNombre(); ?></td>
 
                                         <td>
-                                            <a href="edit.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($usuario->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/UsuariosController.php?action=activate&Id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+                                            <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
+                                                <a href="../../../App/Controllers/CategoriaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
                                             <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/UsuariosController.php?action=inactivate&Id=<?php echo $usuario->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+                                                <a type="button" href="../../../App/Controllers/CategoriaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
                                             <?php } ?>
                                         </td>
                                     </tr>
@@ -109,7 +109,7 @@ use App\Controllers\UsuariosController; ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Id</th>
                                     <th>Nombre</th>
 
                                 </tr>
@@ -165,7 +165,7 @@ use App\Controllers\UsuariosController; ?>
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del usuario
+            "stateSave" : true, //Guardar la configuracion del Categoria
         });
     });
 </script>

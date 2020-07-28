@@ -1,8 +1,8 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/CategoriaController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +44,10 @@ use App\Controllers\UsuariosController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al crear la categoria: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
+            <?php } else if (empty($_GET['Id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -61,78 +61,28 @@ use App\Controllers\UsuariosController; ?>
                     <h3 class="card-title">Horizontal Form</h3>
                 </div>
                 <!-- /.card-header -->
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
+                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){ ?>
                     <p>
                     <?php
-                    $DataUsuario = UsuariosController::searchForID($_GET["id"]);
-                        if(!empty($DataUsuario)){
+                    $DataCategoria = CategoriaController::searchForID($_GET["Id"]);
+                        if(!empty($DataCategoria)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/Controllers/UsuariosController.php?action=edit">
-                                <input id="id" name="id" value="<?php echo $DataUsuario->getId(); ?>" hidden required="required" type="text">
+                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../App/Controllers/CategoriaController.php?action=edit">
+                                <input id="Id" name="Id" value="<?php echo $DataCategoria->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="nombres" class="col-sm-2 col-form-label">Nombres</label>
+                                        <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="nombres" name="nombres" value="<?= $DataUsuario->getNombres(); ?>" placeholder="Ingrese sus nombres">
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese sus nombres">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataUsuario->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
+                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataCategoria->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
-                                        <div class="col-sm-10">
-                                            <select id="tipo_documento" name="tipo_documento" class="custom-select">
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.C") ? "selected":""; ?> value="C.C">Cedula de Ciudadania</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "T.I") ? "selected":""; ?> value="T.I">Tarjeta de Identidad</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "R.C") ? "selected":""; ?> value="R.C">Registro Civil</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "Pasaporte") ? "selected":""; ?> value="Pasaporte">Pasaporte</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.E") ? "selected":""; ?> value="C.E">Cedula de Extranjeria</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="documento" class="col-sm-2 col-form-label">Documento</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="documento" name="documento" value="<?= $DataUsuario->getDocumento(); ?>" placeholder="Ingrese su documento">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="telefono" name="telefono" value="<?= $DataUsuario->getTelefono(); ?>" placeholder="Ingrese su telefono">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="direccion" name="direccion" value="<?= $DataUsuario->getDireccion(); ?>" placeholder="Ingrese su direccion">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="rol" class="col-sm-2 col-form-label">Rol</label>
-                                        <div class="col-sm-10">
-                                            <select id="rol" name="rol" class="custom-select">
-                                                <option <?= ($DataUsuario->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                                <option <?= ($DataUsuario->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
-                                        <div class="col-sm-10">
-                                            <select id="estado" name="estado" class="custom-select">
-                                                <option <?= ($DataUsuario->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                                <option <?= ($DataUsuario->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-info">Enviar</button>

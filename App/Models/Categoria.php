@@ -4,7 +4,7 @@ namespace App\Models;
 
 require('Conexion.php');
 
-class categorias extends conexion
+class Categoria extends conexion
 {
     private $Id;
     private $Nombre;
