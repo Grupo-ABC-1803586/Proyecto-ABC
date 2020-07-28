@@ -1,12 +1,12 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/CategoriaController.php");
+require("../../../App/Controllers/CategoriaController.php");
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> | Editar Categoria</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,11 +24,11 @@ use App\Controllers\CategoriaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nuevo Usuario</h1>
+                        <h1>Editar Nueva Categoria</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Categoria</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -75,12 +75,6 @@ use App\Controllers\CategoriaController; ?>
                                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                         <div class="col-sm-10">
                                             <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese sus nombres">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataCategoria->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
                                         </div>
                                     </div>
                                 <!-- /.card-body -->

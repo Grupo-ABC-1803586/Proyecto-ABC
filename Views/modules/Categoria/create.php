@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -51,12 +51,12 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/UsuariosController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controllers/UsuariosController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="nombres" class="col-sm-2 col-form-label">Nombre</label>
+                            <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese sus nombres">
+                                <input required type="text" class="form-control" Id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
                             </div>
                         </div>
 

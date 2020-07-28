@@ -98,7 +98,7 @@ class CategoriaController
     static public function searchForId($Id)
     {
         try {
-            return categorias::searchForId($Id);
+            return Categoria::searchForId($Id);
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../Views/modules/Categoria/manager.php?respuesta=error");
@@ -108,7 +108,7 @@ class CategoriaController
     static public function getAll()
     {
         try {
-            return categorias::getAll();
+            return Categoria::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");

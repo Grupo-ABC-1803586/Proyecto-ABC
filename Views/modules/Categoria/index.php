@@ -1,5 +1,5 @@
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/CategoriaController.php");
+require("../../../App/Controllers/CategoriaController.php");
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
@@ -82,7 +82,7 @@ use App\Controllers\CategoriaController; ?>
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nombres</th>
+                                    <th>Nombre</th>
 
                                 </tr>
                                 </thead>

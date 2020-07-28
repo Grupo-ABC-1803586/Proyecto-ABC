@@ -27,7 +27,7 @@ class Categoria extends conexion
     }
 
     /* Metodo destructor cierra la conexion. */
-    function __destruct() {
+    public function __destruct() {
         $this->Disconnect();
     }
 
