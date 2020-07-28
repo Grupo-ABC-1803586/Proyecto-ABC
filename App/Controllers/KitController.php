@@ -1,29 +1,30 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__.'/../Models/Usuarios.php');
-use App\Models\Usuarios;
+require(__DIR__ . '/../Models/Kit.php');
+use App\Models\Kit;
 
 if(!empty($_GET['action'])){
-    UsuariosController::main($_GET['action']);
+    KitController::main($_GET['action']);
 }
 
-class UsuariosController{
+class KitController{
 
     static function main($action)
     {
         if ($action == "create") {
-            UsuariosController::create();
+            KitController::create();
         } else if ($action == "edit") {
-            UsuariosController::edit();
+            KitController::edit();
         } else if ($action == "searchForID") {
-            UsuariosController::searchForID($_REQUEST['idPersona']);
+            KitController::searchForID($_REQUEST['idKit']);
         } else if ($action == "searchAll") {
-            UsuariosController::getAll();
+            KitController::getAll();
         } else if ($action == "activate") {
-            UsuariosController::activate();
+            KitController::activate();
         } else if ($action == "inactivate") {
-            UsuariosController::inactivate();
+            KitController::inactivate();
+
         }/*else if ($action == "login"){
             UsuariosController::login();
         }else if($action == "cerrarSession"){
@@ -35,84 +36,73 @@ class UsuariosController{
     static public function create()
     {
         try {
-            $arrayUsuario = array();
-            $arrayUsuario['nombres'] = $_POST['nombres'];
-            $arrayUsuario['apellidos'] = $_POST['apellidos'];
-            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayUsuario['documento'] = $_POST['documento'];
-            $arrayUsuario['telefono'] = $_POST['telefono'];
-            $arrayUsuario['direccion'] = $_POST['direccion'];
-            $arrayUsuario['rol'] = 'Cliente';
-            $arrayUsuario['estado'] = 'Activo';
-            if(!Usuarios::usuarioRegistrado($arrayUsuario['documento'])){
-                $Usuario = new Usuarios ($arrayUsuario);
-                if($Usuario->create()){
-                    header("Location: ../../views/modules/usuarios/index.php?respuesta=correcto");
+            $arrayKit = array();
+            $arrayKit['Nombre'] = $_POST['Nombre'];
+            $arrayKit['Descripcion'] = $_POST['Descripcion'];
+            $arrayKit['Placa'] = $_POST['Placa'];
+            if(!Kit::KitRegistrado($arrayKit['Nombre'])){
+                $arrayKit = new Kit ($arrayKit);
+                if($arrayKit->create()){
+                    header("Location: ../../views/modules/Kit/index.php?respuesta=correcto");
                 }
             }else{
-                header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
+                header("Location: ../../views/modules/Kit/create.php?respuesta=error&mensaje= Kit ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Kit/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit (){
         try {
-            $arrayUsuario = array();
-            $arrayUsuario['nombres'] = $_POST['nombres'];
-            $arrayUsuario['apellidos'] = $_POST['apellidos'];
-            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayUsuario['documento'] = $_POST['documento'];
-            $arrayUsuario['telefono'] = $_POST['telefono'];
-            $arrayUsuario['direccion'] = $_POST['direccion'];
-            $arrayUsuario['rol'] = $_POST['rol'];
-            $arrayUsuario['estado'] = $_POST['estado'];
-            $arrayUsuario['id'] = $_POST['id'];
-
-            $user = new Usuarios($arrayUsuario);
+            $arrayKit = array();
+            $arrayKit['Nombre'] = $_POST['Nombre'];
+            $arrayKit['Descripcion'] = $_POST['Descripcion'];
+            $arrayKit['Placa'] = $_POST['Placa'];
+            $arrayKit['Id'] = $_POST['Id'];
+            $user = new Kit ($arrayKit);
             $user->update();
 
-            header("Location: ../../views/modules/usuarios/show.php?id=".$user->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Kit/show.php?Id=".$user->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Kit/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
-            $ObjUsuario->setEstado("Activo");
-            if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+            $ObjKit = Kit::searchForId($_GET['Id']);
+            $ObjKit->setEstado("Activo");
+            if($ObjKit->update()){
+                header("Location: ../../views/modules/Kit/index.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
-            $ObjUsuario->setEstado("Inactivo");
-            if($ObjUsuario->update()){
-                header("Location: ../../views/modules/usuarios/index.php");
+            $ObjKit = Kit::searchForId($_GET['Id']);
+            $ObjKit->setEstado("Inactivo");
+            if($ObjKit->update()){
+                header("Location: ../../views/modules/Kit/index.php");
             }else{
-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error");
+            header("Location: ../../views/modules/Kit/index.php?respuesta=error");
         }
     }
 
-    static public function searchForID ($id){
+    static public function searchForID ($Id){
         try {
-            return Usuarios::searchForId($id);
+            return Kit::searchForId($Id);
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
@@ -121,7 +111,7 @@ class UsuariosController{
 
     static public function getAll (){
         try {
-            return Usuarios::getAll();
+            return Kit::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");

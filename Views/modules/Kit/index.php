@@ -1,12 +1,12 @@
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/UsuariosController.php");
+require("../../../app/Controllers/KitController.php");
 
-use App\Controllers\UsuariosController; ?>
+use App\Controllers\KitController; ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Layout</title>
-    <?php require("../../partials/head_imports.php"); ?>
+    <?php require("../../partials/head_Imports.php"); ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css">
@@ -27,12 +27,12 @@ use App\Controllers\UsuariosController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Pagina Principal</h1>
+                        <h1> Kit </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
-                            <li class="breadcrumb-item active">Inicio</li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/"> Proyecto-ABC </a></li>
+                            <li class="breadcrumb-item active"> Inicio </li>
                         </ol>
                     </div>
                 </div>
@@ -43,14 +43,14 @@ use App\Controllers\UsuariosController; ?>
         <section class="content">
 
             <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
-                <?php if ($_GET['respuesta'] == "correcto"){ ?>
+                <?php if ($_GET['respuesta'] == "Correcto"){ ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-                            El usuario ha sido creado con exito!
+                            El Kit ha sido creado correctamente!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del usuario han sido actualizados correctamente!
+                            Los datos del Kit han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -59,7 +59,7 @@ use App\Controllers\UsuariosController; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Usuarios</h3>
+                    <h3 class="card-title">Gestionar Kit</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -72,65 +72,46 @@ use App\Controllers\UsuariosController; ?>
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Usuario
+                                <i class="fas fa-plus"></i> Crear Kit
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                            <table id="tbKit" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Tipo Documento</th>
-                                    <th>Documento</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Placa</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrUsuarios = UsuariosController::getAll();
-                                foreach ($arrUsuarios as $usuario){
+                                $arrKit = KitController::getAll();
+                                foreach ($arrKit as $Kit){
                                     ?>
                                     <tr>
-                                        <td><?php echo $usuario->getId(); ?></td>
-                                        <td><?php echo $usuario->getNombres(); ?></td>
-                                        <td><?php echo $usuario->getApellidos(); ?></td>
-                                        <td><?php echo $usuario->getTipoDocumento(); ?></td>
-                                        <td><?php echo $usuario->getDocumento(); ?></td>
-                                        <td><?php echo $usuario->getTelefono(); ?></td>
-                                        <td><?php echo $usuario->getDireccion(); ?></td>
-                                        <td><?php echo $usuario->getRol(); ?></td>
-                                        <td><?php echo $usuario->getEstado(); ?></td>
+                                        <td><?php echo $Kit->getId(); ?></td>
+                                        <td><?php echo $Kit->getNombre(); ?></td>
+                                        <td><?php echo $Kit->getDescripcion(); ?></td>
+                                        <td><?php echo $Kit->getPlaca(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($usuario->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/UsuariosController.php?action=activate&Id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/UsuariosController.php?action=inactivate&Id=<?php echo $usuario->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
+                                            <a href="edit.php?Id=<?php echo $Kit->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Kit->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+
                                         </td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Tipo Documento</th>
-                                    <th>Documento</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Placa</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
@@ -150,7 +131,7 @@ use App\Controllers\UsuariosController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require ('../../partials/scripts.php');?>
