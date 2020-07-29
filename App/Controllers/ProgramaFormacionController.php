@@ -1,33 +1,40 @@
 <?php
 
 namespace App\Controllers;
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
 require(__DIR__ . '/../Models/Categorias.php');
 use App\Models\categorias;
+=======
+require(__DIR__ . '/../Models/ProgramaFormacion.php');
+
+use App\Models\ProgramaFormacion;
+
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
 
 if(!empty($_GET['action'])){
-    UsuariosController::main($_GET['action']);
+    ProgramaFormacionController::main($_GET['action']);
 }
 
-class UsuariosController{
+class ProgramaFormacionController{
 
     static function main($action)
     {
         if ($action == "create") {
-            UsuariosController::create();
+            ProgramaFormacionController::create();
         } else if ($action == "edit") {
-            UsuariosController::edit();
-        } else if ($action == "searchForID") {
-            UsuariosController::searchForID($_REQUEST['idPersona']);
+            ProgramaFormacionController::edit();
+        } else if ($action == "searchForId") {
+            ProgramaFormacionController::searchForId($_REQUEST['id']);
         } else if ($action == "searchAll") {
-            UsuariosController::getAll();
+            ProgramaFormacionController::getAll();
         } else if ($action == "activate") {
-            UsuariosController::activate();
+            ProgramaFormacionController::activate();
         } else if ($action == "inactivate") {
-            UsuariosController::inactivate();
+            ProgramaFormacionController::inactivate();
         }/*else if ($action == "login"){
-            UsuariosController::login();
+            ProgramaFormacionController::login();
         }else if($action == "cerrarSession"){
-            UsuariosController::cerrarSession();
+            ProgramaFormacionController::cerrarSession();
         }*/
 
     }
@@ -35,6 +42,7 @@ class UsuariosController{
     static public function create()
     {
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             $arrayUsuario = array();
             $arrayUsuario['nombres'] = $_POST['nombres'];
             $arrayUsuario['apellidos'] = $_POST['apellidos'];
@@ -48,17 +56,34 @@ class UsuariosController{
                 $Usuario = new categorias ($arrayUsuario);
                 if($Usuario->create()){
                     header("Location: ../../views/modules/usuarios/conexion.php?respuesta=correcto");
+=======
+
+            $arrayProgramaFormacion = array();
+            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
+            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
+            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
+            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
+            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
+            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
+ var_dump($_POST);
+            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
+                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
+                if($ProgramaFormacion->create()){
+                    header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto");
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
                 }
             }else{
-                header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
+                header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
+
     static public function edit (){
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             $arrayUsuario = array();
             $arrayUsuario['nombres'] = $_POST['nombres'];
             $arrayUsuario['apellidos'] = $_POST['apellidos'];
@@ -74,14 +99,31 @@ class UsuariosController{
             $user->update();
 
             header("Location: ../../views/modules/usuarios/show.php?id=".$user->getId()."&respuesta=correcto");
+=======
+            $arrayProgramaFormacion = array();
+            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
+            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
+            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
+            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
+            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
+            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
+
+            $arrayProgramaFormacion['Id'] = $_POST['Id'];
+
+            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
+            $ProgramaFormacion->update();
+
+            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/usuarios/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             $ObjUsuario = categorias::searchForId($_GET['Id']);
             $ObjUsuario->setEstado("Activo");
             if($ObjUsuario->update()){
@@ -92,11 +134,25 @@ class UsuariosController{
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error&mensaje=".$e->getMessage());
+=======
+            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+
+            $ObjProgramaFormacion->setEstado("Activo");
+            if($ObjProgramaFormacion->update()){
+                header("Location: ../../views/modules/Programaformacion/index.php");
+            }else{
+                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            //var_dump($e);
+            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
         }
     }
 
     static public function inactivate (){
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             $ObjUsuario = categorias::searchForId($_GET['Id']);
             $ObjUsuario->setEstado("Inactivo");
             if($ObjUsuario->update()){
@@ -107,12 +163,28 @@ class UsuariosController{
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error");
+=======
+            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+            $ObProgramaFormacion->setEstado("Inactivo");
+            if($ObProgramaFormacion->update()){
+                header("Location: ../../views/modules/Programaformacion/index.php");
+            }else{
+                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            //var_dump($e);
+            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
         }
     }
 
-    static public function searchForID ($id){
+    static public function searchForId ($id){
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             return categorias::searchForId($id);
+=======
+            return ProgramaFormacion::searchForId($id);
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
@@ -121,7 +193,11 @@ class UsuariosController{
 
     static public function getAll (){
         try {
+<<<<<<< HEAD:App/Controllers/UsuariosController.php
             return categorias::getAll();
+=======
+            return ProgramaFormacion::getAll();
+>>>>>>> origin/master:App/Controllers/ProgramaFormacionController.php
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
