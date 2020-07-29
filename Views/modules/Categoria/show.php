@@ -1,8 +1,8 @@
 <?php
 require("../../partials/routes.php");
-require("../../../App/Controllers/CategoriaController.php");
+require("../../../App/Controller/CategoriaController.php");
 
-use App\Controllers\CategoriaController; ?>
+use App\Controller\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>

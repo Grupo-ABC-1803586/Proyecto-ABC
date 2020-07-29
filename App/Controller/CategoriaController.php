@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controller;
 require(__DIR__ . '/../models/Categoria.php');
 use App\models\Categoria;
 
@@ -110,7 +110,7 @@ class CategoriaController
             return Categoria::getAll();
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            //header("Location: ../Vista/modules/Persona/manager.php?respuesta=error");
         }
     }
 

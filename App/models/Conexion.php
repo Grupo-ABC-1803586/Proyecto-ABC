@@ -8,10 +8,10 @@ namespace App\Models;
  * Date: 10/12/2019
  * Time: 9:17
  */
-abstract class conexion {
+abstract class Conexion {
 
     public $isConnected;
-    protected $datab;
+    protected $database;
     private $username = "ABC";
     private $password = "Abc2020.";
     private $host = "localhost";

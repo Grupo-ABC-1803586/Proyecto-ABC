@@ -12,7 +12,7 @@ class Categoria extends conexion
 
 
     /**
-     * categorias constructor.
+     * Categoria constructor.
      * @param $Id
      * @param $Nombre
 
