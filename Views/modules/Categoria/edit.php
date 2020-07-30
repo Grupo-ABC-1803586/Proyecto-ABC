@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../App/Controller/CategoriaController.php");
+require("../../../App/Controller/PersonaController.php");
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ use App\Controllers\CategoriaController; ?>
                         if(!empty($DataCategoria)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../App/Controller/CategoriaController.php?action=edit">
+                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../App/Controller/PersonaController.php?action=edit">
                                 <input id="Id" name="Id" value="<?php echo $DataCategoria->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
