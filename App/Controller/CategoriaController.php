@@ -41,7 +41,7 @@ class CategoriaController
                     header("Location: ../../Views/modules/Categoria/index.php?respuesta=correcto");
                 }
             }else{
-                header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=Usuario ya registrado");
+                header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=Categoria ya registrada");
             }
         } catch (Exception $e) {
             header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=" . $e->getMessage());
