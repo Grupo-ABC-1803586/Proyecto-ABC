@@ -2,9 +2,9 @@
 
 namespace App\models;
 
-require('Conexion.php');
+require('BasicModel.php');
 
-class Categoria extends conexion
+class Categoria extends BasicModel
 {
     private $Id;
     private $Nombre;
@@ -149,9 +149,9 @@ class Categoria extends conexion
         return Categoria::search("SELECT * FROM proyecto_sena.Categoria");
     }
 
-    public static function CategoriaRegistrada ($Id) : bool
+    public static function CategoriaRegistrada ($Nombre) : bool
     {
-        $result = Categoria::search("SELECT Id FROM proyecto_sena.Categoria where Id = ".($Id));
+        $result = Categoria::search("SELECT Id FROM proyecto_sena.Categoria where Nombre = ".($Nombre));
         if (count($result) > 0){
             return true;
         }else{

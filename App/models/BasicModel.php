@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 /**
  * Created by PhpStorm.
@@ -8,15 +8,15 @@ namespace App\Models;
  * Date: 10/12/2019
  * Time: 9:17
  */
-abstract class Conexion {
+abstract class BasicModel {
 
     public $isConnected;
-    protected $database;
+    protected $datab;
     private $username = "ABC";
     private $password = "Abc2020.";
     private $host = "localhost";
     private $driver = "mysql";
-    private $dbname = "ABC";
+    private $dbname = "proyecto_sena";
 
     # métodos abstractos para ABM de clases que hereden
     abstract protected static function search($query);

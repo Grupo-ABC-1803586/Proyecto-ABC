@@ -30,16 +30,18 @@ class CategoriaController
     static public function create()
     {
         try {
+
             $arrayCategoria = array();
             $arrayCategoria['Nombre'] = $_POST['Nombre'];
 
-            if (!Categoria::CategoriaRegistrada($arrayCategoria['Id'])) {
+            var_dump($_POST);
+            if(!Categoria::CategoriaRegistrado($arrayCategoria['Nombre'])){
                 $Categoria = new Categoria ($arrayCategoria);
-                if ($Categoria->create()) {
+                if($Categoria->create()){
                     header("Location: ../../Views/modules/Categoria/index.php?respuesta=correcto");
                 }
-            } else {
-                header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=Categoria ya registrado");
+            }else{
+                header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=Usuario ya registrado");
             }
         } catch (Exception $e) {
             header("Location: ../../Views/modules/Categoria/create.php?respuesta=error&mensaje=" . $e->getMessage());

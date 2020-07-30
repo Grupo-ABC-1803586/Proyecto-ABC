@@ -51,12 +51,12 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controller/UsuariosController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controller/CategoriaController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" Id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
+                                <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
                             </div>
                         </div>
 
