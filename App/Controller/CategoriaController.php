@@ -35,7 +35,7 @@ class CategoriaController
             $arrayCategoria['Nombre'] = $_POST['Nombre'];
 
             var_dump($_POST);
-            if(!Categoria::CategoriaRegistrado($arrayCategoria['Nombre'])){
+            if(!Categoria::CategoriaRegistrada($arrayCategoria['Nombre'])){
                 $Categoria = new Categoria ($arrayCategoria);
                 if($Categoria->create()){
                     header("Location: ../../Views/modules/Categoria/index.php?respuesta=correcto");
@@ -55,10 +55,10 @@ class CategoriaController
             $arrayCategoria['Nombre'] = $_POST['Nombre'];
             $arrayCategoria['Id'] = $_POST['Id'];
 
-            $user = new Categoria($arrayCategoria);
-            $user->update();
+            $Categoria = new Categoria($arrayCategoria);
+            $Categoria->update();
 
-            header("Location: ../../Views/modules/Categoria/show.php?Id=" . $user->getId() . "&respuesta=correcto");
+            header("Location: ../../Views/modules/Categoria/show.php?Id=" . $Categoria->getId() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../Views/modules/Categoria/edit.php?respuesta=error&mensaje=" . $e->getMessage());        }
