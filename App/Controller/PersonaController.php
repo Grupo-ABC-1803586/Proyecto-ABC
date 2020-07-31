@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
-require(__DIR__.'/../Models/Persona.php');
-use App\Models\Persona;
+namespace App\Controller;
+require(__DIR__.'/../models/Persona.php');
+use App\models\Persona;
 
 if(!empty($_GET['action'])){
     PersonaController::main($_GET['action']);
@@ -17,7 +17,7 @@ class PersonaController{
         } else if ($action == "edit") {
             PersonaController::edit();
         } else if ($action == "searchForID") {
-            PersonaController::searchForID($_REQUEST['idPersona']);
+            PersonaController::searchForDocumento($_REQUEST['Documento']);
         } else if ($action == "searchAll") {
             PersonaController::getAll();
         } else if ($action == "activate") {
@@ -32,9 +32,9 @@ class PersonaController{
     {
         try {
             $arrayPersona = array();
-            $arrayPersona['nombres'] = $_POST['nombres'];
-            $arrayPersona['apellidos'] = $_POST['apellidos'];
-            $arrayPersona['tipo_documento'] = $_POST['tipo_documento'];
+            $arrayPersona['Nombre'] = $_POST['Nombre'];
+            $arrayPersona['Apellido'] = $_POST['Apellido'];
+            $arrayPersona['Telefono'] = $_POST['Telefono'];
             $arrayPersona['documento'] = $_POST['documento'];
             $arrayPersona['telefono'] = $_POST['telefono'];
             $arrayPersona['direccion'] = $_POST['direccion'];

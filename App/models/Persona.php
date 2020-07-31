@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 require('BasicModel.php');
 
@@ -76,7 +76,7 @@ class Persona extends BasicModel
         return $arrPersona;
     }
 
-    public static function PersonaRegistrado($Documento): bool
+    public static function PersonaRegistrado($Nombre): bool
     {
         $result = Persona::search("SELECT Documento FROM proyecto_sena.Persona where Nombre = " . $Nombre);
         if (count($result) > 0) {
@@ -255,9 +255,9 @@ class Persona extends BasicModel
 
     public function deleted($Documento): bool
     {
-        $User = Persona::searchForDocumento($Documento); //Buscando un Persona por el ID
-        $User->setEstado("Inactivo"); //Cambia el estado del Persona
-        return $User->update();                    //Guarda los cambios..
+        $Nombre = Persona::searchForDocumento($Documento); //Buscando un Persona por documento
+        $Nombre->setEstado("Inactivo"); //Cambia el estado del Persona
+        return $Nombre->update();                    //Guarda los cambios..
     }
 
     public static function searchForDocumento($Documento): Persona
@@ -282,18 +282,16 @@ class Persona extends BasicModel
 
     public function update(): bool
     {
-        $result = $this->updateRow("UPDATE proyecto.Persona SET Nombre = ?, Apellido = ?, tipo_documento = ?, documento = ?, telefono = ?, direccion = ?, user = ?, password = ?, rol = ?, estado = ? WHERE id = ?", array(
-                $this->nombres,
-                $this->apellidos,
-                $this->tipo_documento,
-                $this->documento,
-                $this->telefono,
-                $this->direccion,
-                $this->user,
-                $this->password,
-                $this->rol,
-                $this->estado,
-                $this->id
+        $result = $this->updateRow("UPDATE proyecto.Persona SET Nombre = ?, Apellido = ?, Telefono = ?, Correo = ?, Rol = ?, Contraseña = ?, Programaformacion = ?, Estado = ? WHERE Documento = ?", array(
+
+                $this->Nombre,
+                $this->Apellido,
+                $this->Telefono,
+                $this->Correo,
+                $this->Rol,
+                $this->Contraseña,
+                $this->Programaformacion,
+                $this->estado
             )
         );
         $this->Disconnect();
@@ -303,7 +301,7 @@ class Persona extends BasicModel
     public function __toString()
     {
         //
-        return $this->nombres . " " . $this->apellidos;
+        return $this->Nombre. " " . $this->Apellido;
 
     }
 

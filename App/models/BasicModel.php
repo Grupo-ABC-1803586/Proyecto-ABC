@@ -4,7 +4,7 @@ namespace App\models;
 
 /**
  * Created by PhpStorm.
- * User: Diego-PC
+ * User: Sebastian Martinez
  * Date: 10/12/2019
  * Time: 9:17
  */
@@ -77,9 +77,9 @@ abstract class BasicModel {
 
     //Getting last id insert
     //$getrows = $database->getLastId();
-    public function getLastId(){
+    public function getLastDocumento(){
         try{
-            return $this->datab->lastInsertId();
+            return $this->datab->lastInsertDocumento();
         }catch(PDOException $e){
             throw new Exception($e->getMessage());
         }
