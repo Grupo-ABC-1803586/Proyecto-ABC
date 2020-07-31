@@ -35,80 +35,80 @@ class PersonaController{
             $arrayPersona['Nombre'] = $_POST['Nombre'];
             $arrayPersona['Apellido'] = $_POST['Apellido'];
             $arrayPersona['Telefono'] = $_POST['Telefono'];
-            $arrayPersona['documento'] = $_POST['documento'];
-            $arrayPersona['telefono'] = $_POST['telefono'];
-            $arrayPersona['direccion'] = $_POST['direccion'];
-            $arrayPersona['rol'] = 'Cliente';
-            $arrayPersona['estado'] = 'Activo';
-            if(!Persona::PersonaRegistrado($arrayPersona['documento'])){
-                $Persona = new Persona ($arrayPersona);
+            $arrayPersona['Correo'] = $_POST['Correo'];
+            $arrayPersona['Rol'] = $_POST['Rol'];
+            $arrayPersona['Contraseña'] = $_POST['Contraseña'];
+            $arrayPersona['Programaformacion'] = $_POST['Programaformacion'];
+            $arrayPersona['Estado'] = 'Activo';
+            if(!Persona::PersonaRegistrado($arrayPersona['Documento'])){
+                $Persona = new Personas ($arrayPersona);
                 if($Persona->create()){
-                    header("Location: ../../views/modules/Persona/index.php?respuesta=correcto");
+                    header("Location: ../../Views/modules/Persona/index.php?respuesta=correcto");
                 }
             }else{
-                header("Location: ../../views/modules/Persona/create.php?respuesta=error&mensaje=Persona ya registrado");
+                header("Location: ../../Views/modules/Persona/create.php?respuesta=error&mensaje=Persona ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/Persona/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../Views/modules/Persona/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit (){
         try {
             $arrayPersona = array();
-            $arrayPersona['tipo_documento'] = $_POST['tipo_documento'];
-            $arrayPersona['Documento'] = $_POST['Documento'];
             $arrayPersona['Nombre'] = $_POST['Nombre'];
             $arrayPersona['Apellido'] = $_POST['Apellido'];
             $arrayPersona['Telefono'] = $_POST['Telefono'];
             $arrayPersona['Correo'] = $_POST['Correo'];
             $arrayPersona['Rol'] = $_POST['Rol'];
-            $arrayPersona['estado'] = $_POST['estado'];
-            $arrayPersona['id'] = $_POST['id'];
+            $arrayPersona['Contraseña'] = $_POST['Contraseña'];
+            $arrayPersona['Programaformacion'] = $_POST['Programaformacion'];
+            $arrayPersona['Estado'] = $_POST['Estado'];
+            $arrayPersona['Documento'] = $_POST ['Documento'];
 
-            $user = new Persona($arrayPersona);
+            $user = new Personas($arrayPersona);
             $user->update();
 
-            header("Location: ../../views/modules/Persona/show.php?id=".$user->getId()."&respuesta=correcto");
+            header("Location: ../../Views/modules/Persona/show.php?id=".$user->getDocumento()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Persona/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../Views/modules/Persona/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
-            $ObjPersona = Persona::searchForId($_GET['Id']);
+            $ObjPersona = Persona::searchForDocumento($_GET['Documento']);
             $ObjPersona->setEstado("Activo");
             if($ObjPersona->update()){
-                header("Location: ../../views/modules/Persona/index.php");
+                header("Location: ../../Views/modules/Persona/index.php");
             }else{
-                header("Location: ../../views/modules/Persona/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../Views/modules/Persona/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Persona/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../Views/modules/Persona/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObjPersona = Persona::searchForId($_GET['Id']);
+            $ObjPersona = Persona::searchForDocumento($_GET['Documento']);
             $ObjPersona->setEstado("Inactivo");
             if($ObjPersona->update()){
-                header("Location: ../../views/modules/Persona/index.php");
+                header("Location: ../../Views/modules/Persona/index.php");
             }else{
-                header("Location: ../../views/modules/Persona/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../Views/modules/Persona/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Persona/index.php?respuesta=error");
+            header("Location: ../../Views/modules/Persona/index.php?respuesta=error");
         }
     }
 
-    static public function searchForID ($id){
+    static public function searchForDocumento ($Documento){
         try {
-            return Persona::searchForId($id);
+            return Persona::searchForDocumento($Documento);
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/Persona/manager.php?respuesta=error");
