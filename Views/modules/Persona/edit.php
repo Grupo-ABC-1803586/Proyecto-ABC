@@ -1,21 +1,21 @@
 <?php
-require("../../partials/routes.php");
-require("../../../app/Controllers/CategoriaController.php");
+require_once("../../partials/routes.php");
+require_once("../../../App/Controller/PersonaController.php");
 
-use App\Controllers\CategoriaController; ?>
+use App\Controller\PersonaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>
-    <?php require("../../partials/head_imports.php"); ?>
+    <title><?= getenv('TITLE_SITE') ?> | Editar Persona</title>
+    <?php require_once("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require("../../partials/navbar_customization.php"); ?>
+    <?php require_once("../../partials/navbar_customization.php"); ?>
 
-    <?php require("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -24,11 +24,11 @@ use App\Controllers\CategoriaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nuevo Usuario</h1>
+                        <h1>Editar Nueva Persona</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,10 +44,10 @@ use App\Controllers\CategoriaController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al crear la persona: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
+            <?php } else if (empty($_GET['Documento'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -61,64 +61,54 @@ use App\Controllers\CategoriaController; ?>
                     <h3 class="card-title">Horizontal Form</h3>
                 </div>
                 <!-- /.card-header -->
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
+                <?php if(!empty($_GET["Documento"]) && isset($_GET["Documento"])){ ?>
                     <p>
                     <?php
-                    $DataUsuario = CategoriaController::searchForID($_GET["id"]);
-                        if(!empty($DataUsuario)){
+                    $DataPersona = CategoriaController::searchForID($_GET["Documento"]);
+                        if(!empty($DataPersona)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/Controllers/UsuariosController.php?action=edit">
-                                <input id="id" name="id" value="<?php echo $DataUsuario->getId(); ?>" hidden required="required" type="text">
+                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../app/Controllers/UsuariosController.php?action=edit">
+                                <input id="id" name="id" value="<?php echo $DataPersona->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="nombres" class="col-sm-2 col-form-label">Nombres</label>
+                                        <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="nombres" name="nombres" value="<?= $DataUsuario->getNombres(); ?>" placeholder="Ingrese sus nombres">
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataPersona->getNombre(); ?>" placeholder="Ingrese sus nombres">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
+                                        <label for="Apellido" class="col-sm-2 col-form-label">Apellido</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataUsuario->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
+                                            <input required type="text" class="form-control" id="Apellido" name="Apellido" value="<?= $DataPersona->getApellido(); ?>" placeholder="Ingrese sus apellidos">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
+                                        <label for="Telefono" class="col-sm-2 col-form-label">Telefono</label>
                                         <div class="col-sm-10">
-                                            <select id="tipo_documento" name="tipo_documento" class="custom-select">
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.C") ? "selected":""; ?> value="C.C">Cedula de Ciudadania</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "T.I") ? "selected":""; ?> value="T.I">Tarjeta de Identidad</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "R.C") ? "selected":""; ?> value="R.C">Registro Civil</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "Pasaporte") ? "selected":""; ?> value="Pasaporte">Pasaporte</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.E") ? "selected":""; ?> value="C.E">Cedula de Extranjeria</option>
-                                            </select>
+                                            <input required type="number" minlength="6" class="form-control" id="Telefono" name="Telefono" value="<?= $DataPersona->getTelefono(); ?>" placeholder="Ingrese su documento">
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="documento" class="col-sm-2 col-form-label">Documento</label>
+                                        <label for="Correo" class="col-sm-2 col-form-label">Correo</label>
                                         <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="documento" name="documento" value="<?= $DataUsuario->getDocumento(); ?>" placeholder="Ingrese su documento">
+                                            <input required type="email" minlength="6" class="form-control" id="Correo" name="Correo" value="<?= $DataPersona->getCategoria(); ?>" placeholder="Ingrese su documento">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
+                                        <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
                                         <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="telefono" name="telefono" value="<?= $DataUsuario->getTelefono(); ?>" placeholder="Ingrese su telefono">
+                                            <input required type="number" minlength="6" class="form-control" id="Contraseña" name="Contraseña" value="<?= $DataPersona->getContraseña(); ?>" placeholder="Ingrese su contraseña">
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
+                                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="direccion" name="direccion" value="<?= $DataUsuario->getDireccion(); ?>" placeholder="Ingrese su direccion">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="rol" class="col-sm-2 col-form-label">Rol</label>
-                                        <div class="col-sm-10">
-                                            <select id="rol" name="rol" class="custom-select">
-                                                <option <?= ($DataUsuario->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                                <option <?= ($DataUsuario->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
+                                            <select id="Rol" name="Rol" class="custom-select">
+                                                <option <?= ($DataPersona->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
+                                                <option <?= ($DataPersona->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
                                             </select>
                                         </div>
                                     </div>
@@ -126,8 +116,8 @@ use App\Controllers\CategoriaController; ?>
                                         <label for="estado" class="col-sm-2 col-form-label">Estado</label>
                                         <div class="col-sm-10">
                                             <select id="estado" name="estado" class="custom-select">
-                                                <option <?= ($DataUsuario->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                                <option <?= ($DataUsuario->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
+                                                <option <?= ($DataPersona->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
+                                                <option <?= ($DataPersona->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
                                             </select>
                                         </div>
                                     </div>
@@ -156,9 +146,9 @@ use App\Controllers\CategoriaController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require_once ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require_once ('../../partials/scripts.php');?>
 </body>
 </html>

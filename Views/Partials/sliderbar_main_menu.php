@@ -33,19 +33,19 @@
                             Inicio
                         </p>
                     </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Categoria/create.php" class="nav-link">
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/create.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Agregar
                         </p>
                     </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Categoria/edit.php" class="nav-link">
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/edit.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Editar
                         </p>
                     </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Categoria/show.php" class="nav-link">
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/show.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Mostrar

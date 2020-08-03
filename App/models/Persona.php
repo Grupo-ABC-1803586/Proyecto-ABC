@@ -32,7 +32,7 @@ class Persona extends BasicModel
      * @param $Estado
 
      */
-    public function __construct($Persona = array())
+     function __construct($Persona = array())
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
         $this->Documento = $Persona['Documento'] ?? null;
@@ -246,7 +246,7 @@ class Persona extends BasicModel
                 $this->Rol,
                 $this->Contraseña,
                 $this->Programaformacion,
-                $this->estado
+                $this->Estado
             )
         );
         $this->Disconnect();
@@ -291,7 +291,7 @@ class Persona extends BasicModel
                 $this->Rol,
                 $this->Contraseña,
                 $this->Programaformacion,
-                $this->estado
+                $this->Estado
             )
         );
         $this->Disconnect();
@@ -305,4 +305,8 @@ class Persona extends BasicModel
 
     }
 
+    protected static function searchForId($id)
+    {
+        self::searchForDocumento($id);
+    }
 }
