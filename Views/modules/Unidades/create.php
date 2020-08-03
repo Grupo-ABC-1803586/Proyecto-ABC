@@ -55,12 +55,6 @@
                 <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/UnidadesController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="Id" class="col-sm-2 col-form-label">Id</label>
-                            <div class="col-sm-10">
-                                <input required type="Number" class="form-control" id="Id" name="Id" placeholder="Ingrese id">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="Tipo" class="col-sm-2 col-form-label">Tipo</label>
                             <div class="col-sm-10">
                                 <select id="Tipo" name="Tipo" class="custom-select">

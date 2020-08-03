@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Marca.php');
+require_once(__DIR__ . '/../Models/Marca.php');
 use App\Models\Marca;
 
 if(!empty($_GET['action'])){
@@ -59,7 +59,7 @@ class MarcaController{
             $user = new Marca($arrayMarca);
             $user->update();
 
-            header("Location: ../../views/modules/Marca/show.php?id=".$user->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Marca/show.php?Id=".$user->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/Marca/edit.php?respuesta=error&mensaje=".$e->getMessage());
@@ -114,10 +114,10 @@ class MarcaController{
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    public static function MarcaIsInArray($Id, $ArrMarca){
+        if(count($ArrMarca) > 0){
+            foreach ($ArrMarca as $Marca){
+                if($Marca->getId() == $Id){
                     return true;
                 }
             }
@@ -125,32 +125,32 @@ class MarcaController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
-                                          $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
-                                          $defaultValue="",
-                                          $class="",
-                                          $where="",
-                                          $arrExcluir = array()){
-        $arrPersonas = array();
+    static public function selectMarca ($isMultiple=false,
+                                           $isRequired=true,
+                                           $Id="Marca",
+                                           $Nombre="Marca",
+                                           $defaultValue="",
+                                           $class="",
+                                           $where="",
+                                           $arrExcluir = array()){
+        $arrMarca = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM Marca WHERE ";
+            $arrMarca = Marca::buscar($base.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrMarca = Marca::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." Id= '".$Id."' name='".$Nombre."' class='".$class."'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UnidadesController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrMarca) > 0){
+            foreach ($arrMarca as $Marca)
+                if (!MarcaController::MarcaIsInArray($Marca->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Marca != "") ? (($defaultValue == $Marca->getId()) ? "selected" : "" ) : "")." value='".$Marca->getId()."'>".$Marca->getNombre()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){

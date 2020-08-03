@@ -6,7 +6,7 @@ use App\Controllers\UnidadesController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Unidades</title>
+    <title><?= getenv('TITLE_SITE') ?> | Modificar Unidades</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,7 +24,7 @@ use App\Controllers\UnidadesController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nueva Unidad</h1>
+                        <h1>Modificar Unidades</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -44,10 +44,10 @@ use App\Controllers\UnidadesController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear el Unidades: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al editar Unidades: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
+            <?php } else if (empty($_GET['Id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -58,80 +58,37 @@ use App\Controllers\UnidadesController; ?>
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Horizontal Form</h3>
+                    <h3 class="card-title">Form modificar Unidades</h3>
                 </div>
                 <!-- /.card-header -->
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
+                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){ ?>
                     <p>
                     <?php
-                    $DataUnidades = UnidadesController::searchForID($_GET["id"]);
-                        if(!empty($DataUnidades)){
-                    ?>
-                            <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/Controllers/UsuariosController.php?action=edit">
-                                <input id="id" name="id" value="<?php echo $DataUnidades->getId(); ?>" hidden required="required" type="text">
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <label for="nombres" class="col-sm-2 col-form-label">Nombres</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="nombres" name="nombres" value="<?= $DataUnidades->getNombres(); ?>" placeholder="Ingrese sus nombres">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="apellidos" name="apellidos" value="<?= $DataUnidades->getApellidos(); ?>" placeholder="Ingrese sus apellidos">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
-                                        <div class="col-sm-10">
-                                            <select id="tipo_documento" name="tipo_documento" class="custom-select">
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.C") ? "selected":""; ?> value="C.C">Cedula de Ciudadania</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "T.I") ? "selected":""; ?> value="T.I">Tarjeta de Identidad</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "R.C") ? "selected":""; ?> value="R.C">Registro Civil</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "Pasaporte") ? "selected":""; ?> value="Pasaporte">Pasaporte</option>
-                                                <option <?= ($DataUsuario->getTipoDocumento() == "C.E") ? "selected":""; ?> value="C.E">Cedula de Extranjeria</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="documento" class="col-sm-2 col-form-label">Documento</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="documento" name="documento" value="<?= $DataUsuario->getDocumento(); ?>" placeholder="Ingrese su documento">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="telefono" name="telefono" value="<?= $DataUsuario->getTelefono(); ?>" placeholder="Ingrese su telefono">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="direccion" name="direccion" value="<?= $DataUsuario->getDireccion(); ?>" placeholder="Ingrese su direccion">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="rol" class="col-sm-2 col-form-label">Rol</label>
-                                        <div class="col-sm-10">
-                                            <select id="rol" name="rol" class="custom-select">
-                                                <option <?= ($DataUsuario->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                                <option <?= ($DataUsuario->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
-                                        <div class="col-sm-10">
-                                            <select id="estado" name="estado" class="custom-select">
-                                                <option <?= ($DataUsuario->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                                <option <?= ($DataUsuario->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                    $DataUnidades = UnidadesController::searchForID($_GET["Id"]);
+                    if(!empty($DataUnidades)){
+                        ?>
+                        <!-- form start -->
+                        <form class="form-horizontal" method="post" id="frmModificarcategoria" name="frmModificarcategoria" action="../../../app/Controllers/UnidadesController.php?action=edit">
+                            <input id="Id" name="Id" value="<?php echo $DataUnidades->getId(); ?>" hidden required="required" type="text">
+                            <div class="card-body">
 
+                                <div class="form-group row">
+                                    <label for="Tipo" class="col-sm-2 col-form-label">Tipo</label>
+                                    <div class="col-sm-10">
+                                        <select id="Tipo" name="Tipo" class="custom-select">
+                                            <option <?= ($DataUnidades->getTipo() == "Cantidad de sustancia") ? "selected":""; ?> value="Cantidad de sustancia">Cantidad de sustancia</option>
+                                            <option <?= ($DataUnidades->getTipo() == "Intensidad de electricidad") ? "selected":""; ?> value="Intensidad de electricidad">Intensidad de electricidad</option>>
+                                            <option <?= ($DataUnidades->getTipo() == "Intensidad luminosa") ? "selected":""; ?> value="Intensidad luminosa">Intensidad luminosa</option>>
+                                            <option <?= ($DataUnidades->getTipo() == "Longitud") ? "selected":""; ?> value="Longitud">Longitud</option>>
+                                            <option <?= ($DataUnidades->getTipo() == "Masa") ? "selected":""; ?> value="Masa">Masa</option>>
+                                            <option <?= ($DataUnidades->getTipo() == "Otra") ? "selected":""; ?> value="Otra">Otra</option>>                                      </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataUnidades->getNombre(); ?>" placeholder="Ingrese nombre de Unidades">
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
@@ -139,13 +96,13 @@ use App\Controllers\UnidadesController; ?>
                                     <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
                                 </div>
                                 <!-- /.card-footer -->
-                            </form>
+                        </form>
                     <?php }else{ ?>
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                                No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? "" ?>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                            No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? "" ?>
+                        </div>
                     <?php } ?>
                     </p>
                 <?php } ?>
@@ -156,7 +113,7 @@ use App\Controllers\UnidadesController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require('../../partials/footer.php');?>
+    <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require ('../../partials/scripts.php');?>

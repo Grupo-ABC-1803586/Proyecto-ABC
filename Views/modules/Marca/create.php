@@ -54,12 +54,7 @@
                 <!-- form start -->
                 <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/MarcaController.php?action=create">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Id</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Id" name="Id" placeholder="Id de marca">
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">

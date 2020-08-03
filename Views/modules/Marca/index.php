@@ -98,9 +98,8 @@ use App\Controllers\MarcaController; ?>
                                         <td><?php echo $Marca->getNombre(); ?></td>
 
                                         <td>
-                                            <a href="edit.php?id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-
+                                            <a href="edit.php?Id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
 
                                         </td>
                                     </tr>
@@ -108,9 +107,12 @@ use App\Controllers\MarcaController; ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </tfoot>
+
                             </table>
                         </div>
                     </div>

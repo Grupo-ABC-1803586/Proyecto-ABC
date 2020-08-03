@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Unidades.php');
+require_once(__DIR__ . '/../Models/Unidades.php');
 use App\Models\Unidades;
 
 if(!empty($_GET['action'])){
@@ -116,10 +116,10 @@ class UnidadesController{
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    public static function UnidadesIsInArray($Id, $ArrUnidades){
+        if(count($ArrUnidades) > 0){
+            foreach ($ArrUnidades as $Unidades){
+                if($Unidades->getId() == $Id){
                     return true;
                 }
             }
@@ -127,32 +127,32 @@ class UnidadesController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
+    static public function selectUnidades ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
+                                          $Id="Unidadades",
+                                          $Nombre="Unidades",
                                           $defaultValue="",
                                           $class="",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrPersonas = array();
+        $arrUnidades = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM Unidades WHERE ";
+            $arrUnidades = Unidades::buscar($base.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrUnidades = Unidades::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." Id= '".$Id."' name='".$Nombre."' class='".$class."'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UnidadesController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrUnidades) > 0){
+            foreach ($arrUnidades as $Unidades)
+                if (!UnidadesController::UnidadesIsInArray($Unidades->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Unidades != "") ? (($defaultValue == $Unidades->getId()) ? "selected" : "" ) : "")." value='".$Unidades->getId()."'>".$Unidades->getNombre()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){

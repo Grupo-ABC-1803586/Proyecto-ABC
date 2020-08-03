@@ -84,6 +84,7 @@ use App\Controllers\UnidadesController; ?>
                                     <th>Id</th>
                                     <th>Tipo</th>
                                     <th>Nombre</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -96,17 +97,20 @@ use App\Controllers\UnidadesController; ?>
                                         <td><?php echo $Unidades->getTipo(); ?></td>
                                         <td><?php echo $Unidades->getNombre(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Unidades->getTipo() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/UnidadesController.php?action=activate&Id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/UnidadesController.php?action=inactivate&Id=<?php echo $Unidades->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
+                                            <a href="edit.php?Id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </tfoot>
 
 
 

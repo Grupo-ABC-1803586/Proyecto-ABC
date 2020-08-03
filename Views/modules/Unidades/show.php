@@ -4,9 +4,9 @@ require("../../../app/Controllers/UnidadesController.php");
 
 use App\Controllers\UnidadesController; ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Datos del Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> |  Datos de Unidades</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,11 +24,11 @@ use App\Controllers\UnidadesController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Informacion del Usuario</h1>
+                        <h1>Informacion de Unidades</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,10 +44,10 @@ use App\Controllers\UnidadesController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al consultar el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al consultar Unidades: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
+            <?php } else if (empty($_GET['Id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -57,49 +57,39 @@ use App\Controllers\UnidadesController; ?>
 
             <!-- Horizontal Form -->
             <div class="card card-info">
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){
-                    $DataUsuario = UnidadesController::searchForID($_GET["id"]);
-                    if(!empty($DataUsuario)){
-                ?>
-                <div class="card-header">
-                    <h3 class="card-title"><?= $DataUsuario->getNombres()  ?></h3>
-                </div>
-                <div class="card-body">
-                    <p>
-
-                        <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
-                        <p class="text-muted">
-                            <?= $DataUsuario->getNombres()." ".$DataUsuario->getApellidos() ?>
-                        </p>
-                        <hr>
-                        <strong><i class="fas fa-user mr-1"></i> Documento</strong>
-                        <p class="text-muted"><?= $DataUsuario->getTipoDocumento().": ".$DataUsuario->getDocumento() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Direccion</strong>
-                        <p class="text-muted"><?= $DataUsuario->getDireccion() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-phone mr-1"></i> Telefono</strong>
-                        <p class="text-muted"><?= $DataUsuario->getTelefono() ?></p>
-                        <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Estado y Rol</strong>
-                        <p class="text-muted"><?= $DataUsuario->getEstado()." - ".$DataUsuario->getRol() ?></p>
-                    </p>
-
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-auto mr-auto">
-                            <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
-                                <i class="fas fa-tasks"></i> Gestionar Usuarios
-                            </a>
+                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
+                    $DataUnidades = UnidadesController::searchForID($_GET["Id"]);
+                    if(!empty($DataUnidades)){
+                        ?>
+                        <div class="card-header">
+                            <h3 class="card-title"><?= $DataUnidades->getNombre()  ?></h3>
                         </div>
-                        <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Usuario
-                            </a>
+                        <div class="card-body">
+                            <p>
+                                <strong><i class="far fa-file-alt mr-1"></i>Tipo</strong>
+                            <p class="text-muted"><?= $DataUnidades->getTipo() ?></p>
+                            <hr>
+                            <strong><i class="fas fa-book mr-1"></i>Nombre</strong>
+                            <p class="text-muted">
+                                <?= $DataUnidades->getNombre() ?>
+                            </p>
+                            </p>
+
                         </div>
-                    </div>
-                </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-auto mr-auto">
+                                    <a role="button" href="create.php" class="btn btn-success float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-tasks"></i> Registrar Unidades
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a role="button" href="edit.php?id=<?php echo $DataUnidades->getId(); ?>" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-plus"></i> editar Unidades
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     <?php }else{ ?>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -115,7 +105,7 @@ use App\Controllers\UnidadesController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require('../../partials/footer.php');?>
+    <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require ('../../partials/scripts.php');?>
