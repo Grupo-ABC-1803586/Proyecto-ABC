@@ -58,7 +58,7 @@ use App\Controller\PersonaController; ?>
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){
-                    $DataPersona = CategoriaController::searchForID($_GET["id"]);
+                    $DataPersona = PersonaController::searchForID($_GET["id"]);
                     if(!empty($DataPersona)){
                 ?>
                 <div class="card-header">

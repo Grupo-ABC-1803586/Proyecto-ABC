@@ -64,11 +64,11 @@ use App\Controller\PersonaController; ?>
                 <?php if(!empty($_GET["Documento"]) && isset($_GET["Documento"])){ ?>
                     <p>
                     <?php
-                    $DataPersona = CategoriaController::searchForID($_GET["Documento"]);
+                    $DataPersona = PersonaController::searchForID($_GET["Documento"]);
                         if(!empty($DataPersona)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../app/Controllers/UsuariosController.php?action=edit">
+                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCPersona" action="../../../App/Controller/PersonaController.php?action=edit">
                                 <input id="id" name="id" value="<?php echo $DataPersona->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
@@ -107,15 +107,15 @@ use App\Controller\PersonaController; ?>
                                         <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
                                         <div class="col-sm-10">
                                             <select id="Rol" name="Rol" class="custom-select">
-                                                <option <?= ($DataPersona->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                                <option <?= ($DataPersona->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
+                                                <option <?= ($DataPersona->getRol() == "Intructor") ? "selected":""; ?> value="Intructor">Instructor</option>
+                                                <option <?= ($DataPersona->getRol() == "Aprendiz") ? "selected":""; ?> value="Aprendiz">Aprendiz</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                                        <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
                                         <div class="col-sm-10">
-                                            <select id="estado" name="estado" class="custom-select">
+                                            <select id="Estado" name="Estado" class="custom-select">
                                                 <option <?= ($DataPersona->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
                                                 <option <?= ($DataPersona->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
                                             </select>

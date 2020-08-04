@@ -3,6 +3,7 @@
 namespace App\Controller;
 require(__DIR__.'/../models/Persona.php');
 use App\models\Persona;
+use App\Models\Usuarios;
 
 if(!empty($_GET['action'])){
     PersonaController::main($_GET['action']);
@@ -38,7 +39,7 @@ class PersonaController{
             $arrayPersona['Correo'] = $_POST['Correo'];
             $arrayPersona['Rol'] = $_POST['Rol'];
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
-            $arrayPersona['Programaformacion'] = $_POST['Programaformacion'];
+            $arrayPersona['Programaformacion'] = Programaformacion::searchForId ($_POST['Programaformacion']);
             $arrayPersona['Estado'] = 'Activo';
             if(!Persona::PersonaRegistrado($arrayPersona['Documento'])){
                 $Persona = new Personas ($arrayPersona);
@@ -62,7 +63,7 @@ class PersonaController{
             $arrayPersona['Correo'] = $_POST['Correo'];
             $arrayPersona['Rol'] = $_POST['Rol'];
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
-            $arrayPersona['Programaformacion'] = $_POST['Programaformacion'];
+            $arrayPersona['Programaformacion'] = Programaformacion::searchForId ($_POST['Programaformacion']);
             $arrayPersona['Estado'] = $_POST['Estado'];
             $arrayPersona['Documento'] = $_POST ['Documento'];
 
