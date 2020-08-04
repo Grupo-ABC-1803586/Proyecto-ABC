@@ -1,12 +1,15 @@
-<?php require_once("../../partials/routes.php");
-require_once("../../../App/Controller/PersonaController.php");
+<?php require("../../partials/routes.php");
 
-use App\Controller\PersonaController; ?>
+
+require("../../../App/Controllers/ProgramaFormacionController.php");
+
+use App\Controllers\ProgramaFormacionController;
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Layout</title>
-    <?php require_once("../../partials/head_imports.php"); ?>
+    <?php require("../../partials/head_imports.php"); ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css">
@@ -16,9 +19,9 @@ use App\Controller\PersonaController; ?>
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require_once("../../partials/navbar_customization.php"); ?>
+    <?php require("../../partials/navbar_customization.php"); ?>
 
-    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -27,11 +30,11 @@ use App\Controller\PersonaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>CATEGORIAS</h1>
+                        <h1>Pagina Principal</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -48,9 +51,9 @@ use App\Controller\PersonaController; ?>
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-                            La persona ha sido creada con exito!
+                            El usuario ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos de la persona ha sido actualizada correctamente!
+                            Los datos del usuario han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -59,7 +62,7 @@ use App\Controller\PersonaController; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Persona</h3>
+                    <h3 class="card-title">Gestionar Usuarios</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -71,68 +74,59 @@ use App\Controller\PersonaController; ?>
                     <div class="row">
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Persona
+                            <a role="button" href="create.php" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                <i class="fas fa-plus"></i> Crear Programa Formacion
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblPersona" class="datatable table table-bordered table-striped">
+                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Documento</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Contraseña</th>
-                                    <th>Programa de Formacion</th>
-                                    <th>Estado</th>
-
+                                    <th>Id</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Numero Ficha</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Finalizacion</th>
+                                    <th>Nombre Programa</th>
+                                    <th>Nivel Programa</th>
+                                    <th>Acciones</th>
 
                                 </tr>
                                 </thead>
-                                <body>
+                                <tbody>
                                 <?php
-                                $arrPersona = PersonaController::getAll();
-                                foreach ($arrPersona as $Persona){
+                                $arrProgramaFormacion = ProgramaFormacionController::getAll();
+                                foreach ($arrProgramaFormacion as $ProgramaFormacion){
                                     ?>
                                     <tr>
+                                        <td><?php echo $ProgramaFormacion->getId(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getFechaRegistro(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getNumeroFicha(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getFechaInicio(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getFechaFinalizacion(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getNombrePrograma(); ?></td>
+                                        <td><?php echo $ProgramaFormacion->getNivelPrograma(); ?></td>
 
-                                        <td><?php echo $Persona->getNombre(); ?></td>
-                                        <td><?php echo $Persona->getApellido(); ?></td>
-                                        <td><?php echo $Persona->getTelefono(); ?></td>
-                                        <td><?php echo $Persona->getCorreo(); ?></td>
-                                        <td><?php echo $Persona->getRol(); ?></td>
-                                        <td><?php echo $Persona->getContraseña(); ?></td>
-                                        <td><?php echo $Persona->getProgramaformacion(); ?></td>
-                                        <td><?php echo $Persona->getEstado(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Persona->getEstado() != "Activo"){ ?>
-                                                <a href="../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Persona->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
+                                            <a href="edit.php?Id=<?php echo $ProgramaFormacion->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $ProgramaFormacion->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                </body>
+                                </tbody>
                                 <tfoot>
                                 <tr>
-
-                                    <th>Documento</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Contraseña</th>
-                                    <th>Programa de Formacion</th>
-                                    <th>Estado</th>
+                                    <th>Id</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Numero Ficha</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Finalizacion</th>
+                                    <th>Nombre Programa</th>
+                                    <th>Nivel Programa</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -151,10 +145,10 @@ use App\Controller\PersonaController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require_once ('../../partials/footer.php');?>
+    <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require ('../../partials/scripts.php');?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

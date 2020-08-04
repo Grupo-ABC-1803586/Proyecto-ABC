@@ -12,7 +12,7 @@ abstract class BasicModel {
 
     public $isConnected;
     protected $datab;
-    private $username = "ABC";
+    private $username = "proyecto_sena";
     private $password = "Abc2020.";
     private $host = "localhost";
     private $driver = "mysql";

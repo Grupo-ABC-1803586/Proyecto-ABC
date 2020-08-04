@@ -1,7 +1,6 @@
 <?php
 //$RutaAbsoluta = "\Proyecto-ABC\views\index.php"; //https://www.php.net/manual/es/regexp.reference.escape.php
 //$RutaRelativa = "../index.php";
-
 //Carga las librerias importadas del composer
 require(__DIR__ .'/../../vendor/autoload.php');
 //__DIR__ => D:\laragon\www\Proyecto-ABC\views\partials
