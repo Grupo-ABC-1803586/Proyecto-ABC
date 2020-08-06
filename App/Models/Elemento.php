@@ -186,7 +186,7 @@ class Elemento extends BasicModel
             $Elemento->Id = $getrow['Id'];
             $Elemento->Nombre = $getrow['Nombre'];
             $Elemento->Descripcion = $getrow['Descripcion'];
-            $Elemento->Serie = $getrow['serie'];
+            $Elemento->Serie = $getrow['Serie'];
             $Elemento->Categoria = Categoria::searchForId($getrow['Categoria']);
             $Elemento->Material = $getrow['Material'];
 

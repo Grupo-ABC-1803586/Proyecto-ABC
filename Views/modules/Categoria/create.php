@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Usuarixo</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear un Nuevo Programa Formacion</h1>
+                        <h1>Crear un nueva Categoria</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -48,7 +48,7 @@
             <!-- Horizontal Form -->
             <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-university"></i>&nbsp;&nbsp;<strong>Programa Formacion</strong></h3>
+                    <h3 class="card-title"><i class="fas fa-toolbox"></i>&nbsp;<strong>&nbsp;Categoria</strong></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                 data-source="create.php" data-source-selector="#card-refresh-content"
@@ -61,50 +61,21 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../App/Controllers/ProgramaFormacionController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../App/Controllers/CategoriaController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="FechaRegistro" class="col-sm-2 col-form-label">FECHA REGISTRO</label>
+                            <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="date" class="form-control" id="FechaRegistro" name="FechaRegistro" placeholder="Ingrese la  fecha registro">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="NumeroFicha" class="col-sm-2 col-form-label">NUMERO FICHA</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="NumeroFicha" name="NumeroFicha" placeholder="Ingrese el numero ficha">
+                                <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese  el Nombre">
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="FechaInicio" class="col-sm-2 col-form-label">FECHA INICIO</label>
-                            <div class="col-sm-10">
-                                <input required type="date" minlength="6" class="form-control" id="FechaInicio" name="FechaInicio" placeholder="Ingrese su documento">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="FechaFinalizacion" class="col-sm-2 col-form-label">FECHA FINALIZACION</label>
-                            <div class="col-sm-10">
-                                <input required type="date" minlength="6" class="form-control" id="FechaFinalizacion" name="FechaFinalizacion" placeholder="Ingrese su telefono">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="NombrePrograma" class="col-sm-2 col-form-label">NOMBRE PROGRAMA</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="NombrePrograma" name="NombrePrograma" placeholder="Ingrese el  Nombre Programa">
-                            </div>
-                        </div>
 
-                            <div class="form-group row">
-                                <label for="NivelPrograma" class="col-sm-2 col-form-label">Nivel Programa</label>
-                                <div class="col-sm-10">
-                                    <select id="NivelPrograma" name="NivelPrograma" class="custom-select">
-                                        <option value="TECNICO">Tecnico</option>
-                                        <option value="TECNOLOGO"> Tecnologo </option>
 
-                                    </select>
-                                </div>
-                            </div>
+
+
+
+
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">

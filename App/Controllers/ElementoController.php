@@ -1,133 +1,122 @@
 <?php
 
 namespace App\Controllers;
-require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
+require_once(__DIR__.'/../Models/Elemento.php');
+require_once(__DIR__.'/../Models/Categoria.php');
 
-use App\Models\ProgramaFormacion;
+use App\Models\GeneralFunctions;
+use App\Models\Elemento;
+use App\Models\Categoria;
+
 
 
 if(!empty($_GET['action'])){
-    ProgramaFormacionController::main($_GET['action']);
+    ElementoController::main($_GET['action']);
 }
 
-class ProgramaFormacionController{
+class ElementoController{
 
     static function main($action)
     {
         if ($action == "create") {
-            ProgramaFormacionController::create();
+            ElementoController::create();
         } else if ($action == "edit") {
-            ProgramaFormacionController::edit();
-        } else if ($action == "searchForId") {
-            ProgramaFormacionController::searchForId($_REQUEST['id']);
+            ElementoController::edit();
+        } else if ($action == "searchForID") {
+            ElementoController::searchForID($_REQUEST['Id']);
         } else if ($action == "searchAll") {
-            ProgramaFormacionController::getAll();
+            ElementoController::getAll();
         } else if ($action == "activate") {
-            ProgramaFormacionController::activate();
+            ElementoController::activate();
         } else if ($action == "inactivate") {
-            ProgramaFormacionController::inactivate();
-        }/*else if ($action == "login"){
-            ProgramaFormacionController::login();
-        }else if($action == "cerrarSession"){
-            ProgramaFormacionController::cerrarSession();
-        }*/
-
+            ElementoController::inactivate();
+        }
     }
 
     static public function create()
     {
         try {
-
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
- var_dump($_POST);
-            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
-                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
-                if($ProgramaFormacion->create()){
-                    header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto");
-                }
-            }else{
-                header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado");
+            $arrayElemento = array();
+            $arrayElemento['Nombre'] = $_POST['Nombre'];
+            $arrayElemento['Descripcion'] = $_POST['Descripcion'];
+            $arrayElemento['Serie'] = $_POST['Serie'];
+            $arrayElemento['Categoria'] = Categoria::searchForId($_POST['Categoria']);
+            $arrayElemento['Material'] = $_POST['Material'];
+            $Elemento = new Elemento($arrayElemento);
+            if($Elemento->create()){
+                header("Location: ../../views/modules/Elemento/create.php?id=".$Elemento->getId());
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Elemento/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
-
     static public function edit (){
         try {
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
+            $arrayElemento = array();
+            $arrayElemento['Nombre'] = $_POST['Nombre'];
+            $arrayElemento['Descripcion'] = $_POST['Descripcion'];
+            $arrayElemento['Serie'] = $_POST['Serie'];
+            $arrayElemento['Categoria'] = Categoria::searchForId($_POST['Categoria']);
+            $arrayElemento['Material'] = $_POST['Material'];
+            $arrayElemento['Id'] = $_POST['Id'];
 
-            $arrayProgramaFormacion['Id'] = $_POST['Id'];
+            $Elemento = new Elemento($arrayElemento);
+            $Elemento->update();
 
-            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
-            $ProgramaFormacion->update();
-
-            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Elemento/show.php?id=".$Elemento->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Elemento/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
-            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-
-            $ObjProgramaFormacion->setEstado("Activo");
-            if($ObjProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+            $ObjElemento = Elemento::searchForId($_GET['Id']);
+            $ObjElemento->setEstado("Activo");
+            if($ObjElemento->update()){
+                header("Location: ../../views/modules/Elemento/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Elemento/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Elemento/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-            $ObProgramaFormacion->setEstado("Inactivo");
-            if($ObProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+            $ObjElemento = Elemento::searchForId($_GET['Id']);
+            $ObjElemento->setEstado("Inactivo");
+            if($ObjElemento->update()){
+                header("Location: ../../views/modules/Elemento/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Elemento/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Elemento/index.php?respuesta=error");
         }
     }
 
-    static public function searchForId ($id){
+    static public function searchForID ($id){
         try {
-            return ProgramaFormacion::searchForId($id);
+            return Elemento::searchForId($id);
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            //header("Location: ../../views/modules/Elemento/manager.php?respuesta=error");
         }
     }
 
     static public function getAll (){
         try {
-            return ProgramaFormacion::getAll();
+            return Elemento::getAll();
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            GeneralFunctions::console( $e, 'log', 'errorStack');
+            header("Location: ../Vista/modules/Categoria/manager.php?respuesta=error");
         }
     }
 
