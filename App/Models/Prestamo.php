@@ -4,28 +4,33 @@ namespace App\Models;
 
 require('BasicModel.php');
 
-class Kit extends BasicModel
+class Prestamo extends BasicModel
 {
     private $Id;
-    private $Nombre;
-    private $Descripcion;
-    private $Placa;
+    private $FechaPrestamo;
+    private $FechaEntrega;
+    private $Observaciones;
+    private $Estado;
+    private $Persona;
 
     /**
      * Usuarios constructor.
      * @param $Id
-     * @param $Nombre
-     * @param $Descripcion
-     * @param $Placa
-
+     * @param $FechaPrestamo
+     * @param $FechaEntrega
+     * @param $Observaciones
+     * @param $Estado
+     * @param $Persona
      */
-    public function __construct($Kit = array())
+    public function __construct($Prestamo = array())
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
-        $this->Id = $Kit['Id'] ?? null;
-        $this->Nombre = $Kit['Nombre'] ?? null;
-        $this->Descripcion = $Kit['Descripcion'] ?? null;
-        $this->Placa = $Kit['Placa'] ?? null;
+        $this->Id = $Prestamo['Id'] ?? null;
+        $this->FechaPrestamo = $Prestamo['FechaPrestammo'] ?? null;
+        $this->FechaEntrega = $Prestamo['FechaEntrega'] ?? null;
+        $this->Observaciones = $Prestamo['Observaciones'] ?? null;
+        $this->Estado = $Prestamo['Estado'] ?? null;
+        $this->Persona = $Prestamo['Persona'] ?? null;
 
     }
 
@@ -53,49 +58,80 @@ class Kit extends BasicModel
     /**
      * @return string
      */
-    public function getNombre() : string
+    public function getFechaPrestamo() : string
     {
-        return $this->Nombre;
+        return $this->FechaPrestamo;
     }
 
     /**
-     * @param string $Nombre
+     * @param string $FechaPrestamo
      */
-    public function setNombre(string $Nombre): void
+    public function setFechaPrestamo(string $FechaPrestamo): void
     {
-        $this->Nombre = $Nombre;
+        $this->FechaPrestamo = $FechaPrestamo;
+    }
+    /**
+     * @return string
+     */
+    public function getFechaEntrega() : string
+    {
+        return $this->FechaEntrega;
+    }
+
+    /**
+     * @param string $FechaEntrega
+     */
+    public function setFechaEntrega(string $FechaEntrega): void
+    {
+        $this->FechaEntrega = $FechaEntrega;
     }
 
     /**
      * @return string
      */
-    public function getDescripcion() : string
+    public function getObservaciones() : string
     {
-        return $this->Descripcion;
+        return $this->Observaciones;
     }
 
     /**
-     * @param string $Descripcion
+     * @param string $Observaciones
      */
-    public function setDescripcion(string $Descripcion): void
+    public function setObservaciones(string $Observaciones): void
     {
-        $this->Descripcion = $Descripcion;
+        $this->Observaciones = $Observaciones;
     }
+    /**
+     * @return string
+     */
+    public function getEstado() : string
+    {
+        return $this->Estado;
+    }
+
+    /**
+     * @param string $Estado
+     */
+    public function setEstado(string $Estado): void
+    {
+        $this->Estado = $Estado;
+    }
+
 
     /**
      * @return string
      */
-    public function getPlaca() : string
+    public function getPersona() : string
     {
-        return $this->Placa;
+        return $this->Persona;
     }
 
     /**
-     * @param string $Placa
+     * @param string $Persona
      */
-    public function setPlaca(string $Placa): void
+    public function setPersona(string $Persona): void
     {
-        $this->tPlaca = $Placa;
+        $this->Persona = $Persona;
     }
 
     /**
@@ -105,10 +141,12 @@ class Kit extends BasicModel
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO proyecto_sena.Kit VALUES (NULL, ?, ?, ?)", array(
-            $this->Nombre,
-            $this->Descripcion,
-            $this->Placa,
+        $result = $this->insertRow("INSERT INTO proyecto_sena.Prestamo VALUES (NULL, ?, ?, ?, ?, ?)", array(
+            $this->FechaPrestamo,
+            $this->FechaEntrega,
+            $this->Observaciones,
+                $this->Estado,
+                $this->Persona,
 
             )
         );
@@ -118,10 +156,12 @@ class Kit extends BasicModel
 
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE proyecto_sena.Kit SET Nombre = ?, Descripcion = ?, Placa = ? WHERE Id = ?", array(
-                $this->Nombre,
-                $this->Descripcion,
-                $this->Placa,
+        $result = $this->updateRow("UPDATE proyecto_sena.Prestamo SET FechaPrestamo = ?, FechaEntrega = ?, Observaciones= ?, Estado= ?, Persona= ? WHERE Id = ?", array(
+                $this->FechaPrestamo,
+                $this->FechaEntrega,
+                $this->Observaciones,
+                $this->Estado,
+                $this->Persona,
                 $this->Id,
 
             )
@@ -137,46 +177,50 @@ class Kit extends BasicModel
 
     public static function search($query) : array
     {
-        $arrKit = array();
-        $tmp = new Kit();
+        $arrPrestamo = array();
+        $tmp = new Prestamo();
         $getrows = $tmp->getRows($query);
 
         foreach ($getrows as $valor) {
-            $Kit = new Kit();
-            $Kit->Id = $valor['Id'];
-            $Kit->Nombre = $valor['Nombre'];
-            $Kit->Descripcion = $valor['Descripcion'];
-            $Kit->Placa = $valor['Placa'];
-            $Kit->Disconnect();
-            array_push($arrKit, $Kit);
+            $Prestamo = new Prestamo();
+            $Prestamo->Id = $valor['Id'];
+            $Prestamo->FechaPrestamo = $valor['FechaPrestamo'];
+            $Prestamo->FechaEntrega = $valor['FechaEntrega'];
+            $Prestamo->Observaciones = $valor['Observaciones'];
+            $Prestamo->Estado = $valor['Estado'];
+            $Prestamo->Persona = $valor['Persona'];
+            $Prestamo->Disconnect();
+            array_push($arrPrestamo, $Prestamo);
         }
         $tmp->Disconnect();
-        return $arrKit;
+        return $arrPrestamo;
     }
 
-    public static function searchForId($Id) : Kit
+    public static function searchForId($Id) : Prestamo
     {
-        $Kit = null;
+        $Prestamo = null;
         if ($Id > 0){
-            $Kit = new Kit();
-            $getrow = $Kit->getRow("SELECT * FROM proyecto_sena.Kit WHERE Id =?", array($Id));
-            $Kit->Id = $getrow['Id'];
-            $Kit->Nombre = $getrow['Nombre'];
-            $Kit->Descripcion = $getrow['Descripcion'];
-            $Kit->Placa = $getrow['Placa'];
+            $Prestamo = new Prestamo();
+            $getrow = $Prestamo->getRow("SELECT * FROM proyecto_sena.Prestamo WHERE Id =?", array($Id));
+            $Prestamo->Id = $getrow['Id'];
+            $Prestamo->FechaPrestamo = $getrow['FechaPrestamo'];
+            $Prestamo->FechaEntrega = $getrow['FechaEntrega'];
+            $Prestamo->Observaciones = $getrow['Observaciones'];
+            $Prestamo->Estado = $getrow['Estado'];
+            $Prestamo->Persona = $getrow['Persona'];
                     }
-        $Kit->Disconnect();
-        return $Kit;
+        $Prestamo->Disconnect();
+        return $Prestamo;
     }
 
     public static function getAll() : array
     {
-        return Kit::search("SELECT * FROM proyecto_sena.Kit");
+        return Prestamo::search("SELECT * FROM proyecto_sena.Prestamo");
     }
 
-    public static function KitRegistrado ($Nombre) : bool
+    public static function PrestamoRegistrado ($Persona) : bool
     {
-        $result = Kit::search("SELECT Id FROM proyecto_sena.Kit where Nombre = '".$Nombre."'");
+        $result = Prestamo::search("SELECT Id FROM proyecto_sena.Prestamo where Persona = '".$Persona."'");
         if (count($result) > 0){
             return true;
         }else{

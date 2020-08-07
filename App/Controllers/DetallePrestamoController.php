@@ -1,121 +1,87 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Kit.php');
+require_once(__DIR__.'/../Models/DetallePrestamo.php');
+require_once(__DIR__.'/../Models/GeneralFunctions.php');
 
-use App\Models\Kit;
+use App\Models\GeneralFunctions;
+use App\Models\DetalleVentas;
+use App\Models\Productos;
+use App\Models\Ventas;
 
 if(!empty($_GET['action'])){
-    KitController::main($_GET['action']);
+    DetallePrestamoController::main($_GET['action']);
 }
 
-class KitController{
+class DetallePrestamoController{
 
     static function main($action)
     {
         if ($action == "create") {
-            KitController::create();
+            DetallePrestamoController::create();
         } else if ($action == "edit") {
-            KitController::edit();
+            DetallePrestamoController::edit();
         } else if ($action == "searchForID") {
-            KitController::searchForID($_REQUEST['idKit']);
+            DetallePrestamoController::searchForID($_REQUEST['IdDetallePrestamo']);
         } else if ($action == "searchAll") {
-            KitController::getAll();
+            DetallePrestamoController::getAll();
         } else if ($action == "activate") {
-            KitController::activate();
+            DetallePrestamoController::activate();
         } else if ($action == "inactivate") {
-            KitController::inactivate();
-
-        }/*else if ($action == "login"){
-            UsuariosController::login();
-        }else if($action == "cerrarSession"){
-            UsuariosController::cerrarSession();
-        }*/
-
+            DetallePrestamoController::inactivate();
+        }
     }
 
     static public function create()
     {
         try {
-            $arrayKit = array();
-            $arrayKit['Nombre'] = $_POST['Nombre'];
-            $arrayKit['Descripcion'] = $_POST['Descripcion'];
-            $arrayKit['Placa'] = $_POST['Placa'];
-            if(!Kit::KitRegistrado($arrayKit['Nombre'])){
-                $arrayKit = new Kit ($arrayKit);
-                if($arrayKit->create()){
-                    header("Location: ../../views/modules/Kit/index.php?respuesta=correcto");
-                }
-            }else{
-                header("Location: ../../views/modules/Kit/create.php?respuesta=error&mensaje= Kit ya registrado");
+            $arrayDetallePrestamo = array();
+            $arrayDetallePrestamo['ventas_id'] = Ventas::searchForId($_POST['ventas_id']);
+            $arrayDetallePrestamo['producto_id'] = Productos::searchForId($_POST['producto_id']);
+            $arrayDetallePrestamo['cantidad'] = $_POST['cantidad'];
+            $arrayDetallePrestamo['precio_venta'] = $_POST['fecha_venta'];
+            $DetallePrestamo = new DetallePrestamo($arrayDetallePrestamo);
+            if($DetallePrestamo->create()){
+                header("Location: ../../views/modules/DetallePrestamo/index.php?respuesta=correcto");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/Kit/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/DetallePrestamo/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit (){
         try {
-            $arrayKit = array();
-            $arrayKit['Nombre'] = $_POST['Nombre'];
-            $arrayKit['Descripcion'] = $_POST['Descripcion'];
-            $arrayKit['Placa'] = $_POST['Placa'];
-            $arrayKit['Id'] = $_POST['Id'];
-            $user = new Kit ($arrayKit);
-            $user->update();
-
-            header("Location: ../../views/modules/Kit/show.php?Id=".$user->getId()."&respuesta=correcto");
+            $arrayDetallePrestamo = array();
+            $arrayDetallePrestamo['ventas_id'] = Ventas::searchForId($_POST['ventas_id']);
+            $arrayDetallePrestamo['producto_id'] = Productos::searchForId($_POST['producto_id']);
+            $arrayDetallePrestamo['cantidad'] = $_POST['cantidad'];
+            $arrayDetallePrestamo['precio_venta'] = $_POST['fecha_venta'];
+            $arrayDetallePrestamo['id'] = $_POST['id'];
+            $DetallePrestamo = new Ventas($arrayDetallePrestamo);
+            $DetallePrestamo->update();
+            header("Location: ../../views/modules/DetallePrestamo/show.php?id=".$DetallePrestamo>getId()."&respuesta=correcto");
         } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Kit/edit.php?respuesta=error&mensaje=".$e->getMessage());
-        }
-    }
-
-    static public function activate (){
-        try {
-            $ObjKit = Kit::searchForId($_GET['Id']);
-            $ObjKit->setEstado("Activo");
-            if($ObjKit->update()){
-                header("Location: ../../views/modules/Kit/index.php");
-            }else{
-                header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=".$e->getMessage());
-        }
-    }
-
-    static public function inactivate (){
-        try {
-            $ObjKit = Kit::searchForId($_GET['Id']);
-            $ObjKit->setEstado("Inactivo");
-            if($ObjKit->update()){
-                header("Location: ../../views/modules/Kit/index.php");
-            }else{
-                header("Location: ../../views/modules/Kit/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Kit/index.php?respuesta=error");
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/DetallePrestamo/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function searchForID ($Id){
         try {
-            return Kit::searchForId($Id);
+            return DetallePrestamo::searchForId($Id);
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            header("Location: ../../views/modules/DetallePrestamo/manager.php?respuesta=error");
         }
     }
 
     static public function getAll (){
         try {
-            return Kit::getAll();
+            return DetalleVentas::getAll();
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            GeneralFunctions::console( $e, 'log', 'errorStack');
+            header("Location: ../Vista/modules/DetallePrestamo/manager.php?respuesta=error");
         }
     }
 
