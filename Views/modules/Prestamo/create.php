@@ -58,13 +58,13 @@
                         <div class="form-group row">
                             <label for="Fecha Prestamo" class="col-sm-2 col-form-label">Fecha Prestamo</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Fecha Prestamo" name="Fecha Prestamo" placeholder="Ingrese la fecha del prestamo">
+                                <input required type="date" class="form-control" id="Fecha Prestamo" name="Fecha Prestamo" placeholder="Ingrese la fecha del prestamo">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="Fecha Entrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Fecha Entrega" name="Fecha Entrega" placeholder="Ingrese la fecha del devolución del prestamo">
+                                <input required type="date" class="form-control" id="Fecha Entrega" name="Fecha Entrega" placeholder="Ingrese la fecha del devolución del prestamo">
                             </div>
                         </div>
                         <div class="form-group row">
