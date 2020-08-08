@@ -1,8 +1,8 @@
 <?php
 require_once("../../partials/routes.php");
-require_once("../../../App/Controller/PersonaController.php");
+require_once("../../../App/Controllers/PersonaController.php");
 
-use App\Controller\PersonaController; ?>
+use App\Controllers\PersonaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +68,7 @@ use App\Controller\PersonaController; ?>
                         if(!empty($DataPersona)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCPersona" action="../../../App/Controller/PersonaController.php?action=edit">
+                            <form class="form-horizontal" method="post" id="frmEditPersona" name="frmEditCPersona" action="../../../App/Controllers/PersonaController.php?action=edit">
                                 <input id="id" name="id" value="<?php echo $DataPersona->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">

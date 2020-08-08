@@ -1,21 +1,21 @@
 <?php
-require_once("../../partials/routes.php");
-require_once("../../../App/Controllers/PersonaController.php");
+require("../../partials/routes.php");
+require("../../../App/Controller/PersonaController.php");
 
-use App\Controllers\PersonaController; ?>
+use App\Controller\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Datos de la Persona</title>
-    <?php require_once("../../partials/head_imports.php"); ?>
+    <title><?= getenv('TITLE_SITE') ?> | Datos de la Categoria</title>
+    <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require_once("../../partials/navbar_customization.php"); ?>
+    <?php require("../../partials/navbar_customization.php"); ?>
 
-    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -24,7 +24,7 @@ use App\Controllers\PersonaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Informacion de la Persona</h1>
+                        <h1>Informacion de la Categoria</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -44,10 +44,10 @@ use App\Controllers\PersonaController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al consultar la Persona: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al consultar la Categoria: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['Documento'])) { ?>
+            <?php } else if (empty($_GET['Id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -57,46 +57,32 @@ use App\Controllers\PersonaController; ?>
 
             <!-- Horizontal Form -->
             <div class="card card-info">
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){
-                    $DataPersona = PersonaController::searchForID($_GET["id"]);
-                    if(!empty($DataPersona)){
+                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
+                    $DataCategoria = CategoriaController::searchForID($_GET["Id"]);
+                    if(!empty($DataCategoria)){
                 ?>
                 <div class="card-header">
-                    <h3 class="card-title"><?= $DataPersona->getNombre()  ?></h3>
+                    <h3 class="card-title"><?= $DataCategoria->getNombre()?></h3>
                 </div>
                 <div class="card-body">
                     <p>
 
-                        <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
+                        <strong><i class="fas fa-book mr-1"></i> Nombre</strong>
                         <p class="text-muted">
-                            <?= $DataPersona->getNombre()." ".$DataPersona->getApellido() ?>
+                            <?= $DataCategoria->getNombre()?>
                         </p>
-
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Telefono</strong>
-                        <p class="text-muted"><?= $DataPersona->getTelefono() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-phone mr-1"></i> Correo</strong>
-                        <p class="text-muted"><?= $DataPersona->getCorreo() ?></p>
-                        <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Estado y Rol</strong>
-                        <p class="text-muted"><?= $DataPersona->getEstado()." - ".$DataPersona->getRol() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-phone mr-1"></i> Contraseña</strong>
-                        <p class="text-muted"><?= $DataPersona->getContraseña() ?></p>
-                        <hr>
-                    </p>
 
                 </div>
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-auto mr-auto">
                             <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
-                                <i class="fas fa-tasks"></i> Gestionar Persona
+                                <i class="fas fa-tasks"></i> Gestionar Categoria
                             </a>
                         </div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Persona
+                                <i class="fas fa-plus"></i> Crear Categoria
                             </a>
                         </div>
                     </div>
@@ -116,9 +102,9 @@ use App\Controllers\PersonaController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require_once ('../../partials/footer.php');?>
+    <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require ('../../partials/scripts.php');?>
 </body>
 </html>

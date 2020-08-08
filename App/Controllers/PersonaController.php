@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Controller;
-require(__DIR__.'/../models/Persona.php');
+namespace App\Controllers;
+require(__DIR__ . '/../models/Persona.php');
 use App\models\Persona;
-use App\Models\Usuarios;
-
 if(!empty($_GET['action'])){
     PersonaController::main($_GET['action']);
 }
@@ -41,7 +39,7 @@ class PersonaController{
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
             $arrayPersona['Programaformacion'] = Programaformacion::searchForId ($_POST['Programaformacion']);
             $arrayPersona['Estado'] = 'Activo';
-            if(!Persona::PersonaRegistrado($arrayPersona['Documento'])){
+            if(!Persona::PersonaRegistrada($arrayPersona['Documento'])){
                 $Persona = new Personas ($arrayPersona);
                 if($Persona->create()){
                     header("Location: ../../Views/modules/Persona/index.php?respuesta=correcto");
