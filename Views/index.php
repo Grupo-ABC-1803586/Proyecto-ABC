@@ -4,6 +4,7 @@
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Home</title>
     <?php require("partials/head_imports.php"); ?>
+    <link rel="img" href="/cate.ico" type="image/x-icon">
 </head>
 <body class="hold-transition sidebar-mini">
 

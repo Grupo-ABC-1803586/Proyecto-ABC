@@ -4,6 +4,7 @@
 require("../../../App/Controllers/ProgramaFormacionController.php");
 
 use App\Controllers\ProgramaFormacionController;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,107 +45,123 @@ use App\Controllers\ProgramaFormacionController;
 
         <!-- Main content -->
         <section class="content">
-
-            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
-                <?php if ($_GET['respuesta'] == "correcto"){ ?>
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-check"></i> Correcto!</h5>
-                        <?php if ($_GET['action'] == "create"){ ?>
-                            El usuario ha sido creado con exito!
-                        <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del usuario han sido actualizados correctamente!
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Default box -->
+                        <?php if (!empty($_GET['respuesta']) && !empty($_GET['action'])) { ?>
+                            <?php if ($_GET['respuesta'] == "correcto") { ?>
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h5><i class="icon fas fa-check"></i> Correcto!</h5>
+                                    <?php if ($_GET['action'] == "create") { ?>
+                                        El usuario ha sido creado con exito!
+                                    <?php } else if ($_GET['action'] == "update") { ?>
+                                        Los datos del usuario han sido actualizados correctamente!
+                                    <?php } ?>
+                                </div>
+                            <?php } ?>
                         <?php } ?>
-                    </div>
-                <?php } ?>
-            <?php } ?>
 
-            <!-- Default box -->
-            <div class="card card-warning">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-eye"></i>&nbsp; &nbsp;<strong>Listar Programa Formacion<strong></h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
-                                data-source="index.php" data-source-selector="#card-refresh-content"
-                                data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                    class="fas fa-expand"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove"
-                                data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-warning float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Programa Formacion
-                            </a>
+                        <!-- Default box -->
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp;<strong> Listar Programa
+                                    Formacion</strong></h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                            data-source="index.php" data-source-selector="#card-refresh-content"
+                                            data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                class="fas fa-expand"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Remove">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-auto mr-auto"></div>
+                                    <div class="col-auto">
+                                        <a role="button" href="create.php" class="btn btn-warning float-right"
+                                           style="margin-right: 5px;">
+                                            <i class="fas fa-plus"></i> Crear Programa Formacion
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Fecha Registro</th>
+                                                <th>Numero Ficha</th>
+                                                <th>Fecha Inicio</th>
+                                                <th>Fecha Finalizacion</th>
+                                                <th>Nombre Programa</th>
+                                                <th>Nivel Programa</th>
+                                                <th>Acciones</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            $arrProgramaFormacion = ProgramaFormacionController::getAll();
+                                            foreach ($arrProgramaFormacion as $ProgramaFormacion) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $ProgramaFormacion->getId(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getFechaRegistro(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getNumeroFicha(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getFechaInicio(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getFechaFinalizacion(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getNombrePrograma(); ?></td>
+                                                    <td><?php echo $ProgramaFormacion->getNivelPrograma(); ?></td>
+
+                                                    <td>
+                                                        <a href="edit.php?Id=<?php echo $ProgramaFormacion->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Actualizar"
+                                                           class="btn docs-tooltip btn-primary btn-xs"><i
+                                                                    class="fa fa-edit"></i></a>
+                                                        <a href="show.php?Id=<?php echo $ProgramaFormacion->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Ver"
+                                                           class="btn docs-tooltip btn-warning btn-xs"><i
+                                                                    class="fa fa-eye"></i></a>
+
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Fecha Registro</th>
+                                                <th>Numero Ficha</th>
+                                                <th>Fecha Inicio</th>
+                                                <th>Fecha Finalizacion</th>
+                                                <th>Nombre Programa</th>
+                                                <th>Nivel Programa</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                Pie de Página.
+                            </div>
+                            <!-- /.card-footer-->
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Fecha Registro</th>
-                                    <th>Numero Ficha</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Finalizacion</th>
-                                    <th>Nombre Programa</th>
-                                    <th>Nivel Programa</th>
-                                    <th>Acciones</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $arrProgramaFormacion = ProgramaFormacionController::getAll();
-                                foreach ($arrProgramaFormacion as $ProgramaFormacion){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $ProgramaFormacion->getId(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getFechaRegistro(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getNumeroFicha(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getFechaInicio(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getFechaFinalizacion(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getNombrePrograma(); ?></td>
-                                        <td><?php echo $ProgramaFormacion->getNivelPrograma(); ?></td>
-
-                                        <td>
-                                            <a href="edit.php?Id=<?php echo $ProgramaFormacion->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?Id=<?php echo $ProgramaFormacion->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Fecha Registro</th>
-                                    <th>Numero Ficha</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Finalizacion</th>
-                                    <th>Nombre Programa</th>
-                                    <th>Nivel Programa</th>
-                                    <th>Acciones</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Pie de Página.
-                </div>
-                <!-- /.card-footer-->
             </div>
             <!-- /.card -->
         </section>
@@ -152,10 +169,10 @@ use App\Controllers\ProgramaFormacionController;
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php'); ?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php'); ?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -190,6 +207,7 @@ use App\Controllers\ProgramaFormacionController;
             "stateSave" : true, //Guardar la configuracion del usuario
         });
     });
+
 </script>
 
 </body>
