@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 <<<<<<< HEAD:Views/modules/Categoria/show.php
 require("../../partials/routes.php");
 require("../../../app/Controllers/CategoriaController.php");
@@ -16,31 +15,14 @@ use App\Controller\PersonaController; ?>
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Datos de la Persona</title>
     <?php require_once("../../partials/head_imports.php"); ?>
-=======
-require("../../partials/routes.php");
-require("../../../App/Controller/PersonaController.php");
-
-use App\Controller\CategoriaController; ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?= getenv('TITLE_SITE') ?> | Datos de la Categoria</title>
-    <?php require("../../partials/head_imports.php"); ?>
->>>>>>> master
 </head>
 <body class="hold-transition sidebar-mini">
 
 <!-- Site wrapper -->
 <div class="wrapper">
-<<<<<<< HEAD
     <?php require_once("../../partials/navbar_customization.php"); ?>
 
     <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
-=======
-    <?php require("../../partials/navbar_customization.php"); ?>
-
-    <?php require("../../partials/sliderbar_main_menu.php"); ?>
->>>>>>> master
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -49,7 +31,6 @@ use App\Controller\CategoriaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-<<<<<<< HEAD
 <<<<<<< HEAD:Views/modules/Categoria/show.php
 
                     </div>
@@ -58,27 +39,18 @@ use App\Controller\CategoriaController; ?>
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">Proyecto-ABC</a></li>
 =======
                         <h1>Informacion de la Persona</h1>
-=======
-                        <h1>Informacion de la Categoria</h1>
->>>>>>> master
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
-<<<<<<< HEAD
 >>>>>>> master:Views/modules/Persona/show.php
-=======
->>>>>>> master
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-<<<<<<< HEAD
         </section>
-=======
->>>>>>> master
 
         <!-- Main content -->
         <section class="content">
@@ -88,7 +60,6 @@ use App\Controller\CategoriaController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-<<<<<<< HEAD
 <<<<<<< HEAD:Views/modules/Categoria/show.php
                         Error al consultar  la Categoria: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
@@ -100,12 +71,6 @@ use App\Controller\CategoriaController; ?>
                 <?php } ?>
             <?php } else if (empty($_GET['Documento'])) { ?>
 >>>>>>> master:Views/modules/Persona/show.php
-=======
-                            Error al consultar la Categoria: <?= ($_GET['mensaje']) ?? "" ?>
-                    </div>
-                <?php } ?>
-            <?php } else if (empty($_GET['Id'])) { ?>
->>>>>>> master
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -114,7 +79,6 @@ use App\Controller\CategoriaController; ?>
             <?php } ?>
 
             <!-- Horizontal Form -->
-<<<<<<< HEAD
 <<<<<<< HEAD:Views/modules/Categoria/show.php
             <div class="card card-warning">
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
@@ -156,20 +120,10 @@ use App\Controller\CategoriaController; ?>
                 ?>
                 <div class="card-header">
                     <h3 class="card-title"><?= $DataPersona->getNombre()  ?></h3>
-=======
-            <div class="card card-info">
-                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
-                    $DataCategoria = CategoriaController::searchForID($_GET["Id"]);
-                    if(!empty($DataCategoria)){
-                ?>
-                <div class="card-header">
-                    <h3 class="card-title"><?= $DataCategoria->getNombre()?></h3>
->>>>>>> master
                 </div>
                 <div class="card-body">
                     <p>
 
-<<<<<<< HEAD
                         <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
                         <p class="text-muted">
                             <?= $DataPersona->getNombre()." ".$DataPersona->getApellido() ?>
@@ -189,39 +143,20 @@ use App\Controller\CategoriaController; ?>
                         <hr>
                     </p>
 
-=======
-                        <strong><i class="fas fa-book mr-1"></i> Nombre</strong>
-                        <p class="text-muted">
-                            <?= $DataCategoria->getNombre()?>
-                        </p>
-
->>>>>>> master
                 </div>
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-auto mr-auto">
                             <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
-<<<<<<< HEAD
                                 <i class="fas fa-tasks"></i> Gestionar Persona
-=======
-                                <i class="fas fa-tasks"></i> Gestionar Categoria
->>>>>>> master
                             </a>
                         </div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-<<<<<<< HEAD
                                 <i class="fas fa-plus"></i> Crear Persona
                             </a>
 >>>>>>> master:Views/modules/Persona/show.php
                         </div>
-=======
-                                <i class="fas fa-plus"></i> Crear Categoria
-                            </a>
-                        </div>
-                    </div>
-                </div>
->>>>>>> master
                     <?php }else{ ?>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -237,18 +172,9 @@ use App\Controller\CategoriaController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-<<<<<<< HEAD
     <?php require_once ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require_once ('../../partials/scripts.php');?>
 </body>
 </html>
-=======
-    <?php require ('../../partials/footer.php');?>
-</div>
-<!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
-</body>
-</html>
->>>>>>> master

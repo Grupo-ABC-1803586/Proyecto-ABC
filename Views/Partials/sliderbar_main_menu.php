@@ -14,6 +14,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
+
                 <img src="<?= $baseURL ?>/views/components/img/universo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -29,8 +30,27 @@
                 <li class="nav-item">
                     <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
                         <i class="fas fa-home"></i>
+
                         <p>
                             Inicio
+                        </p>
+                    </a>
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/create.php" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Agregar
+                        </p>
+                    </a>
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/edit.php" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Editar
+                        </p>
+                    </a>
+                    <a href="<?= $baseURL; ?>/Views/modules/Persona/show.php" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Mostrar
                         </p>
                     </a>
                 </li>
