@@ -88,13 +88,13 @@ class ProgramaFormacionController{
 
             $ObjProgramaFormacion->setEstado("Activo");
             if($ObjProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+                header("Location: ../../views/modules/ProgramaFormacion/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
@@ -103,13 +103,13 @@ class ProgramaFormacionController{
             $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
             $ObProgramaFormacion->setEstado("Inactivo");
             if($ObProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+                header("Location: ../../views/modules/ProgramaFormacion/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
+            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error");
         }
     }
 

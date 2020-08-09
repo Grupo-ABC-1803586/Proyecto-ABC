@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Controllers;
-require_once(__DIR__ . '/../models/Persona.php');
+
+require_once(__DIR__ . '/../models/ProgramaFormacion.php');
 require_once(__DIR__.'/../Models/GeneralFunctions.php');
-require_once(__DIR__.'/../Models/GeneralFunctions.php');
 
 
-
+use App\Models\GeneralFunctions;
 use App\models\Persona;
+use App\Models\ProgramaFormacion;
+
 if(!empty($_GET['action'])){
     PersonaController::main($_GET['action']);
 }
@@ -42,7 +44,7 @@ class PersonaController{
             $arrayPersona['Correo'] = $_POST['Correo'];
             $arrayPersona['Rol'] = $_POST['Rol'];
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
-            $arrayPersona['Programaformacion'] = Programaformacion::searchForId ($_POST['Programaformacion']);
+            $arrayPersona['ProgramaFormacion'] = ProgramaFormacion::searchForId ($_POST['ProgramaFormacion']);
             $arrayPersona['Estado'] = 'Activo';
             if(!Persona::PersonaRegistrada($arrayPersona['Nombre'])){
                 $Persona = new Personas ($arrayPersona);
@@ -53,7 +55,8 @@ class PersonaController{
                 header("Location: ../../Views/modules/Persona/create.php?respuesta=error&mensaje=Persona ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../Views/modules/Persona/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            //header("Location: ../../Views/modules/Persona/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
         }
     }
 
@@ -66,7 +69,7 @@ class PersonaController{
             $arrayPersona['Correo'] = $_POST['Correo'];
             $arrayPersona['Rol'] = $_POST['Rol'];
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
-            $arrayPersona['Programaformacion'] = Programaformacion::searchForId ($_POST['Programaformacion']);
+            $arrayPersona['ProgramaFormacion'] = ProgramaFormacion::searchForId ($_POST['ProgramaFormacion']);
             $arrayPersona['Estado'] = $_POST['Estado'];
             $arrayPersona['Documento'] = $_POST ['Documento'];
 
@@ -91,7 +94,8 @@ class PersonaController{
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../Views/modules/Persona/index.php?respuesta=error&mensaje=".$e->getMessage());
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            //header("Location: ../../Views/modules/Persona/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
@@ -106,7 +110,8 @@ class PersonaController{
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../Views/modules/Persona/index.php?respuesta=error");
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            //header("Location: ../../Views/modules/Persona/index.php?respuesta=error");
         }
     }
 
@@ -114,7 +119,8 @@ class PersonaController{
         try {
             return Persona::searchForDocumento($Documento);
         } catch (\Exception $e) {
-            var_dump($e);
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            //var_dump($e);
             //header("Location: ../../views/modules/Persona/manager.php?respuesta=error");
         }
     }
@@ -123,9 +129,47 @@ class PersonaController{
         try {
             return Persona::getAll();
         } catch (\Exception $e) {
-            var_dump($e);
+            GeneralFunctions::console( $e, 'error', 'errorStack');
+            //var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
         }
     }
+    /*
+    private static function PersonaIsInArray($IdPersona, $ArrPersona){
+        if(count($ArrPersona) > 0){
+            foreach ($ArrPersona as $Usuario){
+                if($Usuario->getId() == $idUsuario){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    static public function selectUsuario ($isMultiple=false,
+                                          $isRequired=true,
+                                          $id="idUsuario",
+                                          $nombre="idUsuario",
+                                          $defaultValue="",
+                                          $class="form-control",
+                                          $where="",
+                                          $arrExcluir = array()){
+        $arrUsuarios = array();
+        if($where != ""){
+            $base = "SELECT * FROM usuarios WHERE ";
+            $arrUsuarios = Usuarios::search($base.' '.$where);
+        }else{
+            $arrUsuarios = Usuarios::getAll();
+        }
+
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."' style='width: 100%;'>";
+        $htmlSelect .= "<option value='' >Seleccione</option>";
+        if(count($arrUsuarios) > 0){
+            foreach ($arrUsuarios as $usuario)
+                if (!UsuariosController::usuarioIsInArray($usuario->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($usuario != "") ? (($defaultValue == $usuario->getId()) ? "selected" : "" ) : "")." value='".$usuario->getId()."'>".$usuario->getDocumento()." - ".$usuario->getNombres()." ".$usuario->getApellidos()."</option>";
+        }
+        $htmlSelect .= "</select>";
+        return $htmlSelect;
+*/
 }

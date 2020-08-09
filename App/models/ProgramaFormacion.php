@@ -18,7 +18,7 @@ class ProgramaFormacion extends BasicModel
     private  $NivelPrograma;
 
     /**
-     * Programaformacion  constructor.
+     * ProgramaFormacion  constructor.
      * @param $Id
      * @param $FechaRegistro
      * @param $NumeroFicha

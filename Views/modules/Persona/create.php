@@ -1,4 +1,11 @@
-<?php require_once("../../partials/routes.php"); ?>
+<?php require_once("../../partials/routes.php");
+require_once("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../../app/Controllers/PersonaController.php");
+
+use App\Controllers\ProgramaFormacionController;
+use App\Controllers\PersonaController;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,11 +103,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
+                        <div class="col-sm-10">
+                            <?= ProgramaFormacionController::selectProgramaFormacion(false,
+                                true,
+                                'ProgramaFormacion',
+                                'ProgramaFormacion',
+                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',
+                                'form-control select2bs4 select2-info',
+                                "")
+                            ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
                         <div class="col-sm-10">
                             <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
                         </div>
                     </div>
+
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">Enviar</button>
