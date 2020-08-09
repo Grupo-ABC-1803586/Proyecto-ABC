@@ -1,33 +1,35 @@
 <?php
 
 namespace App\Controllers;
-require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
+require_once(__DIR__ . '/../Models/Categoria.php');
 
-use App\Models\ProgramaFormacion;
+use App\Models\Categoria;
+use App\Models\Usuarios;
 
 
 if(!empty($_GET['action'])){
-    ProgramaFormacionController::main($_GET['action']);
+    CategoriaController::main($_GET['action']);
 }
 
-class ProgramaFormacionController{
+class CategoriaController{
 
     static function main($action)
     {
         if ($action == "create") {
-            ProgramaFormacionController::create();
+            CategoriaController::create();
         } else if ($action == "edit") {
-            ProgramaFormacionController::edit();
+            CategoriaController::edit();
         } else if ($action == "searchForId") {
-            ProgramaFormacionController::searchForId($_REQUEST['id']);
+            CategoriaController::searchForId($_REQUEST['id']);
         } else if ($action == "searchAll") {
-            ProgramaFormacionController::getAll();
+            CategoriaController::getAll();
         } else if ($action == "activate") {
-            ProgramaFormacionController::activate();
+            CategoriaController::activate();
         } else if ($action == "inactivate") {
-            ProgramaFormacionController::inactivate();
+            CategoriaController::inactivate();
         }/*else if ($action == "login"){
             ProgramaFormacionController::login();
+
         }else if($action == "cerrarSession"){
             ProgramaFormacionController::cerrarSession();
         }*/
@@ -38,84 +40,73 @@ class ProgramaFormacionController{
     {
         try {
 
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
- var_dump($_POST);
-            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
-                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
-                if($ProgramaFormacion->create()){
-                    header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto");
+            $arrayCategoria = array();
+            $arrayCategoria['Nombre'] = $_POST['Nombre'];
+            var_dump($_POST);
+            if(!Categoria::CategoriaRegistrado($arrayCategoria['Nombre'])){
+                $Categoria = new Categoria ($arrayCategoria);
+                if($Categoria->create()){
+                    header("Location: ../../views/modules/Categoria/index.php?respuesta=correcto");
                 }
             }else{
-                header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado");
+                header("Location: ../../views/modules/Categoria/create.php?respuesta=error&mensaje=Usuario ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Categoria/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
 
     static public function edit (){
         try {
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
+            $arrayCategoria = array();
+            $arrayCategoria['Nombre'] = $_POST['Nombre'];
+            $arrayCategoria['Id'] = $_POST['Id'];
 
-            $arrayProgramaFormacion['Id'] = $_POST['Id'];
+            $Categoria = new Categoria($arrayCategoria);
+            $Categoria->update();
 
-            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
-            $ProgramaFormacion->update();
-
-            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Categoria/show.php?Id=".$Categoria->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Categoria/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function activate (){
         try {
-            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+            $ObjCategoria = Categoria::searchForId($_GET['Id']);
 
-            $ObjProgramaFormacion->setEstado("Activo");
-            if($ObjProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+            $ObjCategoria->setEstado("Activo");
+            if($ObjCategoria->update()){
+                header("Location: ../../views/modules/Categoria/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Categoria/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function inactivate (){
         try {
-            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-            $ObProgramaFormacion->setEstado("Inactivo");
-            if($ObProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
+            $ObCategoria = Categoria::searchForId($_GET['Id']);
+            $ObCategoria->setEstado("Inactivo");
+            if($ObCategoria->update()){
+                header("Location: ../../views/modules/Categoria/index.php");
             }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
+            header("Location: ../../views/modules/Categoria/index.php?respuesta=error");
         }
     }
 
     static public function searchForId ($id){
         try {
-            return ProgramaFormacion::searchForId($id);
+            return Categoria::searchForId($id);
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
@@ -124,17 +115,17 @@ class ProgramaFormacionController{
 
     static public function getAll (){
         try {
-            return ProgramaFormacion::getAll();
+            return Categoria::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    private static function CategoriaIsInArray($idCategoria, $ArrCategoria){
+        if(count($ArrCategoria) > 0){
+            foreach ($ArrCategoria as $Categoria){
+                if($Categoria->getId() == $idCategoria){
                     return true;
                 }
             }
@@ -142,32 +133,32 @@ class ProgramaFormacionController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
+    static public function selectCategoria ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
+                                          $Id="IdCategoria",
+                                          $Name="IdCategoria",
                                           $defaultValue="",
-                                          $class="",
+                                          $class="form-control",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrPersonas = array();
+        $arrCategoria = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM Categoria WHERE ";
+            $arrCategoria = Categoria::search($base.' '.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrCategoria = Categoria::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." Id= '".$Id."' name='".$Name."' class='".$class."' style='width: 100%;'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrCategoria) > 0){
+            foreach ($arrCategoria as $Categoria)
+                if (!CategoriaController::CategoriaIsInArray($Categoria->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Categoria != "") ? (($defaultValue == $Categoria->getId()) ? "selected" : "" ) : "")." value='".$Categoria->getId()."'>".$Categoria->getNombre()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){
