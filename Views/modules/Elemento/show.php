@@ -1,8 +1,8 @@
 <?php
-require("../../partials/routes.php");
-require("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../partials/routes.php");
+require_once("../../../app/Controllers/ElementoController.php");
 
-use App\Controllers\ProgramaFormacionController; ?>
+use App\Controllers\ElementoController; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +24,7 @@ use App\Controllers\ProgramaFormacionController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Informacion del Programa Formacion</h1>
+
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -59,44 +59,46 @@ use App\Controllers\ProgramaFormacionController; ?>
             <!-- Horizontal Form -->
             <div class="card card-warning">
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
-                    $DataProgramaFormacion = ProgramaFormacionController::searchForId($_GET["Id"]);
-                    if(!empty($DataProgramaFormacion)){
+                    $DataElemento = ElementoController::searchForId($_GET["Id"]);
+                    if(!empty($DataElemento)){
                         ?>
                 <div class="card-header">
-                    <h3 class="card-title"> <strong>Programa Formacion</strong> </h3>
+                    <h3 class="card-title"><strong> Elemento </strong></h3>
                 </div>
                 <div class="card-body">
-
                         <div class="card-body">
                             <p>
 
-                                <strong><i class="fas fa-calendar-check"></i> Fecha  Registro y Numero Ficha</strong>
+                                <strong><i class="fas fa-hammer"></i> Nombre</strong>
                             <p class="text-muted">
-                                <?= $DataProgramaFormacion->getFechaRegistro()." ".$DataProgramaFormacion->getNumeroFicha() ?>
+                                <?= $DataElemento->getNombre() ?>
                             </p>
                             <hr>
-                            <strong><i class="fas fa-calendar-check"></i> Fecha Inicio</strong>
-                            <p class="text-muted"><?= $DataProgramaFormacion->getFechaInicio() ?></p>
+                            <strong><i class="fas fa-sticky-note"></i> Descripcion</strong>
+                            <p class="text-muted"><?= $DataElemento->getDescripcion() ?></p>
                             <hr>
-                            <strong><i class="fas fa-calendar-check"></i> Fecha Finalizacion</strong>
-                            <p class="text-muted"><?= $DataProgramaFormacion->getFechaFinalizacion() ?></p>
+                            <strong><i class="fas fa-hashtag"></i> Serie</strong>
+                            <p class="text-muted"><?= $DataElemento->getSerie() ?></p>
                             <hr>
-                            <strong><i class="fas fa-university"></i> Nombre y Nivel Programa  </strong>
-                            <p class="text-muted"><?= $DataProgramaFormacion->getNombrePrograma()." - ".$DataProgramaFormacion->getNivelPrograma() ?></p>
+                            <strong><i class="fas fa-toolbox"></i> Categoria  </strong>
+                            <p class="text-muted"><?= $DataElemento->getCategoria()->getNombre() ?></p>
                             </p>
+                            <hr>
+                            <strong><i class="fas fa-atom"></i> Material</strong>
+                            <p class="text-muted"><?= $DataElemento->getMaterial() ?></p>
 
                         </div>
                         <div class="card-footer">
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-auto mr-auto">
-                                    <a role="button" href="edit.php?Id=<?php echo $DataProgramaFormacion->getid(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-tasks"></i> modificar Programa
+                                    <a role="button" href="edit.php?Id=<?php echo $DataElemento->getid(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-tasks"></i> Modificar Elemento
                                     </a>
                                 </div>
                                 <div class="col-auto">
                                     <a role="button" href="create.php" class="btn btn-dark float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-plus"></i> Crear Programa
+                                        <i class="fas fa-plus"></i> Crear Elemento
                                     </a>
                                 </div>
                             </div>

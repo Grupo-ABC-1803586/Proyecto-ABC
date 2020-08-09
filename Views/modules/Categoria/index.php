@@ -99,9 +99,9 @@ use App\Controller\CategoriaController; ?>
                                             <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                                             <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
                                             <?php if ($Categoria->getEstado() != "Activo"){ ?>
-                                                <a href="../../../App/Controllers/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+                                                <a href="../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
                                             <?php }else{ ?>
-                                                <a type="button" href="../../../App/Controllers/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+                                                <a type="button" href="../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
                                             <?php } ?>
                                         </td>
                                     </tr>

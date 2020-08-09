@@ -81,22 +81,46 @@
                 </li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-user"></i>
+                        <i class="fas fa-toolbox"></i>
                         <p>
-                            PROGRAMA FORMACION
+                            Categoria
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/programaformacion/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                            <a href="<?= $baseURL ?>/views/modules/Categoria/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/programaformacion/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="<?= $baseURL ?>/views/modules/Categoria/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Elemento
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Elemento/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Elemento/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
