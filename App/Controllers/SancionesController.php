@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 require(__DIR__ . '/../models/Sanciones.php');
+require_once(__DIR__.'/../Models/GeneralFunctions.php');
+
 use App\models\Sanciones;
 if(!empty($_GET['action'])){
     SancionesController::main($_GET['action']);
