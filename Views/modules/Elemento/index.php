@@ -1,9 +1,9 @@
-<?php require("../../partials/routes.php");
+<?php
+require_once("../../../app/Controllers/ElementoController.php");
+require_once("../../partials/routes.php");
 
 
-require("../../../App/Controllers/ProgramaFormacionController.php");
-
-use App\Controllers\ProgramaFormacionController;
+use App\Controllers\ElementoController;
 
 ?>
 <!DOCTYPE html>
@@ -20,9 +20,9 @@ use App\Controllers\ProgramaFormacionController;
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require("../../partials/navbar_customization.php"); ?>
+    <?php require_once("../../partials/navbar_customization.php"); ?>
 
-    <?php require("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -45,31 +45,28 @@ use App\Controllers\ProgramaFormacionController;
 
         <!-- Main content -->
         <section class="content">
+
+            <?php if (!empty($_GET['respuesta']) && !empty($_GET['action'])) { ?>
+                <?php if ($_GET['respuesta'] == "correcto") { ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fas fa-check"></i> Correcto!</h5>
+                        <?php if ($_GET['action'] == "create") { ?>
+                            La venta ha sido creado con exito!
+                        <?php } else if ($_GET['action'] == "update") { ?>
+                            Los datos de la venta han sido actualizados correctamente!
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Default box -->
-                        <?php if (!empty($_GET['respuesta']) && !empty($_GET['action'])) { ?>
-                            <?php if ($_GET['respuesta'] == "correcto") { ?>
-                                <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                    <h5><i class="icon fas fa-check"></i> Correcto!</h5>
-                                    <?php if ($_GET['action'] == "create") { ?>
-                                        El usuario ha sido creado con exito!
-                                    <?php } else if ($_GET['action'] == "update") { ?>
-                                        Los datos del usuario han sido actualizados correctamente!
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
-                        <?php } ?>
-
-                        <!-- Default box -->
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp;<strong> Listar Programa
-                                    Formacion</strong></h3>
+                                <h3 class="card-title"><i class="fas fa-eye"></i>&nbsp;<strong> Listar Elemento</strong></h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="index.php" data-source-selector="#card-refresh-content"
@@ -88,9 +85,8 @@ use App\Controllers\ProgramaFormacionController;
                                 <div class="row">
                                     <div class="col-auto mr-auto"></div>
                                     <div class="col-auto">
-                                        <a role="button" href="create.php" class="btn btn-warning float-right"
-                                           style="margin-right: 5px;">
-                                            <i class="fas fa-plus"></i> Crear Programa Formacion
+                                        <a role="button" href="create.php" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                            <i class="fas fa-plus"></i> Crear Elemento
                                         </a>
                                     </div>
                                 </div>
@@ -100,54 +96,49 @@ use App\Controllers\ProgramaFormacionController;
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Fecha Registro</th>
-                                                <th>Numero Ficha</th>
-                                                <th>Fecha Inicio</th>
-                                                <th>Fecha Finalizacion</th>
-                                                <th>Nombre Programa</th>
-                                                <th>Nivel Programa</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Serie</th>
+                                                <th>Categoria</th>
+                                                <th>Material</th>
                                                 <th>Acciones</th>
 
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php
-                                            $arrProgramaFormacion = ProgramaFormacionController::getAll();
-                                            foreach ($arrProgramaFormacion as $ProgramaFormacion) {
+                                            $arrElemento = ElementoController::getAll();
+                                            foreach ($arrElemento as $Elemento) {
+                                                ;
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $ProgramaFormacion->getId(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getFechaRegistro(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getNumeroFicha(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getFechaInicio(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getFechaFinalizacion(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getNombrePrograma(); ?></td>
-                                                    <td><?php echo $ProgramaFormacion->getNivelPrograma(); ?></td>
-
+                                                    <td><?= $Elemento->getId(); ?></td>
+                                                    <td><?= $Elemento->getNombre(); ?></td>
+                                                    <td><?= $Elemento->getDescripcion(); ?></td>
+                                                    <td><?= $Elemento->getSerie(); ?></td>
+                                                    <td><?= $Elemento->getCategoria()->getNombre(); ?>
+                                                    <td><?= $Elemento->getMaterial(); ?></td>
                                                     <td>
-                                                        <a href="edit.php?Id=<?php echo $ProgramaFormacion->getId(); ?>"
-                                                           type="button" data-toggle="tooltip" title="Actualizar"
-                                                           class="btn docs-tooltip btn-primary btn-xs"><i
-                                                                    class="fa fa-edit"></i></a>
-                                                        <a href="show.php?Id=<?php echo $ProgramaFormacion->getId(); ?>"
-                                                           type="button" data-toggle="tooltip" title="Ver"
-                                                           class="btn docs-tooltip btn-warning btn-xs"><i
-                                                                    class="fa fa-eye"></i></a>
+                                                        <a href="edit.php?Id=<?php echo $Elemento->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                                        <a href="show.php?Id=<?php echo $Elemento->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
 
                                                     </td>
+
                                                 </tr>
                                             <?php } ?>
+
                                             </tbody>
                                             <tfoot>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Fecha Registro</th>
-                                                <th>Numero Ficha</th>
-                                                <th>Fecha Inicio</th>
-                                                <th>Fecha Finalizacion</th>
-                                                <th>Nombre Programa</th>
-                                                <th>Nivel Programa</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Serie</th>
+                                                <th>Categoria</th>
+                                                <th>Material</th>
                                                 <th>Acciones</th>
+
+
                                             </tr>
                                             </tfoot>
                                         </table>
@@ -160,10 +151,12 @@ use App\Controllers\ProgramaFormacionController;
                             </div>
                             <!-- /.card-footer-->
                         </div>
+                        <!-- /.card -->
                     </div>
                 </div>
             </div>
-            <!-- /.card -->
+
+
         </section>
         <!-- /.content -->
     </div>
@@ -204,10 +197,9 @@ use App\Controllers\ProgramaFormacionController;
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del usuario
+            "stateSave": true, //Guardar la configuracion del usuario
         });
     });
-
 </script>
 
 </body>

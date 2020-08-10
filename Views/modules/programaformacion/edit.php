@@ -1,6 +1,6 @@
 <?php
-require("../../partials/routes.php");
-require("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../partials/routes.php");
+require_once("../../../app/Controllers/ProgramaFormacionController.php");
 
 use App\Controllers\ProgramaFormacionController; ?>
 <!DOCTYPE html>
@@ -61,7 +61,7 @@ use App\Controllers\ProgramaFormacionController; ?>
                         <!-- Horizontal Form -->
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-university"></i>&nbsp; Información del Programa Formacion</h3>
+                                <h3 class="card-title"><i class="fas fa-edit"></i> <strong> Programa Formacion</strong></h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="create.php" data-source-selector="#card-refresh-content"

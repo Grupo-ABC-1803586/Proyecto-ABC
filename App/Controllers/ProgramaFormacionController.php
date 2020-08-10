@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Controllers;
+<<<<<<< HEAD
 <<<<<<< HEAD:App/Controllers/UsuariosController.php
 require(__DIR__ . '/../Models/Categorias.php');
 use App\Models\categorias;
 =======
 require(__DIR__ . '/../Models/ProgramaFormacion.php');
+=======
+require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
+>>>>>>> origin/master
 
 use App\Models\ProgramaFormacion;
 
