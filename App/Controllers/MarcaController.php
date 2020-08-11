@@ -136,7 +136,7 @@ class MarcaController{
         $arrMarca = array();
         if($where != ""){
             $base = "SELECT * FROM Marca WHERE ";
-            $arrMarca = Marca::buscar($base.$where);
+            $arrMarca = Marca::search($base.$where);
         }else{
             $arrMarca = Marca::getAll();
         }

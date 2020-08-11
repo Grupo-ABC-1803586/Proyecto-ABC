@@ -138,7 +138,7 @@ class UnidadesController{
         $arrUnidades = array();
         if($where != ""){
             $base = "SELECT * FROM Unidades WHERE ";
-            $arrUnidades = Unidades::buscar($base.$where);
+            $arrUnidades = Unidades::search($base.$where);
         }else{
             $arrUnidades = Unidades::getAll();
         }

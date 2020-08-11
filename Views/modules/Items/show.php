@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/ItemsController.php");
+require("../../../App/Controllers/ItemsController.php");
 
 use App\Controllers\ItemsController; ?>
 <!DOCTYPE html>
@@ -61,12 +61,12 @@ use App\Controllers\ItemsController; ?>
                         <div class="card card-green">
                             <?php if (!empty($_GET["Id"]) && isset($_GET["Id"])) {
                                 $DataItems = ItemsController::searchForID($_GET["Id"]);
-                                if (!empty($DataVentas)) {
+                                if (!empty($DataItems)) {
                                     ?>
                                     <div class="card-header">
                                         <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Ver
-                                            Información de <?= $DataItems->getNumeroSerie() ?>
-                                            -<?= $DataVentas->getId() ?></h3>
+                                            Información de <?= $DataItems->getId() ?>
+                                            -<?= $DataItems->getId() ?></h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                                     data-source="show.php" data-source-selector="#card-refresh-content"
@@ -83,26 +83,40 @@ use App\Controllers\ItemsController; ?>
                                     </div>
                                     <div class="card-body">
                                         <p>
-
                                             <strong><i class="fas fa-sort-numeric-down mr-1"></i> Numero</strong>
                                         <p class="text-muted">
-                                            <?= $DataVentas->getNumeroSerie() . "-" . $DataVentas->getId(); ?>
+                                            <?= $DataItems->getId() . "-" . $DataItems->getId(); ?>
                                         </p>
                                         <hr>
-                                        <strong><i class="fas fa-user-ninja mr-1"></i> Cliente</strong>
-                                        <p class="text-muted"><?= $DataVentas->getClienteId()->getNombres() . ": " . $DataVentas->getClienteId()->getApellidos() ?></p>
+                                        <strong><i class="far fa-calendar mr-1"></i> Placa</strong>
+                                        <p class="text-muted"><?= $DataItems->getPlaca(); ?></p>
                                         <hr>
-                                        <strong><i class="far fa-user mr-1"></i> Empleado</strong>
-                                        <p class="text-muted"><?= $DataVentas->getEmpleadoId()->getNombres() . ": " . $DataVentas->getEmpleadoId()->getApellidos() ?></p>
+                                        <strong><i class="fas fa-money-bill mr-1"></i> Descripcion</strong>
+                                        <p class="text-muted"><?= $DataItems->getDescripcion(); ?></p>
                                         <hr>
-                                        <strong><i class="far fa-calendar mr-1"></i> Fecha Venta</strong>
-                                        <p class="text-muted"><?= $DataVentas->getFechaVenta(); ?></p>
+                                        <strong><i class="fas fa-cog mr-1"></i> Costo</strong>
+                                        <p class="text-muted"><?= $DataItems->getCosto(); ?></p>
                                         <hr>
-                                        <strong><i class="fas fa-money-bill mr-1"></i> Monto</strong>
-                                        <p class="text-muted"><?= $DataVentas->getMonto(); ?></p>
+                                        <strong><i class="fas fa-money-bill mr-1"></i> Ubicacion</strong>
+                                        <p class="text-muted"><?= $DataItems->getUbicacion(); ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-cog mr-1"></i> Imagen</strong>
+                                        <p class="text-muted"><?= $DataItems->getImagen(); ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-user-ninja mr-1"></i> Elemento</strong>
+                                        <p class="text-muted"><?= $DataItems->getElemento()->getNombre()?></p>
+                                        <hr>
+                                        <strong><i class="far fa-user mr-1"></i> Marca</strong>
+                                        <p class="text-muted"><?= $DataItems->getMarca()->getNombre() ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-user-ninja mr-1"></i>Kit</strong>
+                                        <p class="text-muted"><?= $DataItems->getKit()->getNombre()?></p>
+                                        <hr>
+                                        <strong><i class="far fa-user mr-1"></i> Unidades</strong>
+                                        <p class="text-muted"><?= $DataItems->getUnidades()->getNombre() ?></p>
                                         <hr>
                                         <strong><i class="fas fa-cog mr-1"></i> Estado</strong>
-                                        <p class="text-muted"><?= $DataVentas->getEstado(); ?></p>
+                                        <p class="text-muted"><?= $DataItems->getEstado(); ?></p>
                                         </p>
 
                                     </div>
@@ -111,13 +125,13 @@ use App\Controllers\ItemsController; ?>
                                             <div class="col-auto mr-auto">
                                                 <a role="button" href="index.php" class="btn btn-success float-right"
                                                    style="margin-right: 5px;">
-                                                    <i class="fas fa-tasks"></i> Gestionar Ventas
+                                                    <i class="fas fa-tasks"></i> Listar Items
                                                 </a>
                                             </div>
                                             <div class="col-auto">
                                                 <a role="button" href="create.php" class="btn btn-primary float-right"
                                                    style="margin-right: 5px;">
-                                                    <i class="fas fa-plus"></i> Crear Venta
+                                                    <i class="fas fa-plus"></i> Registrar Items
                                                 </a>
                                             </div>
                                         </div>

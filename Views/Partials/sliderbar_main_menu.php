@@ -28,7 +28,8 @@
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                       <i class="fas fa-home"></i>
+
                         <p>
                             Inicio
                         </p>
@@ -47,13 +48,13 @@
 
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Unidades/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Unidades/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
@@ -76,13 +77,13 @@
 
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Marca/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Marca/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
@@ -100,13 +101,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>

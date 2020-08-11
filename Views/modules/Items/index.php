@@ -1,5 +1,5 @@
 <?php
-require_once("../../../app/Controllers/ItemsController.php");
+require_once("../../../App/Controllers/ItemsController.php");
 require_once("../../partials/routes.php");
 
 
@@ -66,7 +66,7 @@ use App\Controllers\ItemsController;
                         <!-- Default box -->
                         <div class="card card-dark">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Gestionar Items</h3>
+                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Listar Items</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="index.php" data-source-selector="#card-refresh-content"
@@ -118,11 +118,15 @@ use App\Controllers\ItemsController;
                                                 ?>
                                                 <tr>
                                                     <td><?= $item->getId(); ?></td>
-                                                    <td><?= $item->getNumeroSerie(); ?>-<?= $item->getId(); ?></td>
-                                                    <td><?= $item->getClienteId()->getNombres(); ?> <?= $item->getClienteId()->getApellidos(); ?></td>
-                                                    <td><?= $item->getEmpleadoId()->getNombres(); ?> <?= $item->getEmpleadoId()->getApellidos(); ?></td>
-                                                    <td><?= $item->getFechaVenta(); ?></td>
-                                                    <td><?= $item->getMonto(); ?></td>
+                                                    <td><?= $item->getPlaca(); ?></td>
+                                                    <td><?= $item->getDescripcion(); ?></td>
+                                                    <td><?= $item->getCosto(); ?></td>
+                                                    <td><?= $item->getUbicacion(); ?></td>
+                                                    <td><?= $item->getImagen(); ?></td>
+                                                    <td><?= $item->getElemento()->getNombre(); ?></td>
+                                                    <td><?= $item->getMarca()->getNombre(); ?></td>
+                                                    <td><?= $item->getKit()->getNombre(); ?></td>
+                                                    <td><?= $item->getUnidades()->getNombre(); ?></td>
                                                     <td><?= $item->getEstado(); ?></td>
                                                     <td>
                                                         <a href="show.php?id=<?php echo $item->getId(); ?>"
@@ -130,13 +134,13 @@ use App\Controllers\ItemsController;
                                                            class="btn docs-tooltip btn-warning btn-xs"><i
                                                                 class="fa fa-eye"></i></a>
                                                         <?php if ($item->getEstado() != "Activo") { ?>
-                                                            <a href="../../../app/Controllers/ItemsController.php?action=activate&Id=<?php echo $venta->getId(); ?>"
+                                                            <a href="../../../App/Controllers/ItemsController.php?action=activate&Id=<?php echo $item->getId(); ?>"
                                                                type="button" data-toggle="tooltip" title="Activar"
                                                                class="btn docs-tooltip btn-success btn-xs"><i
                                                                     class="fa fa-check-square"></i></a>
                                                         <?php } else { ?>
                                                             <a type="button"
-                                                               href="../../../app/Controllers/ItemsController.php?action=inactivate&Id=<?php echo $venta->getId(); ?>"
+                                                               href="../../../App/Controllers/ItemsController.php?action=inactivate&Id=<?php echo $item->getId(); ?>"
                                                                data-toggle="tooltip" title="Inactivar"
                                                                class="btn docs-tooltip btn-danger btn-xs"><i
                                                                     class="fa fa-times-circle"></i></a>

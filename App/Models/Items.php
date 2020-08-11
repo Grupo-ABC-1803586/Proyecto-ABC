@@ -63,7 +63,7 @@ class Items extends BasicModel
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->Id;
     }
@@ -71,7 +71,7 @@ class Items extends BasicModel
     /**
      * @param mixed $Id
      */
-    public function setId($Id): void
+    public function setId(int $Id): void
     {
         $this->Id = $Id;
     }
@@ -79,7 +79,7 @@ class Items extends BasicModel
     /**
      * @return mixed
      */
-    public function getPlaca()
+    public function getPlaca() : string
     {
         return $this->Placa;
     }
@@ -87,7 +87,7 @@ class Items extends BasicModel
     /**
      * @param mixed $Placa
      */
-    public function setPlaca($Placa): void
+    public function setPlaca(string $Placa): void
     {
         $this->Placa = $Placa;
     }

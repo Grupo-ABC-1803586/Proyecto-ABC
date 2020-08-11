@@ -1,9 +1,13 @@
 <?php
 
 require_once("../../../App/Controllers/MarcaController.php");
-
+require_once("../../../App/Controllers/ItemsController.php");
 require_once("../../../App/Controllers/UnidadesController.php");
 require_once("../../partials/routes.php");
+
+use App\Controllers\MarcaController;
+use App\Controllers\UnidadesController;
+use App\Controllers\ItemsController;
 
 ?>
 
@@ -60,7 +64,7 @@ require_once("../../partials/routes.php");
             <div class="container-fluid">
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Información de Items</h3>
@@ -86,34 +90,72 @@ require_once("../../partials/routes.php");
                                     }
                                     ?>
 
-
+                                    <div class="form-group row">
+                                        <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                                        <div class="col-sm-10">
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese nombre">
+                                        </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="Marca" class="col-sm-4 col-form-label">Marca</label>
-                                        <div class="col-sm-8">
+                                        <label for="Placa" class="col-sm-2 col-form-label">Placa</label>
+                                        <div class="col-sm-10">
+                                            <input required type="text" class="form-control" id="Placa" name="Placa" placeholder="Ingrese placa">
+                                        </div>
+                                    </div>
+                                        <div class="form-group row">
+                                            <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                                            <div class="col-sm-10">
+                                                <input required type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Ingrese descripcion">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="Costo" class="col-sm-2 col-form-label">Costo</label>
+                                            <div class="col-sm-10">
+                                                <input required type="text" class="form-control" id="Costo" name="Costo" placeholder="Ingrese costo">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="Ubicacion" class="col-sm-2 col-form-label">Ubicacion</label>
+                                            <div class="col-sm-10">
+                                                <input required type="text" class="form-control" Id="Ubicacion" name="Ubicacion" placeholder="Ingrese ubicacion">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="Imagen" class="col-sm-2 col-form-label">Imagen</label>
+                                            <div class="col-sm-10">
+                                                <input required type="file" class="form-control" Id="Imagen" name="Imagen" placeholder="Imagen">
+                                            </div>
+                                        </div>
+                                    <div class="form-group row">
+                                        <label for="Marca" class="col-sm-2 col-form-label">Marca</label>
+                                        <div class="col-sm-10">
                                             <?= MarcaController::selectMarca(false,
                                                 true,
                                                 'Marca',
                                                 'Marca',
                                                 (!empty($dataitem)) ? $dataitem->getMarca()->getId() : '',
                                                 'form-control select2bs4 select2-info',
-                                                "rol = 'Marca' and estado = 'Activo'")
+                                                "")
                                             ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Unidades" class="col-sm-4 col-form-label">Unidades</label>
-                                        <div class="col-sm-8">
+                                        <label for="Unidades" class="col-sm-2 col-form-label">Unidades</label>
+                                        <div class="col-sm-10">
                                             <?= UnidadesController::selectUnidades(false,
                                                 true,
                                                 'Unidades',
                                                 'Unidades',
                                                 (!empty($dataitem)) ? $dataitem->getUnidades()->getId() : '',
                                                 'form-control select2bs4 select2-info',
-                                                "rol = 'Unidades' and estado = 'Activo'")
+                                                "")
+
                                             ?>
                                         </div>
+                                    </div>
+
+
                                     </div>
 
                                     <hr>
@@ -181,13 +223,13 @@ require_once("../../partials/routes.php");
                                                            class="btn docs-tooltip btn-warning btn-xs"><i
                                                                 class="fa fa-eye"></i></a>
                                                         <?php if ($detallePrestamo->getEstado() != "Activo") { ?>
-                                                            <a href="../../../app/Controllers/ProductosController.php?action=activate&Id=<?php echo $detalleVenta->getId(); ?>"
+                                                            <a href="../../../App/Controllers/ProductosController.php?action=activate&Id=<?php echo $detallePrestamo->getId(); ?>"
                                                                type="button" data-toggle="tooltip" title="Activar"
                                                                class="btn docs-tooltip btn-success btn-xs"><i
                                                                     class="fa fa-check-square"></i></a>
                                                         <?php } else { ?>
                                                             <a type="button"
-                                                               href="../../../app/Controllers/ProductosController.php?action=inactivate&Id=<?php echo $detalleVenta->getId(); ?>"
+                                                               href="../../../App/Controllers/ProductosController.php?action=inactivate&Id=<?php echo $detallePrestamo->getId(); ?>"
                                                                data-toggle="tooltip" title="Inactivar"
                                                                class="btn docs-tooltip btn-danger btn-xs"><i
                                                                     class="fa fa-times-circle"></i></a>
@@ -231,7 +273,7 @@ require_once("../../partials/routes.php");
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="../../../app/Controllers/VentasController.php?action=create" method="post">
+                    <form action="../../../App/Controllers/ItemsController.php?action=create" method="post">
                         <div class="modal-body">
                             <input id="venta_id" name="venta_id" value="<?= !empty($dataitem) ? $dataitem->getId() : ''; ?>" hidden
                                    required="required" type="text">

@@ -59,7 +59,7 @@ use App\Controllers\UnidadesController; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Unidades</h3>
+                    <h3><strong><i class="fas fa-eye"></i>Listar Unidades</h3></strong></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -71,7 +71,7 @@ use App\Controllers\UnidadesController; ?>
                     <div class="row">
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <a role="button" href="create.php" class="btn btn-warning float-right" style="margin-right: 5px;">
                                 <i class="fas fa-plus"></i> Crear Unidades
                             </a>
                         </div>

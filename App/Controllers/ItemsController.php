@@ -4,11 +4,9 @@ namespace App\Controllers;
 
 require_once(__DIR__.'/../Models/Marca.php');
 require_once(__DIR__.'/../Models/Items.php');
-
 require_once(__DIR__.'/../Models/Unidades.php');
 
 use App\Models\GeneralFunctions;
-
 use App\Models\Items;
 use App\Models\Marca;
 
@@ -45,9 +43,7 @@ class ItemsController{
             $arrayitem['Descripcion'] = $_POST['Descripcion'];
             $arrayitem['Ubicacion'] = $_POST['Ubicacion'];
             $arrayitem['Imagen'] = 'Imagen';
-            $arrayitem['Elemento'] = Elemento::searchForId($_POST['Elemento']);
             $arrayitem['Marca'] = Marca::searchForId($_POST['Marca']);
-            $arrayitem['Kit'] = Kit::searchForId($_POST['Kit']);
             $arrayitem['Unidades'] = Marca::searchForId($_POST['Unidades']);
             $arrayitem['Estado'] = 'Activo';
             $item = new Items($arrayitem);
