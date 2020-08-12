@@ -30,7 +30,6 @@
                 <li class="nav-item">
                     <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
                         <i class="fas fa-home"></i>
-
                         <p>
                             Inicio
                         </p>
@@ -127,9 +126,86 @@
 
                     </ul>
                 </li>
+                <li class="nav-header">Modulos Principales</li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
 
+                        <p>
+                            Unidades
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Unidades/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+
+                <li class="nav-item has-treeview menu-open">
+
+                    <a href="#" class="nav-link active">
+
+                        <p>
+                            Marca
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Marca/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-store"></i>
+                        <p>
+                            Items
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Items/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Items/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                </li>
             </ul>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>
