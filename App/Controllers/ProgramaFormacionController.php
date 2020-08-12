@@ -127,14 +127,14 @@ class ProgramaFormacionController{
             return ProgramaFormacion::getAll();
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            //header("Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error");
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    public static function ProgramaFormacionIsInArray($Id, $ArrProgramaFormacion){
+        if(count($ArrProgramaFormacion) > 0){
+            foreach ($ArrProgramaFormacion as $ProgramaFormacion){
+                if($ProgramaFormacion->getIdProgramaFormacion() == $Id){
                     return true;
                 }
             }
@@ -142,77 +142,77 @@ class ProgramaFormacionController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
+    static public function selectProgramaFormacion ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
+                                          $Id="ProgramaFormacion",
+                                          $NombrePrograma="ProgramaFormacion",
                                           $defaultValue="",
                                           $class="",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrPersonas = array();
+        $arrProgramaFormacion = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM ProgramaFormacion WHERE ";
+            $arrProgramaFormacion = ProgramaFormacion::search($base.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrProgramaFormacion = ProgramaFormacion::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$Id."' name='".$NombrePrograma."' class='".$class."'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrProgramaFormacion) > 0){
+            foreach ($arrProgramaFormacion as $ProgramaFormacion)
+                if (!ProgramaFormacionController::ProgramaFormacionIsInArray($ProgramaFormacion->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($ProgramaFormacion != "") ? (($defaultValue == $ProgramaFormacion->getId()) ? "selected" : "" ) : "")." value='".$ProgramaFormacion->getId()."'>".$ProgramaFormacion->getNombre()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){
         try {
-            return Persona::buscar($Query);
+            return ProgramaFormacion::buscar($Query);
         } catch (Exception $e) {
-            header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            header("Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error");
         }
     }
 
     static public function asociarEspecialidad (){
         try {
-            $Persona = new Persona();
-            $Persona->asociarEspecialidad($_POST['Persona'],$_POST['Especialidad']);
-            header("Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=correcto&id=".$_POST['Persona']);
+            $ProgramaFormacion = new ProgramaFormacion();
+            $ProgramaFormacion->asociarEspecialidad($_POST['ProgramaFormacion'],$_POST['Especialidad']);
+            header("Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?respuesta=correcto&id=".$_POST['ProgramaFormacion']);
         } catch (Exception $e) {
-            header("Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
     static public function eliminarEspecialidad (){
         try {
-            $ObjPersona = new Persona();
-            if(!empty($_GET['Persona']) && !empty($_GET['Especialidad'])){
-                $ObjPersona->eliminarEspecialidad($_GET['Persona'],$_GET['Especialidad']);
+            $ObjProgramaFormacion = new ProgramaFormacion();
+            if(!empty($_GET['ProgramaFormacion']) && !empty($_GET['Especialidad'])){
+                $ObjProgramaFormacion->eliminarEspecialidad($_GET['ProgramaFormacion'],$_GET['Especialidad']);
             }else{
                 throw new Exception('No se recibio la informacion necesaria.');
             }
-            header("Location: ../Vista/modules/persona/managerSpeciality.php?id=".$_GET['Persona']);
+            header("Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?id=".$_GET['ProgramaFormacion']);
         } catch (Exception $e) {
             var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            //header("Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error");
         }
     }
 
     public static function login (){
         try {
             if(!empty($_POST['Usuario']) && !empty($_POST['Contrasena'])){
-                $tmpPerson = new Persona();
+                $tmpPerson = new ProgramaFormacion();
                 $respuesta = $tmpPerson->Login($_POST['Usuario'], $_POST['Contrasena']);
-                if (is_a($respuesta,"Persona")) {
+                if (is_a($respuesta,"ProgramaFormacion")) {
                     $hydrator = new ReflectionHydrator(); //Instancia de la clase para convertir objetos
-                    $ArrDataPersona = $hydrator->extract($respuesta); //Convertimos el objeto persona en un array
-                    unset($ArrDataPersona["datab"],$ArrDataPersona["isConnected"],$ArrDataPersona["relEspecialidades"]); //Limpiamos Campos no Necesarios
-                    $_SESSION['UserInSession'] = $ArrDataPersona;
+                    $ArrDataProgramaFormacion = $hydrator->extract($respuesta); //Convertimos el objeto ProgramaFormacion en un array
+                    unset($ArrDataProgramaFormacion["datab"],$ArrDataProgramaFormacion["isConnected"],$ArrDataProgramaFormacion["relEspecialidades"]); //Limpiamos Campos no Necesarios
+                    $_SESSION['UserInSession'] = $ArrDataProgramaFormacion;
                     echo json_encode(array('type' => 'success', 'title' => 'Ingreso Correcto', 'text' => 'Sera redireccionado en un momento...'));
                 }else{
                     echo json_encode(array('type' => 'error', 'title' => 'Error al ingresar', 'text' => $respuesta)); //Si la llamda es por Ajax
@@ -231,7 +231,7 @@ class ProgramaFormacionController{
     public static function cerrarSession (){
         session_unset();
         session_destroy();
-        header("Location: ../Vista/modules/persona/login.php");
+        header("Location: ../Vista/modules/ProgramaFormacion/login.php");
     }*/
 
 }

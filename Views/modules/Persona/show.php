@@ -47,7 +47,7 @@ use App\Controllers\ProgramaFormacionController;?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al consultar el Programa: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al consultar la Persona: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['Id'])) { ?>
@@ -61,11 +61,11 @@ use App\Controllers\ProgramaFormacionController;?>
             <!-- Horizontal Form -->
             <div class="card card-warning">
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
-                $DataElemento = ElementoController::searchForId($_GET["Id"]);
-                if(!empty($DataElemento)){
+                $DataPersona = PersonaController::searchForId($_GET["Id"]);
+                if(!empty($DataPersona)){
                 ?>
                 <div class="card-header">
-                    <h3 class="card-title"><strong> Elemento </strong></h3>
+                    <h3 class="card-title"><strong> Persona </strong></h3>
                 </div>
                 <div class="card-body">
                     <div class="card-body">
@@ -73,11 +73,11 @@ use App\Controllers\ProgramaFormacionController;?>
 
                             <strong><i class="fas fa-hammer"></i> Nombre</strong>
                         <p class="text-muted">
-                            <?= $DataElemento->getNombre() ?>
+                            <?= $DataPersona->getNombre() ?>
                         </p>
                         <hr>
                         <strong><i class="fas fa-sticky-note"></i> Descripcion</strong>
-                        <p class="text-muted"><?= $DataElemento->getDescripcion() ?></p>
+                        <p class="text-muted"><?= $DataPersona->getDescripcion() ?></p>
                         <hr>
                         <strong><i class="fas fa-hashtag"></i> Serie</strong>
                         <p class="text-muted"><?= $DataElemento->getSerie() ?></p>

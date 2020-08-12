@@ -1,11 +1,11 @@
 <?php
-<<<<<<< HEAD
+
 require_once("../../partials/routes.php");
 require_once("../../../app/Controllers/CategoriaController.php");
-=======
+
 require("../../partials/routes.php");
 require("../../../App/Controller/PersonaController.php");
->>>>>>> master
+
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>

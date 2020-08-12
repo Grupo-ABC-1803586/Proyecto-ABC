@@ -26,10 +26,10 @@ abstract class BasicModel {
     # métodos abstractos para ABM de clases que hereden
     abstract protected static function search($query);
     abstract protected static function getAll();
-    abstract protected static function searchForId($id);
+    abstract protected static function searchForId($Id);
     abstract protected function create();
     abstract protected function update();
-    abstract protected function deleted($id);
+    abstract protected function deleted($Id);
 
     public function __construct(){
         $this->isConnected = true;
