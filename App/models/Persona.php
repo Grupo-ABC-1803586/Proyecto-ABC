@@ -59,7 +59,7 @@ class Persona extends BasicModel
     /**
      * @return int
      */
-    public function getDocumento(): int
+    public function getId(): int
     {
         return $this->Documento;
     }
@@ -67,7 +67,7 @@ class Persona extends BasicModel
     /**
      * @param int Documento
      */
-    public function setDocumento(int $Documento): void
+    public function setId(int $Documento): void
     {
         $this->Documento = $Documento;
     }

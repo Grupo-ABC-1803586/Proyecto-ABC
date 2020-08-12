@@ -1,7 +1,9 @@
 <?php require_once("../../partials/routes.php");
 require_once("../../../App/Controllers/PersonaController.php");
+require_once("../../../App/Controllers/ProgramaFormacionController.php");
 
-use App\Controllers\PersonaController; ?>
+use App\Controllers\PersonaController;
+use App\Controllers\ProgramaFormacionController;?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,7 +102,7 @@ use App\Controllers\PersonaController; ?>
                                 foreach ($arrPersona as $Persona){
                                     ?>
                                     <tr>
-
+                                        <td><?php echo $Persona->getDocumento(); ?></td>
                                         <td><?php echo $Persona->getNombre(); ?></td>
                                         <td><?php echo $Persona->getApellido(); ?></td>
                                         <td><?php echo $Persona->getTelefono(); ?></td>

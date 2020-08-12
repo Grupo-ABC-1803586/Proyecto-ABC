@@ -3,7 +3,7 @@ require_once("../../partials/routes.php");
 require_once("../../../app/Controllers/PersonaController.php");
 require_once("../../../app/Controllers/ProgramaFormacionController.php");
 
-use App\Controllers\ElementoController;
+use App\Controllers\PersonaController;
 use App\Controllers\ProgramaFormacionController;?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,38 +69,54 @@ use App\Controllers\ProgramaFormacionController;?>
                 </div>
                 <div class="card-body">
                     <div class="card-body">
-                        <p>
 
+                        <p>
+                        <hr>
+                        <strong><i class="fas fa-hashtag"></i> Documento</strong>
+                        <p class="text-muted"><?= $DataPersona->getId() ?></p>
+                        <hr>
                             <strong><i class="fas fa-hammer"></i> Nombre</strong>
                         <p class="text-muted">
                             <?= $DataPersona->getNombre() ?>
                         </p>
                         <hr>
-                        <strong><i class="fas fa-sticky-note"></i> Descripcion</strong>
-                        <p class="text-muted"><?= $DataPersona->getDescripcion() ?></p>
+                        <strong><i class="fas fa-sticky-note"></i> Apellido</strong>
+                        <p class="text-muted"><?= $DataPersona->getApellido() ?></p>
                         <hr>
-                        <strong><i class="fas fa-hashtag"></i> Serie</strong>
-                        <p class="text-muted"><?= $DataElemento->getSerie() ?></p>
+                        <strong><i class="fas fa-hashtag"></i> Telefono</strong>
+                        <p class="text-muted"><?= $DataPersona->getTelefono() ?></p>
                         <hr>
-                        <strong><i class="fas fa-toolbox"></i> Categoria  </strong>
-                        <p class="text-muted"><?= $DataElemento->getCategoria()->getNombre() ?></p>
+                        <hr>
+                        <strong><i class="fas fa-hashtag"></i> Correo</strong>
+                        <p class="text-muted"><?= $DataPersona->getCorreo() ?></p>
+                        <hr>
+                        <hr>
+                        <strong><i class="fas fa-hashtag"></i> Rol</strong>
+                        <p class="text-muted"><?= $DataPersona->getRol() ?></p>
+                        <hr>
+                        <hr>
+                        <strong><i class="fas fa-hashtag"></i> Contraseña</strong>
+                        <p class="text-muted"><?= $DataPersona->getContraseña() ?></p>
+                         <hr>
+                        <strong><i class="fas fa-toolbox"></i> Programa Formacion  </strong>
+                        <p class="text-muted"><?= $DataPersona->getProgramaFormacion()->getNombrePrograma()?></p>
                         </p>
                         <hr>
-                        <strong><i class="fas fa-atom"></i> Material</strong>
-                        <p class="text-muted"><?= $DataElemento->getMaterial() ?></p>
+                        <strong><i class="fas fa-atom"></i> Estado</strong>
+                        <p class="text-muted"><?= $DataPersona->getEstado() ?></p>
 
                     </div>
                     <div class="card-footer">
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-auto mr-auto">
-                                    <a role="button" href="edit.php?Id=<?php echo $DataElemento->getid(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-tasks"></i> Modificar Elemento
+                                    <a role="button" href="edit.php?Id=<?php echo $DataPersona->getId(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-tasks"></i> Modificar Persona
                                     </a>
                                 </div>
                                 <div class="col-auto">
                                     <a role="button" href="create.php" class="btn btn-dark float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-plus"></i> Crear Elemento
+                                        <i class="fas fa-plus"></i> Crear Persona
                                     </a>
                                 </div>
                             </div>
