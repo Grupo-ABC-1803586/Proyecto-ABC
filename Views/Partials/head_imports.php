@@ -10,3 +10,19 @@
 <link rel="stylesheet" href="<?= $adminlteURL ?>/dist/css/adminlte.min.css">
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<link rel="icon" type="image/vnd.microsoft.icon" href="/img/favicon.ico">
+<style type="text/css">
+    .sidebar-dark-warning {
+        background-color: #000000; !important;
+    }
+    .main-header{
+        background-color: #ffc500; !important;
+    }
+    .btn-info{
+        background-color: #ffc500; !important;
+    }
+    .btn-dark{
+        background-color: #000000; !important;
+    }
+
+</style>
