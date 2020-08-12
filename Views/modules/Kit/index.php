@@ -1,13 +1,7 @@
 <?php require("../../partials/routes.php");
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
-require("../../../app/Controllers/PrestamoController.php");
+require("../../../app/Controllers/KitController.php");
 
-use App\Controllers\Controller; ?>
-=======
-require("../../../app/Controllers/UnidadesController.php");
-
-use App\Controllers\UnidadesController; ?>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+use App\Controllers\KitController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,17 +27,12 @@ use App\Controllers\UnidadesController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1> Prestamo </h1>
+                        <h1> Kit </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/"> Proyecto-ABC </a></li>
                             <li class="breadcrumb-item active"> Inicio </li>
-=======
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
-                            <li class="breadcrumb-item active">Inicio</li>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
                         </ol>
                     </div>
                 </div>
@@ -59,15 +48,9 @@ use App\Controllers\UnidadesController; ?>
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
-                            Se a reazilado exitosamente el prestamo!
+                            El Kit ha sido creado correctamente!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del Prestamo han sido actualizados correctamente!
-=======
-                            Unidades ha sido creada con exito!
-                        <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos de unidades han sido actualizados correctamente!
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+                            Los datos del Kit han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -76,11 +59,7 @@ use App\Controllers\UnidadesController; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
-                    <h3 class="card-title">Gestionar Prestamo</h3>
-=======
-                    <h3><strong><i class="fas fa-eye"></i>Listar Unidades</h3></strong></h3>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+                    <h3 class="card-title">Gestionar Kit</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -92,89 +71,50 @@ use App\Controllers\UnidadesController; ?>
                     <div class="row">
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Prestamo
-=======
-                            <a role="button" href="create.php" class="btn btn-warning float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Unidades
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+                                <i class="fas fa-plus"></i> Crear Kit
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tbPrestamo" class="datatable table table-bordered table-striped">
+                            <table id="tbKit" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
                                     <th>Codigo</th>
-                                    <th>Fecha Prestamo</th>
-                                    <th>Fecha Entrega</th>
-                                    <th>Observaciones</th>
-                                    <th>Estado</th>
-                                    <th>Persona</th>
-=======
-                                    <th>Id</th>
-                                    <th>Tipo</th>
                                     <th>Nombre</th>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+                                    <th>Descripcion</th>
+                                    <th>Placa</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
-                                $arrPrestamo = PrestamoController::getAll();
-                                foreach ($arrPrestamo as $Prestamo){
+                                $arrKit = KitController::getAll();
+                                foreach ($arrKit as $Kit){
                                     ?>
                                     <tr>
-                                        <td><?php echo $Prestamo->getId(); ?></td>
-                                        <td><?php echo $Prestamo->getFechaPrestamo(); ?></td>
-                                        <td><?php echo $Prestamo->getFechaEntrega(); ?></td>
-                                        <td><?php echo $Prestamo->getObservacion(); ?></td>
-                                        <td><?php echo $Prestamo->getEstado(); ?></td>
-                                        <td><?php echo $Prestamo->getPersona(); ?></td>
+                                        <td><?php echo $Kit->getId(); ?></td>
+                                        <td><?php echo $Kit->getNombre(); ?></td>
+                                        <td><?php echo $Kit->getDescripcion(); ?></td>
+                                        <td><?php echo $Kit->getPlaca(); ?></td>
                                         <td>
-                                            <a href="edit.php?Id=<?php echo $Prestamo->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?Id=<?php echo $Prestamo->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+                                            <a href="edit.php?Id=<?php echo $Kit->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Kit->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
 
-=======
-                                $arrUnidades = UnidadesController::getAll();
-                                foreach ($arrUnidades as $Unidades){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $Unidades->getId(); ?></td>
-                                        <td><?php echo $Unidades->getTipo(); ?></td>
-                                        <td><?php echo $Unidades->getNombre(); ?></td>
-                                        <td>
-                                            <a href="edit.php?Id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?Id=<?php echo $Unidades->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
                                         </td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-<<<<<<< HEAD:Views/modules/Prestamo/index.php
                                     <th>Codigo</th>
-                                    <th>Fecha Prestamo</th>
-                                    <th>Fecha Entrega</th>
-                                    <th>Observaciones</th>
-                                    <th>Estado</th>
-                                    <th>Persona</th>
-=======
-                                    <th>Id</th>
-                                    <th>Tipo</th>
                                     <th>Nombre</th>
->>>>>>> Yolixs:Views/modules/Unidades/index.php
+                                    <th>Descripcion</th>
+                                    <th>Placa</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </tfoot>
-
-
-
                             </table>
                         </div>
                     </div>
