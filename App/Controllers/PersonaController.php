@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Controllers;
-require_once(_DIR_.'/../Models/Persona.php');
-require_once(_DIR_.'/../Models/ProgramaFormacion.php');
+require_once(__DIR__.'/../Models/Persona.php');
+require_once(__DIR__.'/../Models/ProgramaFormacion.php');
 
 use App\Models\GeneralFunctions;
 use App\Models\Persona;
