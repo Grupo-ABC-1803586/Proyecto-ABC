@@ -9,7 +9,6 @@ use App\Models\Persona;
 use App\Models\ProgramaFormacion;
 
 
-
 if(!empty($_GET['action'])){
     PersonaController::main($_GET['action']);
 }
@@ -46,8 +45,10 @@ class PersonaController{
             $arrayPersona['Contraseña'] = $_POST['Contraseña'];
             $arrayPersona['ProgramaFormacion'] = ProgramaFormacion::searchForId($_POST['ProgramaFormacion']);
             $arrayPersona['Estado'] = $_POST['Estado'];
+            var_dump($_POST);
             $Persona = new Persona($arrayPersona);
             if($Persona->create()){
+
                 header("Location: ../../views/modules/Persona/create.php?id=".$Persona->getId());
             }
         } catch (Exception $e) {
@@ -127,7 +128,32 @@ class PersonaController{
             header("Location: ../Vista/modules/Persona/manager.php?respuesta=error");
         }
     }
+    static public function selectEstadoPersona ($isMultiple=false,
+                                                  $isRequired=true,
+                                                  $Id="Persona",
+                                                  $Estado="Persona",
+                                                  $defaultValue="",
+                                                  $class="",
+                                                  $where="",
+                                                  $arrExcluir = array()){
+        $arrPersona = array();
+        if($where != ""){
+            $base = "SELECT * FROM Persona WHERE ";
+            $arrPersona = Persona::search($base.$where);
+        }else{
+            $arrPersona = Persona::getAll();
+        }
 
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$Id."' name='".$Estado."' class='".$class."'>";
+        $htmlSelect .= "<option value='' >Seleccione</option>";
+        if(count($arrPersona) > 0){
+            foreach ($arrPersona as $Persona)
+                if (!PersonaController::PersonaIsInArray($Persona->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Persona != "") ? (($defaultValue == $Persona->getId()) ? "selected" : "" ) : "")." value='".$Persona->getId()."'>".$Persona->getEstado()."</option>";
+        }
+        $htmlSelect .= "</select>";
+        return $htmlSelect;
+    }
     /*public static function personaIsInArray($idPersona, $ArrPersonas){
         if(count($ArrPersonas) > 0){
             foreach ($ArrPersonas as $Persona){

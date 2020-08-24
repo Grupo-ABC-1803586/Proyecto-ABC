@@ -45,7 +45,7 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
- var_dump($_POST);
+                var_dump($_POST);
             if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
                 $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
                 if($ProgramaFormacion->create()){
@@ -163,7 +163,7 @@ class ProgramaFormacionController{
         if(count($arrProgramaFormacion) > 0){
             foreach ($arrProgramaFormacion as $ProgramaFormacion)
                 if (!ProgramaFormacionController::ProgramaFormacionIsInArray($ProgramaFormacion->getId(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($ProgramaFormacion != "") ? (($defaultValue == $ProgramaFormacion->getId()) ? "selected" : "" ) : "")." value='".$ProgramaFormacion->getId()."'>".$ProgramaFormacion->getNombre()."</option>";
+                    $htmlSelect .= "<option ".(($ProgramaFormacion != "") ? (($defaultValue == $ProgramaFormacion->getId()) ? "selected" : "" ) : "")." value='".$ProgramaFormacion->getId()."'>".$ProgramaFormacion->getNombrePrograma()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;

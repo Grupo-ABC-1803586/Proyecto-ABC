@@ -118,10 +118,18 @@ use App\Controllers\PersonaController;
                     <div class="form-group row">
                         <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
                         <div class="col-sm-10">
-                            <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
+                            <input required type="password" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
                         </div>
                     </div>
-
+                    <div class="form-group row">
+                        <label for="Rol" class="col-sm-2 col-form-label">Estado</label>
+                        <div class="col-sm-10">
+                            <select id="Rol" name="Rol" class="custom-select">
+                                <option value="Disponible">Disponible</option>
+                                <option value="No Disponible">No Disponible</option>
+                            </select>
+                        </div>
+                    </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">Enviar</button>
