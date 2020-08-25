@@ -133,6 +133,30 @@
 
                     </ul>
                 </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Sanciones
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Sanciones/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Sanciones/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 </li>
 
             </ul>
