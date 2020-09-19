@@ -10,11 +10,14 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="Proyecto-ABC" uuid="7215a1b5-90b9-4c49-a80a-b8963b083106">
+    <data-source source="LOCAL" name="Proyecto-ABC" uuid="cdceebab-9e47-4358-8611-7f9e5e98ee56">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
     </data-source>
   </component>
 </project>

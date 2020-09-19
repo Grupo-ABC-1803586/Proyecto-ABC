@@ -109,20 +109,17 @@
 <<<<<<< HEAD:Views/modules/Prestamo/create.php
                             <label for="Observaciones" class="col-sm-2 col-form-label">Observaciones</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Observaciones" name="Observaciones" placeholder="Ingrese una breve descripcion del prestamo">
+                                <input required type="text" class="form-control" id="Observaciones" name="Observaciones" placeholder="Ingrese una breve descripcion del Kit">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
                             <div class="col-sm-10">
-                                <select id="Estado" name="Estado" class="custom-select">
-                                    <option value="Activo">Activo </option>
-                                    <option value="Inactivo">Inactivo </option>
-                                </select>
+                                <input required type="number" minlength="6" class="form-control" id="Estado" name="Estado" placeholder="Ingrese la placa del Kit">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="Persona" class="col-sm-2 col-form-label">Responsable</label>
+                            <label for="Persona" class="col-sm-2 col-form-label">Persona</label>
                             <div class="col-sm-10">
                                 <input required type="number" minlength="6" class="form-control" id="Persona" name="Persona" placeholder="Ingrese la placa del Kit">
                             </div>
