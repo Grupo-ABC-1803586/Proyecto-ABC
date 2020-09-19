@@ -1,0 +1,360 @@
+Index: App/models/ProgramaFormacion.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Models;\r\n\r\nrequire('BasicModel.php');\r\n\r\nclass ProgramaFormacion extends BasicModel\r\n{\r\n\r\n\r\n\r\n    private $Id;\r\n    private $FechaRegistro;\r\n    private $NumeroFicha;\r\n    private $FechaInicio;\r\n    private $FechaFinalizacion;\r\n    private $NombrePrograma;\r\n    private  $NivelPrograma;\r\n\r\n    /**\r\n     * ProgramaFormacion  constructor.\r\n     * @param $Id\r\n     * @param $FechaRegistro\r\n     * @param $NumeroFicha\r\n     * @param $FechaInicio\r\n     * @param $FechaFinalizacion\r\n     *\r\n     * @param $NombrePrograma\r\n     * @param $NivelPrograma\r\n\r\n     */\r\n    public function __construct($ProgramaFormacion = array())\r\n    {\r\n        parent::__construct(); //Llama al contructor padre \"la clase conexion\" para conectarme a la BD\r\n        $this->Id = $ProgramaFormacion['Id'] ?? null;\r\n        $this->FechaRegistro = $ProgramaFormacion['FechaRegistro'] ?? null;\r\n        $this->NumeroFicha =$ProgramaFormacion['NumeroFicha']?? null;\r\n        $this->FechaInicio =$ProgramaFormacion['FechaInicio']?? null;\r\n        $this->FechaFinalizacion =$ProgramaFormacion['FechaFinalizacion']?? null;\r\n        $this->NombrePrograma =$ProgramaFormacion['NombrePrograma']?? null;\r\n        $this->NivelPrograma =$ProgramaFormacion['NivelPrograma']?? null;\r\n\r\n\r\n\r\n    }\r\n\r\n    /* Metodo destructor cierra la conexion. */\r\n    public function getId(): int{\r\n        return $this->Id;\r\n    }\r\n    /**\r\n     * @param int $Id\r\n     */public function setId( int $Id): void\r\n{\r\n    $this->Id = $Id;\r\n}\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getFechaRegistro(): string\r\n    {\r\n        return $this->FechaRegistro;\r\n    }\r\n\r\n    /**\r\n     * @param string $FechaRegistro\r\n     */\r\n    public function setFechaRegistro(string $FechaRegistro): void\r\n    {\r\n        $this->FechaRegistro = $FechaRegistro;\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getNumeroFicha():string\r\n    {\r\n        return $this->NumeroFicha;\r\n    }\r\n\r\n    /**\r\n     * @param string $NumeroFicha\r\n     */\r\n    public function setNumeroFicha( string $NumeroFicha): void\r\n    {\r\n        $this->NumeroFicha = $NumeroFicha;\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getFechaInicio():string\r\n    {\r\n        return $this->FechaInicio;\r\n    }\r\n\r\n    /**\r\n     * @param string $fechaInicio\r\n     */\r\n    public function setFechaInicio($FechaInicio): void\r\n    {\r\n        $this->FechaInicio = $FechaInicio;\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getFechaFinalizacion():string\r\n    {\r\n        return $this->FechaFinalizacion;\r\n    }\r\n\r\n    /**\r\n     * @param string $fechaFinalizacion\r\n     */\r\n    public function setFechaFinalizacion(string $FechaFinalizacion): void\r\n    {\r\n        $this->fechaFinalizacion = $FechaFinalizacion;\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getNombrePrograma() :string\r\n    {\r\n        return $this->NombrePrograma;\r\n    }\r\n\r\n    /**\r\n     * @param string $nombrePrograma\r\n     */\r\n    public function setNombrePrograma(string $NombrePrograma): void\r\n    {\r\n        $this->NombrePrograma = $NombrePrograma;\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function getNivelPrograma():string\r\n    {\r\n        return $this->NivelPrograma;\r\n    }\r\n\r\n    /**\r\n     * @param string $NivelPrograma\r\n     */\r\n    public function setNivelPrograma(string $NivelPrograma): void\r\n    {\r\n        $this->NivelPrograma = $NivelPrograma;\r\n    }\r\n    /**\r\n     * @return string\r\n     */\r\n    public function create() : bool\r\n    {\r\n        $result = $this->insertRow(\"INSERT INTO proyecto_sena.ProgramaFormacion VALUES (NULL, ?, ?, ?, ?, ?, ? )\", array(\r\n                $this->FechaRegistro,\r\n                $this->NumeroFicha,\r\n                $this->FechaInicio,\r\n                $this->FechaFinalizacion,\r\n                $this->NombrePrograma,\r\n                $this->NivelPrograma,\r\n\r\n            )\r\n        );\r\n        $this->Disconnect();\r\n        return $result;\r\n    }\r\n\r\n    public function update() : bool\r\n    {\r\n        $result = $this->updateRow(\"UPDATE proyecto_sena.ProgramaFormacion SET FechaRegistro = ?,NumeroFicha = ?,FechaInicio = ?,FechaFinalizacion = ?,NombrePrograma = ?,NivelPrograma = ? WHERE Id = ?\", array(\r\n                $this->FechaRegistro,\r\n                $this->NumeroFicha,\r\n                $this->FechaInicio,\r\n                $this->FechaFinalizacion,\r\n                $this->NombrePrograma,\r\n                $this->NivelPrograma,\r\n                $this->Id\r\n            )\r\n        );\r\n        $this->Disconnect();\r\n        return $result;\r\n    }\r\n\r\n\r\n    public function deleted($Id) : void\r\n    {\r\n        // TODO: Implement deleted() method.\r\n    }\r\n\r\n    public static function search($query) : array\r\n    {\r\n        $arrProgramaFormacion = array();\r\n        $tmp = new ProgramaFormacion();\r\n        $getrows = $tmp->getRows($query);\r\n\r\n        foreach ($getrows as $valor) {\r\n            $ProgramaFormacion = new ProgramaFormacion();\r\n\r\n            $ProgramaFormacion->Id = $valor['Id'];\r\n            $ProgramaFormacion->FechaRegistro = $valor['FechaRegistro'];\r\n            $ProgramaFormacion->NumeroFicha = $valor['NumeroFicha'];\r\n            $ProgramaFormacion->FechaInicio = $valor['FechaInicio'];\r\n            $ProgramaFormacion->FechaFinalizacion = $valor['FechaFinalizacion'];\r\n            $ProgramaFormacion->NombrePrograma = $valor['NombrePrograma'];\r\n            $ProgramaFormacion->NivelPrograma = $valor['NivelPrograma'];\r\n\r\n            $ProgramaFormacion->Disconnect();\r\n            array_push($arrProgramaFormacion, $ProgramaFormacion);\r\n        }\r\n        return  $arrProgramaFormacion;\r\n    }\r\n\r\n        public static function searchForId($Id) : ProgramaFormacion\r\n    {\r\n        $ProgramaFormacion = null;\r\n        if ($Id > 0){\r\n            $ProgramaFormacion = new ProgramaFormacion();\r\n            $getrow = $ProgramaFormacion->getRow(\"SELECT * FROM proyecto_sena.ProgramaFormacion WHERE Id =?\", array($Id));\r\n            $ProgramaFormacion->Id = $getrow['Id'];\r\n            $ProgramaFormacion->FechaRegistro = $getrow['FechaRegistro'];\r\n            $ProgramaFormacion->NumeroFicha = $getrow['NumeroFicha'];\r\n            $ProgramaFormacion->FechaInicio = $getrow['FechaInicio'];\r\n            $ProgramaFormacion->FechaFinalizacion = $getrow['FechaFinalizacion'];\r\n            $ProgramaFormacion->NombrePrograma = $getrow['NombrePrograma'];\r\n            $ProgramaFormacion->NivelPrograma = $getrow['NivelPrograma'];\r\n\r\n        }\r\n        $ProgramaFormacion->Disconnect();\r\n        return $ProgramaFormacion;\r\n    }\r\n\r\n    public static function getAll() : array\r\n    {\r\n        return ProgramaFormacion::search(\"SELECT * FROM proyecto_sena.ProgramaFormacion\");\r\n    }\r\n\r\n    public static function ProgramaFormacionRegistrado ($NumeroFicha) : bool\r\n    {\r\n        $result = ProgramaFormacion::search(\"SELECT Id FROM proyecto_sena.ProgramaFormacion where NumeroFicha ='\".$NumeroFicha.\"'\");\r\n        if (count($result) > 0){\r\n            return true;\r\n        }else{\r\n            return false;\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/models/ProgramaFormacion.php	(revision 8b3f863c3aa40ca94cb6f0adbd1ab8385a68dc8f)
++++ App/models/ProgramaFormacion.php	(date 1596995020836)
+@@ -15,7 +15,7 @@
+     private $FechaInicio;
+     private $FechaFinalizacion;
+     private $NombrePrograma;
+-    private  $NivelPrograma;
++    private $NivelPrograma;
+ 
+     /**
+      * ProgramaFormacion  constructor.
+@@ -248,4 +248,4 @@
+         }
+     }
+ 
+-}
+\ No newline at end of file
++}
+Index: Views/modules/Persona/edit.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nrequire_once(\"../../partials/routes.php\");\r\nrequire_once(\"../../../App/Controllers/PersonaController.php\");\r\n\r\nuse App\\Controllers\\PersonaController; ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Editar Persona</title>\r\n    <?php require_once(\"../../partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require_once(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require_once(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Editar Nueva Persona</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta'])){ ?>\r\n                <?php if ($_GET['respuesta'] == \"error\"){ ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                            Error al crear la persona: <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } else if (empty($_GET['Documento'])) { ?>\r\n                <div class=\"alert alert-danger alert-dismissible\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                    <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                    Faltan criterios de busqueda <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                </div>\r\n            <?php } ?>\r\n\r\n            <!-- Horizontal Form -->\r\n            <div class=\"card card-info\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Horizontal Form</h3>\r\n                </div>\r\n                <!-- /.card-header -->\r\n                <?php if(!empty($_GET[\"Documento\"]) && isset($_GET[\"Documento\"])){ ?>\r\n                    <p>\r\n                    <?php\r\n                    $DataPersona = PersonaController::searchForID($_GET[\"Documento\"]);\r\n                        if(!empty($DataPersona)){\r\n                    ?>\r\n                            <!-- form start -->\r\n                            <form class=\"form-horizontal\" method=\"post\" id=\"frmEditPersona\" name=\"frmEditCPersona\" action=\"../../../App/Controllers/PersonaController.php?action=edit\">\r\n                                <input id=\"id\" name=\"id\" value=\"<?php echo $DataPersona->getId(); ?>\" hidden required=\"required\" type=\"text\">\r\n                                <div class=\"card-body\">\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"text\" class=\"form-control\" id=\"Nombre\" name=\"Nombre\" value=\"<?= $DataPersona->getNombre(); ?>\" placeholder=\"Ingrese sus nombres\">\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Apellido\" class=\"col-sm-2 col-form-label\">Apellido</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"text\" class=\"form-control\" id=\"Apellido\" name=\"Apellido\" value=\"<?= $DataPersona->getApellido(); ?>\" placeholder=\"Ingrese sus apellidos\">\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Telefono\" class=\"col-sm-2 col-form-label\">Telefono</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Telefono\" name=\"Telefono\" value=\"<?= $DataPersona->getTelefono(); ?>\" placeholder=\"Ingrese su documento\">\r\n\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Correo\" class=\"col-sm-2 col-form-label\">Correo</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"email\" minlength=\"6\" class=\"form-control\" id=\"Correo\" name=\"Correo\" value=\"<?= $DataPersona->getCategoria(); ?>\" placeholder=\"Ingrese su documento\">\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Contraseña\" class=\"col-sm-2 col-form-label\">Contraseña</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Contraseña\" name=\"Contraseña\" value=\"<?= $DataPersona->getContraseña(); ?>\" placeholder=\"Ingrese su contraseña\">\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Rol\" class=\"col-sm-2 col-form-label\">Rol</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <select id=\"Rol\" name=\"Rol\" class=\"custom-select\">\r\n                                                <option <?= ($DataPersona->getRol() == \"Intructor\") ? \"selected\":\"\"; ?> value=\"Intructor\">Instructor</option>\r\n                                                <option <?= ($DataPersona->getRol() == \"Aprendiz\") ? \"selected\":\"\"; ?> value=\"Aprendiz\">Aprendiz</option>\r\n                                            </select>\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Estado\" class=\"col-sm-2 col-form-label\">Estado</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <select id=\"Estado\" name=\"Estado\" class=\"custom-select\">\r\n                                                <option <?= ($DataPersona->getEstado() == \"Activo\") ? \"selected\":\"\"; ?> value=\"Activo\">Activo</option>\r\n                                                <option <?= ($DataPersona->getEstado() == \"Inactivo\") ? \"selected\":\"\"; ?> value=\"Inactivo\">Inactivo</option>\r\n                                            </select>\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                </div>\r\n                                <!-- /.card-body -->\r\n                                <div class=\"card-footer\">\r\n                                    <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                                    <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                                </div>\r\n                                <!-- /.card-footer -->\r\n                            </form>\r\n                    <?php }else{ ?>\r\n                            <div class=\"alert alert-danger alert-dismissible\">\r\n                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                                <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                                No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                            </div>\r\n                    <?php } ?>\r\n                    </p>\r\n                <?php } ?>\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require_once ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require_once ('../../partials/scripts.php');?>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Persona/edit.php	(revision 8b3f863c3aa40ca94cb6f0adbd1ab8385a68dc8f)
++++ Views/modules/Persona/edit.php	(date 1596994349210)
+@@ -1,8 +1,11 @@
+ <?php
+ require_once("../../partials/routes.php");
+ require_once("../../../App/Controllers/PersonaController.php");
++require_once("../../../App/Controllers/ProgramaFormacionController.php");
+ 
++use App\Controllers\ProgramaFormacionController;
+ use App\Controllers\PersonaController; ?>
++
+ <!DOCTYPE html>
+ <html>
+ <head>
+@@ -68,57 +71,66 @@
+                         if(!empty($DataPersona)){
+                     ?>
+                             <!-- form start -->
+-                            <form class="form-horizontal" method="post" id="frmEditPersona" name="frmEditCPersona" action="../../../App/Controllers/PersonaController.php?action=edit">
+-                                <input id="id" name="id" value="<?php echo $DataPersona->getId(); ?>" hidden required="required" type="text">
+-                                <div class="card-body">
++                            <div class="card-body">
++                                <form class="form-horizontal" method="post" id="frmCreatePersona" name="frmCreatePersona" action="../../../App/Controllers/PersonaController.php?action=create">
++                                    <div class="form-group row">
++                                        <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
++                                        <div class="col-sm-10">
++                                            <input required type="int" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su Documento ">
++                                        </div>
++                                    </div>
+                                     <div class="form-group row">
+                                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                                         <div class="col-sm-10">
+-                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataPersona->getNombre(); ?>" placeholder="Ingrese sus nombres">
++                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                         <label for="Apellido" class="col-sm-2 col-form-label">Apellido</label>
+                                         <div class="col-sm-10">
+-                                            <input required type="text" class="form-control" id="Apellido" name="Apellido" value="<?= $DataPersona->getApellido(); ?>" placeholder="Ingrese sus apellidos">
++                                            <input required type="text" class="form-control" id="Apellido" name="Apellido" placeholder="Ingrese sus apellidos">
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                         <label for="Telefono" class="col-sm-2 col-form-label">Telefono</label>
+                                         <div class="col-sm-10">
+-                                            <input required type="number" minlength="6" class="form-control" id="Telefono" name="Telefono" value="<?= $DataPersona->getTelefono(); ?>" placeholder="Ingrese su documento">
++                                            <input required type="number" minlength="6" class="form-control" id="Telefono" name="Telefono" placeholder="Ingrese su Telefono">
+ 
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+                                         <label for="Correo" class="col-sm-2 col-form-label">Correo</label>
+                                         <div class="col-sm-10">
+-                                            <input required type="email" minlength="6" class="form-control" id="Correo" name="Correo" value="<?= $DataPersona->getCategoria(); ?>" placeholder="Ingrese su documento">
++                                            <input required type="text" minlength="6" class="form-control" id="Correo" name="Correo" placeholder="Ingrese su Correo">
+                                         </div>
+                                     </div>
++
+                                     <div class="form-group row">
+-                                        <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
++                                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                                         <div class="col-sm-10">
+-                                            <input required type="number" minlength="6" class="form-control" id="Contraseña" name="Contraseña" value="<?= $DataPersona->getContraseña(); ?>" placeholder="Ingrese su contraseña">
++                                            <select id="Rol" name="Rol" class="custom-select">
++                                                <option value="Ap">Aprendiz</option>
++                                                <option value="In">Instructor</option>
++                                            </select>
+                                         </div>
+                                     </div>
+-
+                                     <div class="form-group row">
+-                                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
++                                        <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
+                                         <div class="col-sm-10">
+-                                            <select id="Rol" name="Rol" class="custom-select">
+-                                                <option <?= ($DataPersona->getRol() == "Intructor") ? "selected":""; ?> value="Intructor">Instructor</option>
+-                                                <option <?= ($DataPersona->getRol() == "Aprendiz") ? "selected":""; ?> value="Aprendiz">Aprendiz</option>
+-                                            </select>
++                                            <?= ProgramaFormacionController::selectProgramaFormacion(false,
++                                                true,
++                                                'ProgramaFormacion',
++                                                'ProgramaFormacion',
++                                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',
++                                                'form-control select2bs4 select2-info',
++                                                "")
++                                            ?>
+                                         </div>
+                                     </div>
+                                     <div class="form-group row">
+-                                        <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
++                                        <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
+                                         <div class="col-sm-10">
+-                                            <select id="Estado" name="Estado" class="custom-select">
+-                                                <option <?= ($DataPersona->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
+-                                                <option <?= ($DataPersona->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
+-                                            </select>
++                                            <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
+                                         </div>
+                                     </div>
+ 
+Index: Views/modules/Persona/create.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require_once(\"../../partials/routes.php\");\r\nrequire_once(\"../../../app/Controllers/ProgramaFormacionController.php\");\r\nrequire_once(\"../../../app/Controllers/PersonaController.php\");\r\n\r\nuse App\\Controllers\\ProgramaFormacionController;\r\nuse App\\Controllers\\PersonaController;\r\n\r\n?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Crear Persona</title>\r\n    <?php require_once(\"../../partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require_once(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require_once(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Crear un Nueva Persona</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta'])){ ?>\r\n                <?php if ($_GET['respuesta'] != \"correcto\"){ ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                            Error al crear persona: <?= $_GET['mensaje'] ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Horizontal Form -->\r\n            <div class=\"card card-info\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Horizontal Form</h3>\r\n                </div>\r\n                <!-- /.card-header -->\r\n                <!-- form start -->\r\n                <form class=\"form-horizontal\" method=\"post\" id=\"frmCreatePersona\" name=\"frmCreatePersona\" action=\"../../../App/Controllers/PersonaController.php?action=create\">\r\n                    <div class=\"card-body\">\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Documento\" class=\"col-sm-2 col-form-label\">Documento</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Documento\" name=\"Documento\" placeholder=\"Ingrese su documento\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" class=\"form-control\" id=\"Nombre\" name=\"Nombre\" placeholder=\"Ingrese su nombre\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Apellido\" class=\"col-sm-2 col-form-label\">Apellido</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" class=\"form-control\" id=\"Apellido\" name=\"Apellido\" placeholder=\"Ingrese sus apellidos\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Telefono\" class=\"col-sm-2 col-form-label\">Telefono</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Telefono\" name=\"Telefono\" placeholder=\"Ingrese su Telefono\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Correo\" class=\"col-sm-2 col-form-label\">Correo</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" minlength=\"6\" class=\"form-control\" id=\"Correo\" name=\"Correo\" placeholder=\"Ingrese su Correo\">\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"Rol\" class=\"col-sm-2 col-form-label\">Rol</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <select id=\"Rol\" name=\"Rol\" class=\"custom-select\">\r\n                                <option value=\"Ap\">Aprendiz</option>\r\n                                <option value=\"In\">Instructor</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"ProgramaFormacion\" class=\"col-sm-2 col-form-label\">Programa de Formacion</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <?= ProgramaFormacionController::selectProgramaFormacion(false,\r\n                                true,\r\n                                'ProgramaFormacion',\r\n                                'ProgramaFormacion',\r\n                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',\r\n                                'form-control select2bs4 select2-info',\r\n                                \"\")\r\n                            ?>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"Contraseña\" class=\"col-sm-2 col-form-label\">Contraseña</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <input required type=\"text\" minlength=\"6\" class=\"form-control\" id=\"Contraseña\" name=\"Contraseña\" placeholder=\"Ingrese su Contraseña\">\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- /.card-body -->\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                        <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                    </div>\r\n\r\n                    <!-- /.card-footer -->\r\n                </form>\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require_once ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require_once ('../../partials/scripts.php');?>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Persona/create.php	(revision 8b3f863c3aa40ca94cb6f0adbd1ab8385a68dc8f)
++++ Views/modules/Persona/create.php	(date 1596993685545)
+@@ -1,6 +1,6 @@
+ <?php require_once("../../partials/routes.php");
+-require_once("../../../app/Controllers/ProgramaFormacionController.php");
+-require_once("../../../app/Controllers/PersonaController.php");
++require_once("../../../App/Controllers/ProgramaFormacionController.php");
++require_once("../../../App/Controllers/PersonaController.php");
+ 
+ use App\Controllers\ProgramaFormacionController;
+ use App\Controllers\PersonaController;
+@@ -11,15 +11,19 @@
+ <head>
+     <title><?= getenv('TITLE_SITE') ?> | Crear Persona</title>
+     <?php require_once("../../partials/head_imports.php"); ?>
++    <!-- DataTables -->
++    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
++    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css">
++    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-buttons/css/buttons.bootstrap4.css">
+ </head>
+ <body class="hold-transition sidebar-mini">
+ 
+ <!-- Site wrapper -->
+ <div class="wrapper">
+     <?php require_once("../../partials/navbar_customization.php"); ?>
+-
+     <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
+ 
++
+     <!-- Content Wrapper. Contains page content -->
+     <div class="content-wrapper">
+         <!-- Content Header (Page header) -->
+@@ -31,7 +35,7 @@
+                     </div>
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
++                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
+                             <li class="breadcrumb-item active">Inicio</li>
+                         </ol>
+                     </div>
+@@ -57,16 +61,36 @@
+                 <div class="card-header">
+                     <h3 class="card-title">Horizontal Form</h3>
+                 </div>
++                <!-- Main content -->
++                <section class="content">
++                    <div class="container-fluid">
++                        <!-- /.row -->
++                        <div class="row">
++                            <div class="col-md-8">
++                                <div class="card card-warning">
++                                    <div class="card-header">
++                                        <h3 class="card-title"><i class="fas fa-tools"></i> &nbsp;<strong>
++                                                Persona</strong></h3>
++                                        <div class="card-tools">
++                                            <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
++                                                    data-source="create.php" data-source-selector="#card-refresh-content"
++                                                    data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
++                                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
++                                                        class="fas fa-expand"></i></button>
++                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
++                                                        class="fas fa-minus"></i></button>
++                                        </div>
++                                    </div>
+                 <!-- /.card-header -->
+                 <!-- form start -->
+-                <form class="form-horizontal" method="post" id="frmCreatePersona" name="frmCreatePersona" action="../../../App/Controllers/PersonaController.php?action=create">
+-                    <div class="card-body">
+-                        <div class="form-group row">
+-                            <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
+-                            <div class="col-sm-10">
+-                                <input required type="number" minlength="6" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su documento">
+-                            </div>
+-                        </div>
++                    <div class="card-body">
++                        <form class="form-horizontal" method="post" id="frmCreatePersona" name="frmCreatePersona" action="../../../App/Controllers/PersonaController.php?action=create">
++                            <div class="form-group row">
++                                <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
++                                <div class="col-sm-10">
++                                    <input required type="int" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su Documento ">
++                                </div>
++                            </div>
+                         <div class="form-group row">
+                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                             <div class="col-sm-10">
+@@ -92,7 +116,7 @@
+                                 <input required type="text" minlength="6" class="form-control" id="Correo" name="Correo" placeholder="Ingrese su Correo">
+                             </div>
+                         </div>
+-                    </div>
++
+                     <div class="form-group row">
+                         <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                         <div class="col-sm-10">
+@@ -127,7 +151,7 @@
+                         <button type="submit" class="btn btn-info">Enviar</button>
+                         <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                     </div>
+-
++                    </div>
+                     <!-- /.card-footer -->
+                 </form>
+             </div>
+@@ -141,5 +165,40 @@
+ </div>
+ <!-- ./wrapper -->
+ <?php require_once ('../../partials/scripts.php');?>
++    <!-- DataTables -->
++    <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/jszip/jszip.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js"></script>
++    <script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js"></script>
++
++    <script>
++        $(function () {
++            $('.datatable').DataTable({
++                "dom": 'Bfrtip',
++                "paging": true,
++                "lengthChange": true,
++                "searching": true,
++                "ordering": true,
++                "info": true,
++                "autoWidth": true,
++                "language": {
++                    "url": "../../components/Spanish.json" //Idioma
++                },
++                "buttons": [
++                    'copy', 'print', 'excel', 'pdf'
++                ],
++                "pagingType": "full_numbers",
++                "responsive": true,
++                "stateSave": true, //Guardar la configuracion del usuario
++            });
++        });
++    </script>
+ </body>
+ </html>
+Index: Views/modules/Persona/index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require_once(\"../../partials/routes.php\");\r\nrequire_once(\"../../../App/Controllers/PersonaController.php\");\r\n\r\nuse App\\Controllers\\PersonaController; ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Layout</title>\r\n    <?php require_once(\"../../partials/head_imports.php\"); ?>\r\n    <!-- DataTables -->\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-buttons/css/buttons.bootstrap4.css\">\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require_once(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require_once(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>CATEGORIAS</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>\r\n                <?php if ($_GET['respuesta'] == \"correcto\"){ ?>\r\n                    <div class=\"alert alert-success alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-check\"></i> Correcto!</h5>\r\n                        <?php if ($_GET['action'] == \"create\"){ ?>\r\n                            La persona ha sido creada con exito!\r\n                        <?php }else if($_GET['action'] == \"update\"){ ?>\r\n                            Los datos de la persona ha sido actualizada correctamente!\r\n                        <?php } ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Default box -->\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Gestionar Persona</h3>\r\n                    <div class=\"card-tools\">\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\">\r\n                            <i class=\"fas fa-minus\"></i></button>\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\">\r\n                            <i class=\"fas fa-times\"></i></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-auto mr-auto\"></div>\r\n                        <div class=\"col-auto\">\r\n                            <a role=\"button\" href=\"create.php\" class=\"btn btn-primary float-right\" style=\"margin-right: 5px;\">\r\n                                <i class=\"fas fa-plus\"></i> Crear Persona\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col\">\r\n                            <table id=\"tblPersona\" class=\"datatable table table-bordered table-striped\">\r\n                                <thead>\r\n                                <tr>\r\n                                    <th>Documento</th>\r\n                                    <th>Nombre</th>\r\n                                    <th>Apellido</th>\r\n                                    <th>Telefono</th>\r\n                                    <th>Correo</th>\r\n                                    <th>Rol</th>\r\n                                    <th>Contraseña</th>\r\n                                    <th>Programa de Formacion</th>\r\n                                    <th>Estado</th>\r\n\r\n\r\n                                </tr>\r\n                                </thead>\r\n                                <body>\r\n                                <?php\r\n                                $arrPersona = PersonaController::getAll();\r\n                                foreach ($arrPersona as $Persona){\r\n                                    ?>\r\n                                    <tr>\r\n\r\n                                        <td><?php echo $Persona->getNombre(); ?></td>\r\n                                        <td><?php echo $Persona->getApellido(); ?></td>\r\n                                        <td><?php echo $Persona->getTelefono(); ?></td>\r\n                                        <td><?php echo $Persona->getCorreo(); ?></td>\r\n                                        <td><?php echo $Persona->getRol(); ?></td>\r\n                                        <td><?php echo $Persona->getContraseña(); ?></td>\r\n                                        <td><?php echo $Persona->getProgramaformacion(); ?></td>\r\n                                        <td><?php echo $Persona->getEstado(); ?></td>\r\n                                        <td>\r\n                                            <a href=\"edit.php?id=<?php echo $Persona->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Actualizar\" class=\"btn docs-tooltip btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></a>\r\n                                            <a href=\"show.php?id=<?php echo $Persona->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Ver\" class=\"btn docs-tooltip btn-warning btn-xs\"><i class=\"fa fa-eye\"></i></a>\r\n                                            <?php if ($Persona->getEstado() != \"Activo\"){ ?>\r\n                                                <a href=\"../../../App/Controllers/PersonaController.php?action=activate&Id=<?php echo $Persona->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Activar\" class=\"btn docs-tooltip btn-success btn-xs\"><i class=\"fa fa-check-square\"></i></a>\r\n                                            <?php }else{ ?>\r\n                                                <a type=\"button\" href=\"../../../App/Controllers/PersonaController.php?action=inactivate&Id=<?php echo $Persona->getId(); ?>\" data-toggle=\"tooltip\" title=\"Inactivar\" class=\"btn docs-tooltip btn-danger btn-xs\"><i class=\"fa fa-times-circle\"></i></a>\r\n                                            <?php } ?>\r\n                                        </td>\r\n                                    </tr>\r\n                                <?php } ?>\r\n                                </body>\r\n                                <tfoot>\r\n                                <tr>\r\n\r\n                                    <th>Documento</th>\r\n                                    <th>Nombre</th>\r\n                                    <th>Apellido</th>\r\n                                    <th>Telefono</th>\r\n                                    <th>Correo</th>\r\n                                    <th>Rol</th>\r\n                                    <th>Contraseña</th>\r\n                                    <th>Programa de Formacion</th>\r\n                                    <th>Estado</th>\r\n                                </tr>\r\n                                </tfoot>\r\n                            </table>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!-- /.card-body -->\r\n                <div class=\"card-footer\">\r\n                    Pie de Página.\r\n                </div>\r\n                <!-- /.card-footer-->\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require_once ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require_once ('../../partials/scripts.php');?>\r\n<!-- DataTables -->\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/jszip/jszip.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js\"></script>\r\n\r\n<script>\r\n    $(function () {\r\n        $('.datatable').DataTable({\r\n            \"dom\": 'Bfrtip',\r\n            \"paging\": true,\r\n            \"lengthChange\": true,\r\n            \"searching\": true,\r\n            \"ordering\": true,\r\n            \"info\": true,\r\n            \"autoWidth\": true,\r\n            \"language\": {\r\n                \"url\": \"../../components/Spanish.json\" //Idioma\r\n            },\r\n            \"buttons\": [\r\n                'copy', 'print', 'excel', 'pdf'\r\n            ],\r\n            \"pagingType\": \"full_numbers\",\r\n            \"responsive\": true,\r\n            \"stateSave\" : true, //Guardar la configuracion del usuario\r\n        });\r\n    });\r\n</script>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Persona/index.php	(revision 8b3f863c3aa40ca94cb6f0adbd1ab8385a68dc8f)
++++ Views/modules/Persona/index.php	(date 1596991001930)
+@@ -27,11 +27,11 @@
+             <div class="container-fluid">
+                 <div class="row mb-2">
+                     <div class="col-sm-6">
+-                        <h1>CATEGORIAS</h1>
++                        <h1>Pagina Principal</h1>
+                     </div>
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
++                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
+                             <li class="breadcrumb-item active">Inicio</li>
+                         </ol>
+                     </div>
+@@ -59,7 +59,7 @@
+             <!-- Default box -->
+             <div class="card">
+                 <div class="card-header">
+-                    <h3 class="card-title">Gestionar Persona</h3>
++                    <h3 class="card-title">Listar Persona</h3>
+                     <div class="card-tools">
+                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                             <i class="fas fa-minus"></i></button>
+@@ -100,7 +100,7 @@
+                                 foreach ($arrPersona as $Persona){
+                                     ?>
+                                     <tr>
+-
++                                        <td><?php echo $Persona->getDocumento(); ?></td>
+                                         <td><?php echo $Persona->getNombre(); ?></td>
+                                         <td><?php echo $Persona->getApellido(); ?></td>
+                                         <td><?php echo $Persona->getTelefono(); ?></td>
+Index: App/Controllers/ProgramaFormacionController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Controllers;\r\nrequire(__DIR__ . '/../Models/ProgramaFormacion.php');\r\n\r\nuse App\\Models\\ProgramaFormacion;\r\n\r\n\r\nif(!empty($_GET['action'])){\r\n    ProgramaFormacionController::main($_GET['action']);\r\n}\r\n\r\nclass ProgramaFormacionController{\r\n\r\n    static function main($action)\r\n    {\r\n        if ($action == \"create\") {\r\n            ProgramaFormacionController::create();\r\n        } else if ($action == \"edit\") {\r\n            ProgramaFormacionController::edit();\r\n        } else if ($action == \"searchForId\") {\r\n            ProgramaFormacionController::searchForId($_REQUEST['id']);\r\n        } else if ($action == \"searchAll\") {\r\n            ProgramaFormacionController::getAll();\r\n        } else if ($action == \"activate\") {\r\n            ProgramaFormacionController::activate();\r\n        } else if ($action == \"inactivate\") {\r\n            ProgramaFormacionController::inactivate();\r\n        }/*else if ($action == \"login\"){\r\n            ProgramaFormacionController::login();\r\n        }else if($action == \"cerrarSession\"){\r\n            ProgramaFormacionController::cerrarSession();\r\n        }*/\r\n\r\n    }\r\n\r\n    static public function create()\r\n    {\r\n        try {\r\n\r\n            $arrayProgramaFormacion = array();\r\n            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];\r\n            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];\r\n            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];\r\n            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];\r\n            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];\r\n            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];\r\n var_dump($_POST);\r\n            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){\r\n                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);\r\n                if($ProgramaFormacion->create()){\r\n                    header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto\");\r\n                }\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado\");\r\n            }\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=\" . $e->getMessage());\r\n        }\r\n    }\r\n\r\n\r\n    static public function edit (){\r\n        try {\r\n            $arrayProgramaFormacion = array();\r\n            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];\r\n            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];\r\n            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];\r\n            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];\r\n            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];\r\n            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];\r\n\r\n            $arrayProgramaFormacion['Id'] = $_POST['Id'];\r\n\r\n            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);\r\n            $ProgramaFormacion->update();\r\n\r\n            header(\"Location: ../../views/modules/programaformacion/show.php?Id=\".$ProgramaFormacion->getId().\"&respuesta=correcto\");\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function activate (){\r\n        try {\r\n            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);\r\n\r\n            $ObjProgramaFormacion->setEstado(\"Activo\");\r\n            if($ObjProgramaFormacion->update()){\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function inactivate (){\r\n        try {\r\n            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);\r\n            $ObProgramaFormacion->setEstado(\"Inactivo\");\r\n            if($ObProgramaFormacion->update()){\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function searchForId ($id){\r\n        try {\r\n            return ProgramaFormacion::searchForId($id);\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../../views/modules/usuarios/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function getAll (){\r\n        try {\r\n            return ProgramaFormacion::getAll();\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    /*public static function personaIsInArray($idPersona, $ArrPersonas){\r\n        if(count($ArrPersonas) > 0){\r\n            foreach ($ArrPersonas as $Persona){\r\n                if($Persona->getIdPersona() == $idPersona){\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    static public function selectPersona ($isMultiple=false,\r\n                                          $isRequired=true,\r\n                                          $id=\"idConsultorio\",\r\n                                          $nombre=\"idConsultorio\",\r\n                                          $defaultValue=\"\",\r\n                                          $class=\"\",\r\n                                          $where=\"\",\r\n                                          $arrExcluir = array()){\r\n        $arrPersonas = array();\r\n        if($where != \"\"){\r\n            $base = \"SELECT * FROM persona WHERE \";\r\n            $arrPersonas = Persona::buscar($base.$where);\r\n        }else{\r\n            $arrPersonas = Persona::getAll();\r\n        }\r\n\r\n        $htmlSelect = \"<select \".(($isMultiple) ? \"multiple\" : \"\").\" \".(($isRequired) ? \"required\" : \"\").\" id= '\".$id.\"' name='\".$nombre.\"' class='\".$class.\"'>\";\r\n        $htmlSelect .= \"<option value='' >Seleccione</option>\";\r\n        if(count($arrPersonas) > 0){\r\n            foreach ($arrPersonas as $persona)\r\n                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))\r\n                    $htmlSelect .= \"<option \".(($persona != \"\") ? (($defaultValue == $persona->getIdPersona()) ? \"selected\" : \"\" ) : \"\").\" value='\".$persona->getIdPersona().\"'>\".$persona->getNombres().\" \".$persona->getApellidos().\"</option>\";\r\n        }\r\n        $htmlSelect .= \"</select>\";\r\n        return $htmlSelect;\r\n    }*/\r\n\r\n    /*\r\n    public function buscar ($Query){\r\n        try {\r\n            return Persona::buscar($Query);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function asociarEspecialidad (){\r\n        try {\r\n            $Persona = new Persona();\r\n            $Persona->asociarEspecialidad($_POST['Persona'],$_POST['Especialidad']);\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=correcto&id=\".$_POST['Persona']);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function eliminarEspecialidad (){\r\n        try {\r\n            $ObjPersona = new Persona();\r\n            if(!empty($_GET['Persona']) && !empty($_GET['Especialidad'])){\r\n                $ObjPersona->eliminarEspecialidad($_GET['Persona'],$_GET['Especialidad']);\r\n            }else{\r\n                throw new Exception('No se recibio la informacion necesaria.');\r\n            }\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?id=\".$_GET['Persona']);\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function login (){\r\n        try {\r\n            if(!empty($_POST['Usuario']) && !empty($_POST['Contrasena'])){\r\n                $tmpPerson = new Persona();\r\n                $respuesta = $tmpPerson->Login($_POST['Usuario'], $_POST['Contrasena']);\r\n                if (is_a($respuesta,\"Persona\")) {\r\n                    $hydrator = new ReflectionHydrator(); //Instancia de la clase para convertir objetos\r\n                    $ArrDataPersona = $hydrator->extract($respuesta); //Convertimos el objeto persona en un array\r\n                    unset($ArrDataPersona[\"datab\"],$ArrDataPersona[\"isConnected\"],$ArrDataPersona[\"relEspecialidades\"]); //Limpiamos Campos no Necesarios\r\n                    $_SESSION['UserInSession'] = $ArrDataPersona;\r\n                    echo json_encode(array('type' => 'success', 'title' => 'Ingreso Correcto', 'text' => 'Sera redireccionado en un momento...'));\r\n                }else{\r\n                    echo json_encode(array('type' => 'error', 'title' => 'Error al ingresar', 'text' => $respuesta)); //Si la llamda es por Ajax\r\n                }\r\n                return $respuesta; //Si la llamada es por funcion\r\n            }else{\r\n                echo json_encode(array('type' => 'error', 'title' => 'Datos Vacios', 'text' => 'Debe ingresar la informacion del usuario y contraseña'));\r\n                return \"Datos Vacios\"; //Si la llamada es por funcion\r\n            }\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            header(\"Location: ../login.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function cerrarSession (){\r\n        session_unset();\r\n        session_destroy();\r\n        header(\"Location: ../Vista/modules/persona/login.php\");\r\n    }*/\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/Controllers/ProgramaFormacionController.php	(revision 8b3f863c3aa40ca94cb6f0adbd1ab8385a68dc8f)
++++ App/Controllers/ProgramaFormacionController.php	(date 1596994008340)
+@@ -75,10 +75,10 @@
+             $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
+             $ProgramaFormacion->update();
+ 
+-            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
++            header("Location: ../../views/modules/ProgramaFormacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
+         } catch (\Exception $e) {
+             //var_dump($e);
+-            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
++            header("Location: ../../views/modules/ProgramaFormacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
+         }
+     }
+ 
+diff --git Views/modules/programaformacion/create.php Views/modules/ProgramaFormacion/create.php
+rename from Views/modules/programaformacion/create.php
+rename to Views/modules/ProgramaFormacion/create.php
+diff --git Views/modules/programaformacion/edit.php Views/modules/ProgramaFormacion/edit.php
+rename from Views/modules/programaformacion/edit.php
+rename to Views/modules/ProgramaFormacion/edit.php
+diff --git Views/modules/programaformacion/index.php Views/modules/ProgramaFormacion/index.php
+rename from Views/modules/programaformacion/index.php
+rename to Views/modules/ProgramaFormacion/index.php
+diff --git Views/modules/programaformacion/show.php Views/modules/ProgramaFormacion/show.php
+rename from Views/modules/programaformacion/show.php
+rename to Views/modules/ProgramaFormacion/show.php
