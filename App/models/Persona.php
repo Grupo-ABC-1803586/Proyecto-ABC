@@ -1,8 +1,9 @@
 <?php
 
 namespace App\models;
+require_once (__DIR__ .'/../../vendor/autoload.php');
+require_once('BasicModel.php');
 
-require('BasicModel.php');
 
 class Persona extends BasicModel
 {
@@ -17,7 +18,7 @@ class Persona extends BasicModel
     private $Estado;
 
     /* Relaciones */
-    private //$Programaformacion;         al integrar programa de formacion
+    //private $ProgramaFormacion;         al integrar programa de formacion
 
     /**
      * Personas constructor.
@@ -42,49 +43,13 @@ class Persona extends BasicModel
         $this->Correo = $Persona['Correo'] ?? null;
         $this->Rol = $Persona['Rol'] ?? null;
         $this->Contraseña= $Persona['Contraseña'] ?? null;
-        $this->Programaformacion = $Persona['Programaformacion'] ?? null;
+        $this->Programaformacion = $Persona['ProgramaFormacion'] ?? null;
         $this->Estado = $Persona['Estado'] ?? null;
     }
 
     /* Metodo destructor cierra la conexion. */
 
-    public static function getAll(): array
-    {
-        return Persona::search("SELECT * FROM proyecto_sena.Persona");
-    }
 
-    public static function search($query): array
-    {
-        $arrPersona = array();
-        $tmp = new Persona();
-        $getrows = $tmp->getRows($query);
-
-        foreach ($getrows as $valor) {
-            $Persona = new Persona();
-            $Persona->Documento = $valor['Documento'];
-            $Persona->Nombre = $valor['Nombre'];
-            $Persona->Apellido = $valor['Apellido'];
-            $Persona->Correo = $valor['Correo'];
-            $Persona->Rol = $valor['Rol'];
-            $Persona->Contraseña = $valor['Contraseña'];
-            $Persona->Programaformacion = $valor['Programaformacion'];
-            $Persona->Estado = $valor['Estado'];
-            $Persona->Disconnect();
-            array_push($arrPersonas, $Persona);
-        }
-        $tmp->Disconnect();
-        return $arrPersona;
-    }
-
-    public static function PersonaRegistrado($Nombre): bool
-    {
-        $result = Persona::search("SELECT Documento FROM proyecto_sena.Persona where Nombre = " . $Nombre);
-        if (count($result) > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     function __destruct()
     {
@@ -94,7 +59,7 @@ class Persona extends BasicModel
     /**
      * @return int
      */
-    public function getDocumento(): int
+    public function getId(): int
     {
         return $this->Documento;
     }
@@ -102,7 +67,7 @@ class Persona extends BasicModel
     /**
      * @param int Documento
      */
-    public function setDocumento(int $Documento): void
+    public function setId(int $Documento): void
     {
         $this->Documento = $Documento;
     }
@@ -204,17 +169,17 @@ class Persona extends BasicModel
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getProgramaformacion(): int
+    public function getProgramaformacion(): ProgramaFormacion
     {
         return $this->Programaformacion;
     }
 
     /**
-     * @param int $Programaformacion
+     * @param mixed $Programaformacion
      */
-    public function setProgramaformacion(int $Programaformacion): void
+    public function setProgramaformacion(ProgramaFormacion $Programaformacion): void
     {
         $this->Programaformacion = $Programaformacion;
     }
@@ -252,37 +217,9 @@ class Persona extends BasicModel
         $this->Disconnect();
         return $result;
     }
-
-    public function deleted($Documento): bool
-    {
-        $Nombre = Persona::searchForDocumento($Documento); //Buscando un Persona por documento
-        $Nombre->setEstado("Inactivo"); //Cambia el estado del Persona
-        return $Nombre->update();                    //Guarda los cambios..
-    }
-
-    public static function searchForDocumento($Documento): Persona
-    {
-        $Persona = null;
-        if ($Documento > 0) {
-            $Persona = new Persona();
-            $getrow = $Persona->getRow("SELECT * FROM proyecto_sena.Persona WHERE Documento =?", array($Documento));
-            $Persona->Documento = $getrow['Documento'];
-            $Persona->Nombre = $getrow['Nombre'];
-            $Persona->Apellido = $getrow['Apellido'];
-            $Persona->Telefono= $getrow['Telefono'];
-            $Persona->Correo = $getrow['Correo'];
-            $Persona->Rol = $getrow['Rol'];
-            $Persona->Contraseña= $getrow['Contraseña'];
-            $Persona->Programaformacion = $getrow['Programaformacion'];
-            $Persona->Estado = $getrow['Estado'];
-        }
-        $Persona->Disconnect();
-        return $Persona;
-    }
-
     public function update(): bool
     {
-        $result = $this->updateRow("UPDATE proyecto.Persona SET Nombre = ?, Apellido = ?, Telefono = ?, Correo = ?, Rol = ?, Contraseña = ?, Programaformacion = ?, Estado = ? WHERE Documento = ?", array(
+        $result = $this->updateRow("UPDATE proyecto.Persona SET Nombre = ?, Apellido = ?, Telefono = ?, Correo = ?, Rol = ?, Contraseña = ?, ProgramaFormacion = ?, Estado = ? WHERE Documento = ?", array(
 
                 $this->Nombre,
                 $this->Apellido,
@@ -297,6 +234,80 @@ class Persona extends BasicModel
         $this->Disconnect();
         return $result;
     }
+    public function deleted($Documento): bool
+    {
+        $Nombre = Persona::searchForDocumento($Documento); //Buscando un Persona por documento
+        $Nombre->setEstado("Inactivo"); //Cambia el estado del Persona
+        return $Nombre->update();                    //Guarda los cambios..
+    }
+
+
+    public static function search($query): array
+    {
+        $arrPersona = array();
+        $tmp = new Persona();
+        $getrows = $tmp->getRows($query);
+
+        foreach ($getrows as $valor) {
+            $Persona = new Persona();
+            $Persona->Documento = $valor['Documento'];
+            $Persona->Nombre = $valor['Nombre'];
+            $Persona->Apellido = $valor['Apellido'];
+            $Persona->Correo = $valor['Correo'];
+            $Persona->Rol = $valor['Rol'];
+            $Persona->Contraseña = $valor['Contraseña'];
+            $Persona->Programaformacion = $valor['ProgramaFormacion'];
+            $Persona->Estado = $valor['Estado'];
+            $Persona->Disconnect();
+            array_push($arrPersonas, $Persona);
+        }
+        $tmp->Disconnect();
+        return $arrPersona;
+    }
+    public static function searchForDocumento($Documento): Persona
+    {
+        $Persona = null;
+        if ($Documento > 0) {
+            $Persona = new Persona();
+            $getrow = $Persona->getRow("SELECT * FROM proyecto_sena.Persona WHERE Documento =?", array($Documento));
+            $Persona->Documento = $getrow['Documento'];
+            $Persona->Nombre = $getrow['Nombre'];
+            $Persona->Apellido = $getrow['Apellido'];
+            $Persona->Telefono= $getrow['Telefono'];
+            $Persona->Correo = $getrow['Correo'];
+            $Persona->Rol = $getrow['Rol'];
+            $Persona->Contraseña= $getrow['Contraseña'];
+            $Persona->Programaformacion = $getrow['ProgramaFormacion'];
+            $Persona->Estado = $getrow['Estado'];
+        }
+        $Persona->Disconnect();
+        return $Persona;
+    }
+    public static function getAll(): array
+    {
+        return Persona::search("SELECT * FROM proyecto_sena.Persona");
+    }
+
+    /**
+     * @param $documento
+     * @return bool
+     * @throws \Exception
+     */
+
+
+    public static function PersonaRegistrada($Nombre): bool
+    {
+        $result = Persona::search("SELECT Documento FROM proyecto_sena.Persona where Nombre = " . $Nombre);
+        if (count($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
 
     public function __toString()
     {

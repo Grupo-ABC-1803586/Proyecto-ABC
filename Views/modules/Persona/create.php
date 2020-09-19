@@ -1,14 +1,16 @@
-<?php require_once("../../partials/routes.php"); ?>
+<?php require_once("../../partials/routes.php");
+require_once("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../../app/Controllers/PersonaController.php");
+
+use App\Controllers\ProgramaFormacionController;
+use App\Controllers\PersonaController;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD:Views/modules/Persona/create.php
     <title><?= getenv('TITLE_SITE') ?> | Crear Persona</title>
     <?php require_once("../../partials/head_imports.php"); ?>
-=======
-    <title><?= getenv('TITLE_SITE') ?> | Crear Unidades</title>
-    <?php require("../../partials/head_imports.php"); ?>
->>>>>>> Yolixs:Views/modules/Unidades/create.php
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -25,19 +27,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-<<<<<<< HEAD:Views/modules/Persona/create.php
                         <h1>Crear un Nueva Persona</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
-=======
-                        <h1>Crear Nuevas Unidades</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
->>>>>>> Yolixs:Views/modules/Unidades/create.php
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -53,11 +47,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-<<<<<<< HEAD:Views/modules/Persona/create.php
                             Error al crear persona: <?= $_GET['mensaje'] ?>
-=======
-                            Error al crear Unidades: <?= $_GET['mensaje'] ?>
->>>>>>> Yolixs:Views/modules/Unidades/create.php
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -69,10 +59,15 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/UnidadesController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreatePersona" name="frmCreatePersona" action="../../../App/Controllers/PersonaController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-<<<<<<< HEAD:Views/modules/Persona/create.php
+                            <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
+                            <div class="col-sm-10">
+                                <input required type="number" minlength="6" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su documento">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
                                 <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
@@ -98,26 +93,27 @@
                             </div>
                         </div>
                     </div>
-=======
-                            <label for="Tipo" class="col-sm-2 col-form-label">Tipo</label>
-                            <div class="col-sm-10">
-                                <select id="Tipo" name="Tipo" class="custom-select">
-                                    <option value="Cantidad de sustancia">Cantidades de sustancia</option>
-                                    <option value="Intensidad de electricidad">Intensidad de electricidad</option>
-                                    <option value="Intensidad luminosa">Intensidad  luminosa</option>
-                                    <option value="Longitud">Longitud</option>
-                                    <option value="Masa">Masa</option>
-                                    <option value="Otra">Otra</option>
-                                </select>
-                            </div>
+                    <div class="form-group row">
+                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                        <div class="col-sm-10">
+                            <select id="Rol" name="Rol" class="custom-select">
+                                <option value="Ap">Aprendiz</option>
+                                <option value="In">Instructor</option>
+                            </select>
                         </div>
-                        <div class="form-group row">
-                            <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese nombre">
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
+                        <div class="col-sm-10">
+                            <?= ProgramaFormacionController::selectProgramaFormacion(false,
+                                true,
+                                'ProgramaFormacion',
+                                'ProgramaFormacion',
+                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',
+                                'form-control select2bs4 select2-info',
+                                "")
+                            ?>
                         </div>
->>>>>>> Yolixs:Views/modules/Unidades/create.php
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">Enviar</button>
@@ -129,6 +125,13 @@
                             <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
                         </div>
                     </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Enviar</button>
+                        <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                    </div>
+
                     <!-- /.card-footer -->
                 </form>
             </div>
@@ -137,12 +140,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-<<<<<<< HEAD:Views/modules/Persona/create.php
     <?php require_once ('../../partials/footer.php');?>
-=======
-    <?php require('../../partials/footer.php');?>
->>>>>>> Yolixs:Views/modules/Unidades/create.php
 </div>
 <!-- ./wrapper -->
 <?php require_once ('../../partials/scripts.php');?>
