@@ -17,11 +17,11 @@ abstract class BasicModel {
     //TODO: Agregar PHPDoc
     public $isConnected;
     protected $datab;
-    private $username = "proyecto_sena";
-    private $password = "Abc2020.";
+    private $username = "weber";
+    private $password = "weber2019";
     private $host = "localhost";
     private $driver = "mysql";
-    private $dbname = "proyecto_sena";
+    private $dbname = "weber";
 
     # métodos abstractos para ABM de clases que hereden
     abstract protected static function search($query);

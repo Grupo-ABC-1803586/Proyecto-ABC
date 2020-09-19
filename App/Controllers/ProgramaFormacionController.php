@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
 
 use App\Models\ProgramaFormacion;
@@ -37,7 +38,6 @@ class ProgramaFormacionController{
     static public function create()
     {
         try {
-
             $arrayProgramaFormacion = array();
             $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
             $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
@@ -45,7 +45,6 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
- var_dump($_POST);
             if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
                 $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
                 if($ProgramaFormacion->create()){
@@ -69,7 +68,6 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
-
             $arrayProgramaFormacion['Id'] = $_POST['Id'];
 
             $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
@@ -94,7 +92,7 @@ class ProgramaFormacionController{
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=".$e->getMessage());
+            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
@@ -109,7 +107,7 @@ class ProgramaFormacionController{
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error");
+            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
         }
     }
 
