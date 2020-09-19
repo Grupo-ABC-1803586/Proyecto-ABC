@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
 require(__DIR__ . '/../Models/Prestamo.php');
 
 
@@ -12,23 +11,10 @@ if(!empty($_GET['action'])){
 }
 
 class PrestamoController{
-=======
-require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
-
-use App\Models\ProgramaFormacion;
-
-
-if(!empty($_GET['action'])){
-    ProgramaFormacionController::main($_GET['action']);
-}
-
-class ProgramaFormacionController{
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
 
     static function main($action)
     {
         if ($action == "create") {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             PrestamoController::create();
         } else if ($action == "edit") {
             PrestamoController::edit();
@@ -40,32 +26,12 @@ class ProgramaFormacionController{
             PrestamoController::activate();
         } else if ($action == "inactivate") {
             PrestamoController::inactivate();
-
-=======
-            ProgramaFormacionController::create();
-        } else if ($action == "edit") {
-            ProgramaFormacionController::edit();
-        } else if ($action == "searchForId") {
-            ProgramaFormacionController::searchForId($_REQUEST['id']);
-        } else if ($action == "searchAll") {
-            ProgramaFormacionController::getAll();
-        } else if ($action == "activate") {
-            ProgramaFormacionController::activate();
-        } else if ($action == "inactivate") {
-            ProgramaFormacionController::inactivate();
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
-        }/*else if ($action == "login"){
-            ProgramaFormacionController::login();
-        }else if($action == "cerrarSession"){
-            ProgramaFormacionController::cerrarSession();
-        }*/
-
+        }
     }
 
     static public function create()
     {
         try {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             $arrayPrestamo = array();
             $arrayPrestamo['FechaPrestamo'] = $_POST['FechaPrestamo'];
             $arrayPrestamo['FechaEntrega'] = $_POST['FechaEntrega'];
@@ -82,34 +48,12 @@ class ProgramaFormacionController{
             }
         } catch (Exception $e) {
             header("Location: ../../views/modules/Prestamo/create.php?respuesta=error&mensaje=" . $e->getMessage());
-=======
-
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
- var_dump($_POST);
-            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
-                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
-                if($ProgramaFormacion->create()){
-                    header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto");
-                }
-            }else{
-                header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado");
-            }
-        } catch (Exception $e) {
-            header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
         }
     }
 
 
     static public function edit (){
         try {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             $arrayPrestamo['FechaPrestamo'] = $_POST['FechaPrestamo'];
             $arrayPrestamo['FechaEntrega'] = $_POST['FechaEntrega'];
             $arrayPrestamo['Descripcion'] = $_POST['Descripcion'];
@@ -122,31 +66,11 @@ class ProgramaFormacionController{
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/Prestamo/edit.php?respuesta=error&mensaje=".$e->getMessage());
-=======
-            $arrayProgramaFormacion = array();
-            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
-            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];
-            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];
-            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
-            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
-            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
-
-            $arrayProgramaFormacion['Id'] = $_POST['Id'];
-
-            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
-            $ProgramaFormacion->update();
-
-            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
         }
     }
 
     static public function activate (){
         try {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             $ObjPrestamo = Prestamo::searchForId($_GET['Id']);
             $ObjPrestamo->setEstado("Activo");
             if($ObjPrestamo->update()){
@@ -157,25 +81,11 @@ class ProgramaFormacionController{
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/Prestamo/index.php?respuesta=error&mensaje=".$e->getMessage());
-=======
-            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-
-            $ObjProgramaFormacion->setEstado("Activo");
-            if($ObjProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
-            }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=".$e->getMessage());
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
         }
     }
 
     static public function inactivate (){
         try {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             $ObjPrestamo = Prestamo::searchForId($_GET['Id']);
             $ObjPrestamo->setEstado("Inactivo");
             if($ObjPrestamo->update()){
@@ -192,24 +102,6 @@ class ProgramaFormacionController{
     static public function searchForID ($Id){
         try {
             return Prestamo::searchForId($Id);
-=======
-            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-            $ObProgramaFormacion->setEstado("Inactivo");
-            if($ObProgramaFormacion->update()){
-                header("Location: ../../views/modules/Programaformacion/index.php");
-            }else{
-                header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/Programaformacion/index.php?respuesta=error");
-        }
-    }
-
-    static public function searchForId ($id){
-        try {
-            return ProgramaFormacion::searchForId($id);
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
@@ -218,11 +110,7 @@ class ProgramaFormacionController{
 
     static public function getAll (){
         try {
-<<<<<<< HEAD:App/Controllers/PrestamoController.php
             return Prestamo::getAll();
-=======
-            return ProgramaFormacion::getAll();
->>>>>>> Yolixs:App/Controllers/ProgramaFormacionController.php
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
