@@ -90,9 +90,12 @@ use App\Controllers\PrestamoController; ?>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
+                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
                                         <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" Id="Estado" name="Estado" value="<?= $DataPrestamo->getEstado(); ?>" placeholder="Ingrese la placa del kit">
+                                            <select id="estado" name="estado" class="custom-select">
+                                                <option value="Activo">Activo </option>
+                                                <option value="Inactivo">Inactivo </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">

@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controllers;
-require_once(__DIR__.'/../Models/DetallePrestamo.php');
 require_once(__DIR__.'/../Models/GeneralFunctions.php');
-
+require_once(__DIR__.'/../Models/DetallePrestamo.php');
+require_once(__DIR__.'/../Models/Kit.php');
+require_once(__DIR__.'/../Models/Prestamo.php');
 use App\Models\GeneralFunctions;
-use App\Models\DetalleVentas;
-use App\Models\Productos;
-use App\Models\Ventas;
+use App\Models\DetallePrestamo;
+use App\Models\Prestamo;
+use App\Models\Kit;
 
 if(!empty($_GET['action'])){
     DetallePrestamoController::main($_GET['action']);
@@ -36,10 +37,10 @@ class DetallePrestamoController{
     {
         try {
             $arrayDetallePrestamo = array();
-            $arrayDetallePrestamo['ventas_id'] = Ventas::searchForId($_POST['ventas_id']);
-            $arrayDetallePrestamo['producto_id'] = Productos::searchForId($_POST['producto_id']);
-            $arrayDetallePrestamo['cantidad'] = $_POST['cantidad'];
-            $arrayDetallePrestamo['precio_venta'] = $_POST['fecha_venta'];
+            $arrayDetallePrestamo['Observaciones'] = $_POST['Observaciones'];
+            $arrayDetallePrestamo['Prestamo_id'] = Prestamo::searchForId($_POST['Prestamo_id']);
+            $arrayDetallePrestamo['Items_id'] = Items::searchForId($_POST['Items_id']);
+            $arrayDetallePrestamo['Kit_id'] = Kit::searchForId($_POST['Kit_id']);
             $DetallePrestamo = new DetallePrestamo($arrayDetallePrestamo);
             if($DetallePrestamo->create()){
                 header("Location: ../../views/modules/DetallePrestamo/index.php?respuesta=correcto");
@@ -53,12 +54,12 @@ class DetallePrestamoController{
     static public function edit (){
         try {
             $arrayDetallePrestamo = array();
-            $arrayDetallePrestamo['ventas_id'] = Ventas::searchForId($_POST['ventas_id']);
-            $arrayDetallePrestamo['producto_id'] = Productos::searchForId($_POST['producto_id']);
-            $arrayDetallePrestamo['cantidad'] = $_POST['cantidad'];
-            $arrayDetallePrestamo['precio_venta'] = $_POST['fecha_venta'];
-            $arrayDetallePrestamo['id'] = $_POST['id'];
-            $DetallePrestamo = new Ventas($arrayDetallePrestamo);
+            $arrayDetallePrestamo['Observaciones'] = $_POST['Observaciones'];
+            $arrayDetallePrestamo['Prestamo_id'] = Prestamo::searchForId($_POST['Prestamo_id']);
+            $arrayDetallePrestamo['Items_id'] = Items::searchForId($_POST['Items_id']);
+            $arrayDetallePrestamo['Kit_id'] = Kit::searchForId($_POST['Kit_id']);
+            $arrayDetallePrestamo['Id'] = $_POST['Id'];
+            $DetallePrestamo = new DetallePrestamo($arrayDetallePrestamo);
             $DetallePrestamo->update();
             header("Location: ../../views/modules/DetallePrestamo/show.php?id=".$DetallePrestamo>getId()."&respuesta=correcto");
         } catch (\Exception $e) {
@@ -78,7 +79,7 @@ class DetallePrestamoController{
 
     static public function getAll (){
         try {
-            return DetalleVentas::getAll();
+            return DetallePrestamo::getAll();
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'log', 'errorStack');
             header("Location: ../Vista/modules/DetallePrestamo/manager.php?respuesta=error");
