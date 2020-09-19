@@ -1,4 +1,11 @@
-<?php require_once("../../partials/routes.php"); ?>
+<?php require_once("../../partials/routes.php");
+require_once("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../../app/Controllers/PersonaController.php");
+
+use App\Controllers\ProgramaFormacionController;
+use App\Controllers\PersonaController;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +59,14 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/UsuariosController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreatePersona" name="frmCreatePersona" action="../../../App/Controllers/PersonaController.php?action=create">
                     <div class="card-body">
+                        <div class="form-group row">
+                            <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
+                            <div class="col-sm-10">
+                                <input required type="number" minlength="6" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su documento">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
@@ -80,10 +93,27 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-info">Enviar</button>
-                        <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                    <div class="form-group row">
+                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                        <div class="col-sm-10">
+                            <select id="Rol" name="Rol" class="custom-select">
+                                <option value="Ap">Aprendiz</option>
+                                <option value="In">Instructor</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
+                        <div class="col-sm-10">
+                            <?= ProgramaFormacionController::selectProgramaFormacion(false,
+                                true,
+                                'ProgramaFormacion',
+                                'ProgramaFormacion',
+                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',
+                                'form-control select2bs4 select2-info',
+                                "")
+                            ?>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
@@ -91,6 +121,13 @@
                             <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
                         </div>
                     </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Enviar</button>
+                        <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                    </div>
+
                     <!-- /.card-footer -->
                 </form>
             </div>

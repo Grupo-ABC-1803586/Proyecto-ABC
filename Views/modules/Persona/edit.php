@@ -1,8 +1,8 @@
 <?php
 require_once("../../partials/routes.php");
-require_once("../../../App/Controller/PersonaController.php");
+require_once("../../../App/Controllers/PersonaController.php");
 
-use App\Controller\PersonaController; ?>
+use App\Controllers\PersonaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,65 +64,74 @@ use App\Controller\PersonaController; ?>
                 <?php if(!empty($_GET["Documento"]) && isset($_GET["Documento"])){ ?>
                     <p>
                     <?php
-                    $DataPersona = CategoriaController::searchForID($_GET["Documento"]);
+                    $DataPersona = PersonaController::searchForID($_GET["Documento"]);
                         if(!empty($DataPersona)){
                     ?>
                             <!-- form start -->
-                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../app/Controllers/UsuariosController.php?action=edit">
+                            <form class="form-horizontal" method="post" id="frmEditPersona" name="frmEditCPersona" action="../../../App/Controllers/PersonaController.php?action=edit">
                                 <input id="id" name="id" value="<?php echo $DataPersona->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
+                                        <label for="Documento" class="col-sm-2 col-form-label">Documento</label>
+                                        <div class="col-sm-10">
+                                            <input required type="number" minlength="6" class="form-control" id="Documento" name="Documento" placeholder="Ingrese su documento">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataPersona->getNombre(); ?>" placeholder="Ingrese sus nombres">
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="Apellido" class="col-sm-2 col-form-label">Apellido</label>
                                         <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="Apellido" name="Apellido" value="<?= $DataPersona->getApellido(); ?>" placeholder="Ingrese sus apellidos">
+                                            <input required type="text" class="form-control" id="Apellido" name="Apellido" placeholder="Ingrese sus apellidos">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="Telefono" class="col-sm-2 col-form-label">Telefono</label>
                                         <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="Telefono" name="Telefono" value="<?= $DataPersona->getTelefono(); ?>" placeholder="Ingrese su documento">
+                                            <input required type="number" minlength="6" class="form-control" id="Telefono" name="Telefono" placeholder="Ingrese su Telefono">
 
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="Correo" class="col-sm-2 col-form-label">Correo</label>
                                         <div class="col-sm-10">
-                                            <input required type="email" minlength="6" class="form-control" id="Correo" name="Correo" value="<?= $DataPersona->getCategoria(); ?>" placeholder="Ingrese su documento">
+                                            <input required type="text" minlength="6" class="form-control" id="Correo" name="Correo" placeholder="Ingrese su Correo">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control" id="Contraseña" name="Contraseña" value="<?= $DataPersona->getContraseña(); ?>" placeholder="Ingrese su contraseña">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
-                                        <div class="col-sm-10">
-                                            <select id="Rol" name="Rol" class="custom-select">
-                                                <option <?= ($DataPersona->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                                <option <?= ($DataPersona->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
-                                        <div class="col-sm-10">
-                                            <select id="estado" name="estado" class="custom-select">
-                                                <option <?= ($DataPersona->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                                <option <?= ($DataPersona->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                 </div>
+                                <div class="form-group row">
+                                    <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                                    <div class="col-sm-10">
+                                        <select id="Rol" name="Rol" class="custom-select">
+                                            <option value="Ap">Aprendiz</option>
+                                            <option value="In">Instructor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
+                                    <div class="col-sm-10">
+                                        <?= ProgramaFormacionController::selectProgramaFormacion(false,
+                                            true,
+                                            'ProgramaFormacion',
+                                            'ProgramaFormacion',
+                                            (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',
+                                            'form-control select2bs4 select2-info',
+                                            "")
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
+                                    </div>
+                                </div>
+
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-info">Enviar</button>

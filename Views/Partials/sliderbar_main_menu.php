@@ -35,24 +35,7 @@
                             Inicio
                         </p>
                     </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/create.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Agregar
-                        </p>
-                    </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/edit.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Editar
-                        </p>
-                    </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/show.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Mostrar
-                        </p>
-                    </a>
+
                 </li>
                 <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
@@ -126,6 +109,30 @@
                         </li>
 
                     </ul>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Persona
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Persona/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Persona/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 </li>
 
             </ul>
