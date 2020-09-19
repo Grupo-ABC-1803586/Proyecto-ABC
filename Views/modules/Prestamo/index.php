@@ -1,7 +1,7 @@
 <?php require("../../partials/routes.php");
 require("../../../app/Controllers/PrestamoController.php");
 
-use App\Controllers\Controller; ?>
+use App\Controllers\PrestamoController; ?>
 <!DOCTYPE html>
 <html>
 <head>

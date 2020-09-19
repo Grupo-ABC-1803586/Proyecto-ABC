@@ -3,32 +3,38 @@
 
 namespace App\Models;
 
+use App\Controllers\DetallePrestamoController;
+
+
+
 require_once('BasicModel.php');
 
-class DetalleVentas extends BasicModel
+class DetallePrestamo extends BasicModel
 {
     private $Id;
     private $Observaciones;
-    private $Prestamo_id;
-    private $Items_id;
-    private $Kit_id;
+    private Prestamo $Prestamo_id;
+    private Items $Items_id;
+    private Kit $Kit_id;
 
     /**
      * DetallePrestamo constructor.
      * @param $Id
      * @param $Observaciones
-     * @param $Prestamo_id
-     * @param $Items_id
-     * @param $Kit_id
+     * @param $Prestamo_Id
+     * @param $Items_Id
+     * @param $Kit_Id
      */
     public function __construct($DetallePrestamo = array())
     {
         parent::__construct();
-        $this->id = $venta['id'] ?? null;
-        $this->nombres = $venta['nombres'] ?? null;
-        $this->precio = $venta['precio'] ?? null;
-        $this->stock = $venta['stock'] ?? null;
-        $this->estado = $venta['estado'] ?? null;
+        $this->Id = $DetallePrestamo['Id'] ?? null;
+        $this->Observaciones = $DetallePrestamo['Observaciones'] ?? null;
+        $this->Items_id = $DetallePrestamo['Items'] ?? new Items();
+        $this->Prestamo_id = $DetallePrestamo['Prestamo'] ?? new Prestamo();
+        $this->Kit_id = $DetallePrestamo['Kit'] ?? new Kit();
+
+
     }
 
     /**
@@ -40,83 +46,83 @@ class DetalleVentas extends BasicModel
     }
 
     /**
+     * @return int|mixed
+     */
+    public function getId(): int
+    {
+        return $this->Id;
+    }
+
+    /**
+     * @param int|mixed $Id
+     */
+    public function setId(int $Id): void
+    {
+        $this->Id = $Id;
+    }
+    /**
      * @return mixed|null
      */
-    public function getId(): ?mixed
+    public function getObservaciones(): ?mixed
     {
-        return $this->id;
+        return $this->Observaciones;
     }
 
     /**
-     * @param mixed|null $id
+     * @param mixed|null $Observaciones
      */
-    public function setId(?mixed $id): void
+    public function setObservaciones(?mixed $Observaciones): void
     {
-        $this->id = $id;
+        $this->Observaciones = $Observaciones;
+    }
+
+
+    /**
+     * @return Prestamo|mixed
+     */
+    public function getPrestamoId() : Prestamo
+    {
+        return $this->Prestamo_id;
     }
 
     /**
-     * @return mixed
+     * @param Prestamo|mixed $Prestamo_id
      */
-    public function getVentasId() : Ventas
+    public function setPrestamoId(Prestamo $Prestamo_id): void
     {
-        return $this->ventas_id;
-    }
-
-    /**
-     * @param mixed $ventas_id
-     */
-    public function setVentasId(Ventas $ventas_id): void
-    {
-        $this->ventas_id = $ventas_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProductoId() : Productos
-    {
-        return $this->producto_id;
-    }
-
-    /**
-     * @param mixed $producto_id
-     */
-    public function setProductoId(Productos $producto_id): void
-    {
-        $this->producto_id = $producto_id;
+        $this->$Prestamo_id = $Prestamo_id;
     }
 
     /**
      * @return mixed
      */
-    public function getCantidad()
+    public function getItemsId() : Items
     {
-        return $this->cantidad;
+        return $this->Items_id;
     }
 
     /**
-     * @param mixed $cantidad
+     * @param mixed $Items_Id
      */
-    public function setCantidad($cantidad): void
+    public function setItemsId(Items $Items_Id): void
     {
-        $this->cantidad = $cantidad;
+        $this->Items_id = $Items_Id;
     }
 
     /**
      * @return mixed
      */
-    public function getPrecioVenta()
+    public function getKitId()
     {
-        return $this->precio_venta;
+        return $this->Kit_id;
     }
 
     /**
-     * @param mixed $precio_venta
+     * @param mixed $Kit_Id
      */
-    public function setPrecioVenta($precio_venta): void
+    public function setKit($Kit_Id): void
     {
-        $this->precio_venta = $precio_venta;
+        $this->Kit_id = $Kit_Id;
     }
 
     /**
@@ -125,25 +131,25 @@ class DetalleVentas extends BasicModel
      */
     public static function search($query)
     {
-        $arrDetalleVenta = array();
-        $tmp = new DetalleVentas();
+        $arrDetallePrestamo = array();
+        $tmp = new DetallePrestamo();
         $getrows = $tmp->getRows($query);
 
         foreach ($getrows as $valor) {
-            $DetalleVenta = new DetalleVentas();
-            $DetalleVenta->id = $valor['id'];
-            $DetalleVenta->ventas_id = Ventas::searchForId($valor['ventas_id']);
-            $DetalleVenta->producto_id = Productos::searchForId($valor['producto_id']);
-            $DetalleVenta->cantidad = $valor['cantidad'];
-            $DetalleVenta->precio_venta = $valor['precio_venta'];
-            $DetalleVenta->Disconnect();
+            $DetallePrestamo = new DetallePrestamo();
+            $DetallePrestamo->Id = $valor['id'];
+            $DetallePrestamo->Observaciones = $valor['Observaciones'];
+            $DetallePrestamo->Itmes_id = Items::searchForId($valor['Items_id']);
+            $DetallePrestamo->Prestamo_id = Prestamo::searchForId($valor['Prestamo_id']);
+            $DetallePrestamo->Kit_id = Kit::searchForId($valor['Kit_id']);
+            $DetallePrestamo->Disconnect();
             if(count($getrows) == 1){ // Si solamente hay un registro encontrado devuelve este objeto y no un array
-                return $DetalleVenta;
+                return $DetallePrestamo;
             }
-            array_push($arrDetalleVenta, $DetalleVenta);
+            array_push($arrDetallePrestamo, $DetallePrestamo);
         }
         $tmp->Disconnect();
-        return $arrDetalleVenta;
+        return $arrDetallePrestamo;
     }
 
     /**
@@ -151,27 +157,27 @@ class DetalleVentas extends BasicModel
      */
     public static function getAll()
     {
-        return DetalleVentas::search("SELECT * FROM weber.detalle_ventas");
+        return DetallePrestamo::search("SELECT * FROM weber.proyecto_sena.DetallePrestamo");
     }
 
     /**
-     * @param $id
+     * @param $Id
      * @return mixed
      */
-    public static function searchForId($id)
+    public static function searchForId($Id)
     {
-        $DetalleVenta = null;
-        if ($id > 0) {
-            $DetalleVenta = new DetalleVentas();
-            $getrow = $DetalleVenta->getRow("SELECT * FROM weber.detalle_venta WHERE id =?", array($id));
-            $DetalleVenta->id = $getrow['id'];
-            $DetalleVenta->ventas_id = Ventas::searchForId($getrow['ventas_id']);
-            $DetalleVenta->producto_id = Productos::searchForId($getrow['producto_id']);
-            $DetalleVenta->cantidad = $getrow['cantidad'];
-            $DetalleVenta->precio_venta = $getrow['precio_venta'];
+        $DetallePrestamo = null;
+        if ($Id > 0) {
+            $DetallePrestamo = new DetallePrestamo();
+            $getrow = $DetallePrestamo->getRow("SELECT * FROM proyecto_sena.DetallePrestamo WHERE Id =?", array($Id));
+            $DetallePrestamo->Id = $getrow['Id'];
+            $DetallePrestamo->Observaciones = $getrow['Observaciones'];
+            $DetallePrestamo->Prestamo_Id = Prestamo::searchForId($getrow['Prestamo_id']);
+            $DetallePrestamo->Items_Id = Itmes::searchForId($getrow['Items_id']);
+            $DetallePrestamo->Kit_Id = Kit::searchForId($getrow['Kit_id']);
         }
-        $DetalleVenta->Disconnect();
-        return $DetalleVenta;
+        $DetallePrestamo->Disconnect();
+        return $DetallePrestamo;
     }
 
     /**
@@ -179,11 +185,11 @@ class DetalleVentas extends BasicModel
      */
     public function create()
     {
-        $result = $this->insertRow("INSERT INTO weber.detalle_venta VALUES (NULL, ?, ?, ?, ?)", array(
-                $this->ventas_id->getId(),
-                $this->producto_id->getId(),
-                $this->cantidad,
-                $this->precio_venta
+        $result = $this->insertRow("INSERT INTO proyecto_sena.DetallePrestamo VALUES (NULL, ?, ?, ?, ?)", array(
+                $this->Observaciones,
+                $this->Prestamo_id->getId(),
+                $this->Items_id->getId(),
+                $this->Kit_id->getId(),
             )
         );
         $this->Disconnect();
@@ -195,12 +201,12 @@ class DetalleVentas extends BasicModel
      */
     public function update()
     {
-        $result = $this->updateRow("UPDATE weber.detalle_venta SET ventas_id = ?, producto_id = ?, cantidad = ?, precio_venta = ? WHERE id = ?", array(
-                $this->ventas_id->getId(),
-                $this->producto_id->getId(),
-                $this->cantidad,
-                $this->precio_venta,
-                $this->id
+        $result = $this->updateRow("UPDATE proyecto_sena.DetallePrestamo SET Observaciones = ?, Prestamo_id = ?, Items_id = ?, Kit_id = ? WHERE Id = ?", array(
+                $this->Observaciones,
+                $this->Prestamo_id->getId(),
+                $this->Items_id->getId(),
+                $this->Kit_id->getId(),
+                $this->Id
             )
         );
         $this->Disconnect();
@@ -211,10 +217,10 @@ class DetalleVentas extends BasicModel
      * @param $id
      * @return mixed
      */
-    public function deleted($id)
+    public function deleted($Id)
     {
-        $DetalleVenta = DetalleVentas::searchForId($id); //Buscando un usuario por el ID
-        $deleterow = $DetalleVenta->deleteRow("DELETE FROM detalle_venta WHERE id = ?", array($id));
+        $DetallePrestamo = DetallePrestamo::searchForId($Id); //Buscando un usuario por el ID
+        $deleterow = $DetallePrestamo->deleteRow("DELETE FROM DetallePrestamo WHERE Id = ?", array($Id));
         return $deleterow;                    //Guarda los cambios..
     }
 

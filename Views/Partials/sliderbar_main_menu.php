@@ -28,7 +28,7 @@
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fas fa-home"></i>
                         <p>
                             Inicio
                         </p>
@@ -37,7 +37,7 @@
                 <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-user"></i>
+                        <i class="fas fa-tools"></i>
                         <p>
                             Kit
                             <i class="fas fa-angle-left right"></i>
@@ -46,53 +46,60 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Kit/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Kit/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
                     </ul>
                     <p>
-                        Prestamo
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
                         <i class="fas fa-angle-left right"></i>
+                        Prestamo
                     </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Prestamo/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Prestamo/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
                     </ul>
                     <p>
-                        Detalle Prestamo
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
                         <i class="fas fa-angle-left right"></i>
-                    </p>
+                        Detalle Prestamo
+                        </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/DetallePrestamo/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/DetallePrestamo/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
+                        </li>
+                    </ul>
+                    </a>
                         </li>
                     </ul>
                 </li>
