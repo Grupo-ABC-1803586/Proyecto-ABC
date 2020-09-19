@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Sancion</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear Nueva Categoria</h1>
+                        <h1>Crear Nueva Sancion</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -39,7 +39,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear la categoria: <?= $_GET['mensaje'] ?>
+                            Error al crear la Sancion: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -51,12 +51,12 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controllers/PersonaController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateSanciones" name="frmCreateSanciones" action="../../../App/Controllers/SancionesController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                            <label for="Tipo" class="col-sm-2 col-form-label">Tipo</label><!-- COMO HACER PARA QUE SEA ENUM-->
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese su nombre">
+                                <input required type="text" class="form-control" id="Tipo" name="Tipo" placeholder="Ingrese su nombre">
                             </div>
                         </div>
 
