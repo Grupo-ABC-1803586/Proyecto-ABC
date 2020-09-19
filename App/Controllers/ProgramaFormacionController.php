@@ -6,7 +6,6 @@ require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
 
 use App\Models\ProgramaFormacion;
 
-
 if(!empty($_GET['action'])){
     ProgramaFormacionController::main($_GET['action']);
 }
@@ -27,12 +26,6 @@ class ProgramaFormacionController{
             ProgramaFormacionController::activate();
         } else if ($action == "inactivate") {
             ProgramaFormacionController::inactivate();
-        }/*else if ($action == "login"){
-            ProgramaFormacionController::login();
-        }else if($action == "cerrarSession"){
-            ProgramaFormacionController::cerrarSession();
-        }*/
-
     }
 
     static public function create()
@@ -75,7 +68,6 @@ class ProgramaFormacionController{
 
             header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
-            //var_dump($e);
             header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
@@ -98,6 +90,22 @@ class ProgramaFormacionController{
 
     static public function inactivate (){
         try {
+            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+            $ObjProgramaFormacion->setEstado("Inactivo");
+            if($ObjProgramaFormacion->update()){
+                header("Location: ../../views/modules/ProgramaFormacion/index.php");
+            }else{
+                header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            //var_dump($e);
+            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error");
+        }
+    }
+
+    static public function searchForID ($Id){
+        try {
+            return Prestamo::searchForId($Id);
             $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
             $ObProgramaFormacion->setEstado("Inactivo");
             if($ObProgramaFormacion->update()){
