@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-require('Conexion.php');
+require('BasicModel.php');
 
 class categorias extends conexion
 {
