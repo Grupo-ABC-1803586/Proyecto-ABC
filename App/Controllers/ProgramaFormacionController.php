@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 require_once(__DIR__ . '/../Models/ProgramaFormacion.php');
 
 use App\Models\ProgramaFormacion;
@@ -45,7 +46,7 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
-                var_dump($_POST);
+
             if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
                 $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
                 if($ProgramaFormacion->create()){
@@ -69,7 +70,6 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
-
             $arrayProgramaFormacion['Id'] = $_POST['Id'];
 
             $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
