@@ -1,14 +1,13 @@
 <?php
-require_once("../../../app/Controllers/DetalleVentasController.php");
-require_once("../../../app/Controllers/VentasController.php");
-require_once("../../../app/Controllers/UsuariosController.php");
-require_once("../../../app/Controllers/ProductosController.php");
+require_once("../../../app/Controllers/DetallePrestamoController.php");
+require_once("../../../app/Controllers/KitController.php");
+require_once("../../../app/Controllers/PrestamoController.php");
+require_once("../../../app/Controllers/ItemsController.php");
 require("../../partials/routes.php");
 
-use App\Controllers\ProductosController;
-use App\Controllers\UsuariosController;
-use App\Controllers\VentasController;
-use App\Models\DetalleVentas;
+use App\Controllers\KitController;
+use App\Controllers\PrestamoController;
+use App\Models\DetallePrestamo;
 
 ?>
 
@@ -38,7 +37,7 @@ use App\Models\DetalleVentas;
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                    Error al crear la venta: <?= $_GET['mensaje'] ?>
+                    Error al crear el prestamo: <?= $_GET['mensaje'] ?>
                 </div>
             <?php } ?>
         <?php } ?>
@@ -48,11 +47,11 @@ use App\Models\DetalleVentas;
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear una Nueva Venta</h1>
+                        <h1>Crear un nuevo prestamo</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -68,8 +67,7 @@ use App\Models\DetalleVentas;
                     <div class="col-md-4">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Información de la
-                                    Venta</h3>
+                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Información del prestamo</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="create.php" data-source-selector="#card-refresh-content"
@@ -82,13 +80,13 @@ use App\Models\DetalleVentas;
                             </div>
 
                             <div class="card-body">
-                                <form class="form-horizontal" method="post" id="frmCreateVenta" name="frmCreateVenta"
-                                      action="../../../app/Controllers/VentasController.php?action=create">
+                                <form class="form-horizontal" method="post" id="frmDetallePrestamo" name="frmDetallePrestamo"
+                                      action="../../../app/Controllers/DetallePrestamoController.php?action=create">
 
                                     <?php
-                                    $dataVenta = null;
+                                    $dataDetallePrestamo = null;
                                     if (!empty($_GET['id'])) {
-                                        $dataVenta = VentasController::searchForID($_GET['id']);
+                                        $dataDetallePrestamo = DetallePrestamo::searchForID($_GET['Id']);
                                     }
                                     ?>
 

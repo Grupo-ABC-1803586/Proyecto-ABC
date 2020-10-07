@@ -16,6 +16,7 @@ class DetallePrestamo extends BasicModel
     private Prestamo $Prestamo_id;
     private Items $Items_id;
     private Kit $Kit_id;
+    private Persona $Persona_id;
 
     /**
      * DetallePrestamo constructor.

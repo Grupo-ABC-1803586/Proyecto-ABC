@@ -140,9 +140,9 @@ use App\Controllers\PersonaController;
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php require_once ('../../partials/footer.php');?>
+    <?php require_once('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require_once('../../partials/scripts.php');?>
 </body>
 </html>
