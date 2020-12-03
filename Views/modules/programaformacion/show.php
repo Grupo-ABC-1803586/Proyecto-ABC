@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/ProgramaFormacionController.php");
+require("../../../App/Controllers/ProgramaFormacionController.php");
 
 use App\Controllers\ProgramaFormacionController; ?>
 <!DOCTYPE html>

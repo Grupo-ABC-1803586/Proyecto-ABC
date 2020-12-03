@@ -27,32 +27,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
-                        <i class="fas fa-home"></i>
-                        <p>
-                            Inicio
-                        </p>
-                    </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/create.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Agregar
-                        </p>
-                    </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/edit.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Editar
-                        </p>
-                    </a>
-                    <a href="<?= $baseURL; ?>/Views/modules/Persona/show.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Mostrar
-                        </p>
-                    </a>
-                </li>
+
                 <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
@@ -82,7 +57,7 @@
                     <a href="#" class="nav-link active">
                         <i class="fas fa-toolbox"></i>
                         <p>
-                            Categoria
+                            CATEGORIA
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -106,7 +81,7 @@
                     <a href="#" class="nav-link active">
                         <i class="fas fa-tools"></i>
                         <p>
-                            Elemento
+                            ELEMENTO
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -126,12 +101,11 @@
 
                     </ul>
                 </li>
-                <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-
+                        <i class="fas fa-ruler-combined"></i>
                         <p>
-                            Unidades
+                            UNIDADES
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -151,16 +125,11 @@
                         </li>
 
                     </ul>
-
-
-
-
                 <li class="nav-item has-treeview menu-open">
-
                     <a href="#" class="nav-link active">
-
+                        <i class="fab fa-steam"></i>
                         <p>
-                            Marca
+                            MARCA
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -172,6 +141,7 @@
                                 <p>Listar</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Marca/create.php" class="nav-link">
                                 <i class="fas fa-plus-circle"></i>
@@ -181,91 +151,57 @@
 
                     </ul>
                 </li>
-                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-store"></i>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-archive"></i>
                         <p>
-                            Items
+                            ITEMS
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/index.php" class="nav-link">
                                 <i class="fas fa-eye"></i>
                                 <p>Listar</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/create.php" class="nav-link">
                                 <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
-                </li>
-                <li class="nav-header">Modulos Principales</li>
+
+
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon far fa-user"></i>
                         <p>
-                            Kit
+                            KIT
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Kit/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Kit/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
                     </ul>
-                    <p>
-                        Prestamo
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/Prestamo/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/Prestamo/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Registrar</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <p>
-                        Detalle Prestamo
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/DetallePrestamo/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestionar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/DetallePrestamo/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Registrar</p>
-                            </a>
-                        </li>
-                    </ul>
+
                 </li>
 
             </ul>

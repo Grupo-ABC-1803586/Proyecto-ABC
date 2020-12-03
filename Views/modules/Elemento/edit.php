@@ -62,11 +62,11 @@ use App\Controllers\ElementoController;
 
             <!-- Horizontal Form -->
             <div class="card card-warning">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-edit"></i> <strong> Elemento</strong></h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
-                                data-source="create.php" data-source-selector="#card-refresh-content"
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-edit"></i> <strong> Elemento</strong></h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                        data-source="create.php" data-source-selector="#card-refresh-content"
                                 data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
                         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
                                     class="fas fa-expand"></i></button>

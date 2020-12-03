@@ -130,7 +130,7 @@ use App\Controllers\ElementoController;
 
 
 
-                                    <hr>
+
                                     <button type="submit" class="btn btn-warning">Enviar</button>
                                     <a href="index.php" role="button" class="btn btn-dark float-right">Cancelar</a>
                                 </form>

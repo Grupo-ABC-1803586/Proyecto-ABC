@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/KitController.php");
+require("../../../App/Controllers/KitController.php");
 
 use App\Controllers\KitController; ?>
 <!DOCTYPE html>

@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Models;
-
 require_once('BasicModel.php');
 
 class Categoria extends BasicModel
 {
-
-
-
     private $Id;
     private $Nombre;
    
@@ -20,11 +16,11 @@ class Categoria extends BasicModel
     
 
      */
-    public function __construct($ProgramaFormacion = array())
+    public function __construct($Categoria = array())
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
-        $this->Id = $ProgramaFormacion['Id'] ?? null;
-        $this->Nombre = $ProgramaFormacion['Nombre'] ?? null;
+        $this->Id = $Categoria['Id'] ?? null;
+        $this->Nombre = $Categoria['Nombre'] ?? null;
 
 
 

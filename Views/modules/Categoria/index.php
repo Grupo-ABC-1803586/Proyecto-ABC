@@ -53,7 +53,7 @@ use App\Controllers\CategoriaController;
                         <?php if ($_GET['action'] == "create"){ ?>
                             El usuario ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del usuario han sido actualizados correctamente!
+                            Los datos de la categoria usuario han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
