@@ -1,7 +1,8 @@
 <?php require("../../partials/routes.php");
-require("../../../App/Controller/PersonaController.php");
+require("../../../App/Controllers/CategoriaController.php");
+require("../../../App/Controllers/PersonaController.php");
 
-use App\Controller\CategoriaController; ?>
+use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,8 +89,8 @@ use App\Controller\CategoriaController; ?>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrCategoria = CategoriaController::getAll();
-                                foreach ($arrCategoria as $Categoria){
+                                $arrayCategoria = CategoriaController::getAll();
+                                foreach ($arrayCategoria as $Categoria){
                                     ?>
                                     <tr>
                                         <td><?php echo $Categoria->getId(); ?></td>
@@ -98,11 +99,6 @@ use App\Controller\CategoriaController; ?>
                                         <td>
                                             <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                                             <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
-                                                <a href="../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

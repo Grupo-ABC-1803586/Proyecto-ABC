@@ -1,0 +1,211 @@
+Index: App/Controllers/ProgramaFormacionController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Controllers;\r\n\r\nrequire_once(__DIR__ . '/../Models/ProgramaFormacion.php');\r\n\r\nuse App\\Models\\ProgramaFormacion;\r\n\r\nif(!empty($_GET['action'])){\r\n    ProgramaFormacionController::main($_GET['action']);\r\n}\r\n\r\nclass ProgramaFormacionController{\r\n\r\n    static function main($action)\r\n    {\r\n        if ($action == \"create\") {\r\n            ProgramaFormacionController::create();\r\n        } else if ($action == \"edit\") {\r\n            ProgramaFormacionController::edit();\r\n        } else if ($action == \"searchForId\") {\r\n            ProgramaFormacionController::searchForId($_REQUEST['id']);\r\n        } else if ($action == \"searchAll\") {\r\n            ProgramaFormacionController::getAll();\r\n        } else if ($action == \"activate\") {\r\n            ProgramaFormacionController::activate();\r\n        } else if ($action == \"inactivate\") {\r\n            ProgramaFormacionController::inactivate();\r\n    }\r\n\r\n    static public function create()\r\n    {\r\n        try {\r\n\r\n            $arrayProgramaFormacion = array();\r\n            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];\r\n            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];\r\n            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];\r\n            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];\r\n            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];\r\n            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];\r\n\r\n            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){\r\n                $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);\r\n                if($ProgramaFormacion->create()){\r\n                    header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto\");\r\n                }\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado\");\r\n            }\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=\" . $e->getMessage());\r\n        }\r\n    }\r\n\r\n\r\n    static public function edit (){\r\n        try {\r\n            $arrayProgramaFormacion = array();\r\n            $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];\r\n            $arrayProgramaFormacion['NumeroFicha'] = $_POST['NumeroFicha'];\r\n            $arrayProgramaFormacion['FechaInicio'] = $_POST['FechaInicio'];\r\n            $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];\r\n            $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];\r\n            $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];\r\n            $arrayProgramaFormacion['Id'] = $_POST['Id'];\r\n\r\n            $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);\r\n            $ProgramaFormacion->update();\r\n\r\n            header(\"Location: ../../views/modules/programaformacion/show.php?Id=\".$ProgramaFormacion->getId().\"&respuesta=correcto\");\r\n        } catch (\\Exception $e) {\r\n            header(\"Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function activate (){\r\n        try {\r\n            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);\r\n\r\n            $ObjProgramaFormacion->setEstado(\"Activo\");\r\n            if($ObjProgramaFormacion->update()){\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function inactivate (){\r\n        try {\r\n            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);\r\n            $ObjProgramaFormacion->setEstado(\"Inactivo\");\r\n            if($ObjProgramaFormacion->update()){\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function searchForID ($Id){\r\n        try {\r\n            return Prestamo::searchForId($Id);\r\n            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);\r\n            $ObProgramaFormacion->setEstado(\"Inactivo\");\r\n            if($ObProgramaFormacion->update()){\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function searchForId ($id){\r\n        try {\r\n            return ProgramaFormacion::searchForId($id);\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../../views/modules/usuarios/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function getAll (){\r\n        try {\r\n            return ProgramaFormacion::getAll();\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function ProgramaFormacionIsInArray($Id, $ArrProgramaFormacion){\r\n        if(count($ArrProgramaFormacion) > 0){\r\n            foreach ($ArrProgramaFormacion as $ProgramaFormacion){\r\n                if($ProgramaFormacion->getIdProgramaFormacion() == $Id){\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    static public function selectProgramaFormacion ($isMultiple=false,\r\n                                          $isRequired=true,\r\n                                          $Id=\"ProgramaFormacion\",\r\n                                          $NombrePrograma=\"ProgramaFormacion\",\r\n                                          $defaultValue=\"\",\r\n                                          $class=\"\",\r\n                                          $where=\"\",\r\n                                          $arrExcluir = array()){\r\n        $arrProgramaFormacion = array();\r\n        if($where != \"\"){\r\n            $base = \"SELECT * FROM ProgramaFormacion WHERE \";\r\n            $arrProgramaFormacion = ProgramaFormacion::search($base.$where);\r\n        }else{\r\n            $arrProgramaFormacion = ProgramaFormacion::getAll();\r\n        }\r\n\r\n        $htmlSelect = \"<select \".(($isMultiple) ? \"multiple\" : \"\").\" \".(($isRequired) ? \"required\" : \"\").\" id= '\".$Id.\"' name='\".$NombrePrograma.\"' class='\".$class.\"'>\";\r\n        $htmlSelect .= \"<option value='' >Seleccione</option>\";\r\n        if(count($arrProgramaFormacion) > 0){\r\n            foreach ($arrProgramaFormacion as $ProgramaFormacion)\r\n                if (!ProgramaFormacionController::ProgramaFormacionIsInArray($ProgramaFormacion->getId(),$arrExcluir))\r\n                    $htmlSelect .= \"<option \".(($ProgramaFormacion != \"\") ? (($defaultValue == $ProgramaFormacion->getId()) ? \"selected\" : \"\" ) : \"\").\" value='\".$ProgramaFormacion->getId().\"'>\".$ProgramaFormacion->getNombrePrograma().\"</option>\";\r\n        }\r\n        $htmlSelect .= \"</select>\";\r\n        return $htmlSelect;\r\n    }\r\n\r\n    /*\r\n    public function buscar ($Query){\r\n        try {\r\n            return ProgramaFormacion::buscar($Query);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function asociarEspecialidad (){\r\n        try {\r\n            $ProgramaFormacion = new ProgramaFormacion();\r\n            $ProgramaFormacion->asociarEspecialidad($_POST['ProgramaFormacion'],$_POST['Especialidad']);\r\n            header(\"Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?respuesta=correcto&id=\".$_POST['ProgramaFormacion']);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function eliminarEspecialidad (){\r\n        try {\r\n            $ObjProgramaFormacion = new ProgramaFormacion();\r\n            if(!empty($_GET['ProgramaFormacion']) && !empty($_GET['Especialidad'])){\r\n                $ObjProgramaFormacion->eliminarEspecialidad($_GET['ProgramaFormacion'],$_GET['Especialidad']);\r\n            }else{\r\n                throw new Exception('No se recibio la informacion necesaria.');\r\n            }\r\n            header(\"Location: ../Vista/modules/ProgramaFormacion/managerSpeciality.php?id=\".$_GET['ProgramaFormacion']);\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/ProgramaFormacion/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function login (){\r\n        try {\r\n            if(!empty($_POST['Usuario']) && !empty($_POST['Contrasena'])){\r\n                $tmpPerson = new ProgramaFormacion();\r\n                $respuesta = $tmpPerson->Login($_POST['Usuario'], $_POST['Contrasena']);\r\n                if (is_a($respuesta,\"ProgramaFormacion\")) {\r\n                    $hydrator = new ReflectionHydrator(); //Instancia de la clase para convertir objetos\r\n                    $ArrDataProgramaFormacion = $hydrator->extract($respuesta); //Convertimos el objeto ProgramaFormacion en un array\r\n                    unset($ArrDataProgramaFormacion[\"datab\"],$ArrDataProgramaFormacion[\"isConnected\"],$ArrDataProgramaFormacion[\"relEspecialidades\"]); //Limpiamos Campos no Necesarios\r\n                    $_SESSION['UserInSession'] = $ArrDataProgramaFormacion;\r\n                    echo json_encode(array('type' => 'success', 'title' => 'Ingreso Correcto', 'text' => 'Sera redireccionado en un momento...'));\r\n                }else{\r\n                    echo json_encode(array('type' => 'error', 'title' => 'Error al ingresar', 'text' => $respuesta)); //Si la llamda es por Ajax\r\n                }\r\n                return $respuesta; //Si la llamada es por funcion\r\n            }else{\r\n                echo json_encode(array('type' => 'error', 'title' => 'Datos Vacios', 'text' => 'Debe ingresar la informacion del usuario y contraseña'));\r\n                return \"Datos Vacios\"; //Si la llamada es por funcion\r\n            }\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            header(\"Location: ../login.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function cerrarSession (){\r\n        session_unset();\r\n        session_destroy();\r\n        header(\"Location: ../Vista/modules/ProgramaFormacion/login.php\");\r\n    }*/\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/Controllers/ProgramaFormacionController.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ App/Controllers/ProgramaFormacionController.php	(date 1606322747851)
+@@ -10,7 +10,8 @@
+     ProgramaFormacionController::main($_GET['action']);
+ }
+ 
+-class ProgramaFormacionController{
++class ProgramaFormacionController
++{
+ 
+     static function main($action)
+     {
+@@ -26,9 +27,9 @@
+             ProgramaFormacionController::activate();
+         } else if ($action == "inactivate") {
+             ProgramaFormacionController::inactivate();
+-    }
++        }
+ 
+-    static public function create()
++        static public function create()
+     {
+         try {
+ 
+@@ -40,12 +41,12 @@
+             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
+             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
+ 
+-            if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
++            if (!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])) {
+                 $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
+-                if($ProgramaFormacion->create()){
++                if ($ProgramaFormacion->create()) {
+                     header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=correcto");
+                 }
+-            }else{
++            } else {
+                 header("Location: ../../views/modules/ProgramaFormacion/create.php?respuesta=error&mensaje=Usuario ya registrado");
+             }
+         } catch (Exception $e) {
+@@ -54,7 +55,8 @@
+     }
+ 
+ 
+-    static public function edit (){
++    static public function edit()
++    {
+         try {
+             $arrayProgramaFormacion = array();
+             $arrayProgramaFormacion['FechaRegistro'] = $_POST['FechaRegistro'];
+@@ -68,35 +70,37 @@
+             $ProgramaFormacion = new ProgramaFormacion($arrayProgramaFormacion);
+             $ProgramaFormacion->update();
+ 
+-            header("Location: ../../views/modules/programaformacion/show.php?Id=".$ProgramaFormacion->getId()."&respuesta=correcto");
++            header("Location: ../../views/modules/programaformacion/show.php?Id=" . $ProgramaFormacion->getId() . "&respuesta=correcto");
+         } catch (\Exception $e) {
+-            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=".$e->getMessage());
++            header("Location: ../../views/modules/programaformacion/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+         }
+     }
+ 
+-    static public function activate (){
++    static public function activate()
++    {
+         try {
+             $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+ 
+             $ObjProgramaFormacion->setEstado("Activo");
+-            if($ObjProgramaFormacion->update()){
++            if ($ObjProgramaFormacion->update()) {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php");
+-            }else{
++            } else {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
+             }
+         } catch (\Exception $e) {
+             //var_dump($e);
+-            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=".$e->getMessage());
++            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=" . $e->getMessage());
+         }
+     }
+ 
+-    static public function inactivate (){
++    static public function inactivate()
++    {
+         try {
+             $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+             $ObjProgramaFormacion->setEstado("Inactivo");
+-            if($ObjProgramaFormacion->update()){
++            if ($ObjProgramaFormacion->update()) {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php");
+-            }else{
++            } else {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
+             }
+         } catch (\Exception $e) {
+@@ -105,14 +109,15 @@
+         }
+     }
+ 
+-    static public function searchForID ($Id){
++    static public function searchForID($Id)
++    {
+         try {
+             return Prestamo::searchForId($Id);
+             $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+             $ObProgramaFormacion->setEstado("Inactivo");
+-            if($ObProgramaFormacion->update()){
++            if ($ObProgramaFormacion->update()) {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php");
+-            }else{
++            } else {
+                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
+             }
+         } catch (\Exception $e) {
+@@ -121,7 +126,8 @@
+         }
+     }
+ 
+-    static public function searchForId ($id){
++    static public function searchForId($id)
++    {
+         try {
+             return ProgramaFormacion::searchForId($id);
+         } catch (\Exception $e) {
+@@ -130,7 +136,8 @@
+         }
+     }
+ 
+-    static public function getAll (){
++    static public function getAll()
++    {
+         try {
+             return ProgramaFormacion::getAll();
+         } catch (\Exception $e) {
+@@ -139,10 +146,11 @@
+         }
+     }
+ 
+-    public static function ProgramaFormacionIsInArray($Id, $ArrProgramaFormacion){
+-        if(count($ArrProgramaFormacion) > 0){
+-            foreach ($ArrProgramaFormacion as $ProgramaFormacion){
+-                if($ProgramaFormacion->getIdProgramaFormacion() == $Id){
++    public static function ProgramaFormacionIsInArray($Id, $ArrProgramaFormacion)
++    {
++        if (count($ArrProgramaFormacion) > 0) {
++            foreach ($ArrProgramaFormacion as $ProgramaFormacion) {
++                if ($ProgramaFormacion->getIdProgramaFormacion() == $Id) {
+                     return true;
+                 }
+             }
+@@ -150,28 +158,29 @@
+         return false;
+     }
+ 
+-    static public function selectProgramaFormacion ($isMultiple=false,
+-                                          $isRequired=true,
+-                                          $Id="ProgramaFormacion",
+-                                          $NombrePrograma="ProgramaFormacion",
+-                                          $defaultValue="",
+-                                          $class="",
+-                                          $where="",
+-                                          $arrExcluir = array()){
++    static public function selectProgramaFormacion($isMultiple = false,
++                                                   $isRequired = true,
++                                                   $Id = "ProgramaFormacion",
++                                                   $NombrePrograma = "ProgramaFormacion",
++                                                   $defaultValue = "",
++                                                   $class = "",
++                                                   $where = "",
++                                                   $arrExcluir = array())
++    {
+         $arrProgramaFormacion = array();
+-        if($where != ""){
++        if ($where != "") {
+             $base = "SELECT * FROM ProgramaFormacion WHERE ";
+-            $arrProgramaFormacion = ProgramaFormacion::search($base.$where);
+-        }else{
++            $arrProgramaFormacion = ProgramaFormacion::search($base . $where);
++        } else {
+             $arrProgramaFormacion = ProgramaFormacion::getAll();
+         }
+ 
+-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$Id."' name='".$NombrePrograma."' class='".$class."'>";
++        $htmlSelect = "<select " . (($isMultiple) ? "multiple" : "") . " " . (($isRequired) ? "required" : "") . " id= '" . $Id . "' name='" . $NombrePrograma . "' class='" . $class . "'>";
+         $htmlSelect .= "<option value='' >Seleccione</option>";
+-        if(count($arrProgramaFormacion) > 0){
++        if (count($arrProgramaFormacion) > 0) {
+             foreach ($arrProgramaFormacion as $ProgramaFormacion)
+-                if (!ProgramaFormacionController::ProgramaFormacionIsInArray($ProgramaFormacion->getId(),$arrExcluir))
+-                    $htmlSelect .= "<option ".(($ProgramaFormacion != "") ? (($defaultValue == $ProgramaFormacion->getId()) ? "selected" : "" ) : "")." value='".$ProgramaFormacion->getId()."'>".$ProgramaFormacion->getNombrePrograma()."</option>";
++                if (!ProgramaFormacionController::ProgramaFormacionIsInArray($ProgramaFormacion->getId(), $arrExcluir))
++                    $htmlSelect .= "<option " . (($ProgramaFormacion != "") ? (($defaultValue == $ProgramaFormacion->getId()) ? "selected" : "") : "") . " value='" . $ProgramaFormacion->getId() . "'>" . $ProgramaFormacion->getNombrePrograma() . "</option>";
+         }
+         $htmlSelect .= "</select>";
+         return $htmlSelect;
+@@ -242,4 +251,5 @@
+         header("Location: ../Vista/modules/ProgramaFormacion/login.php");
+     }*/
+ 
++}
+ }
+\ No newline at end of file

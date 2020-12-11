@@ -156,7 +156,7 @@ class Sanciones extends BasicModel
      */
     public static function getAll()
     {
-        return Elemento::search("SELECT * FROM proyecto_sena.Sanciones");
+        return Sanciones::search("SELECT * FROM proyecto_sena.Sanciones");
     }
 
     /**

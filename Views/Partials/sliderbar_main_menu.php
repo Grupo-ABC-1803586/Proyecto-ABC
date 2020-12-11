@@ -18,7 +18,7 @@
                 <img src="<?= $baseURL ?>/views/components/img/universo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">William Diaz</a>
+                <a href="#" class="d-block">Proyect</a>
             </div>
         </div>
 

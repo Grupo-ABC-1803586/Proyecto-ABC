@@ -97,6 +97,7 @@ use App\Controllers\PersonaController;
                         <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
                         <div class="col-sm-10">
                             <select id="Rol" name="Rol" class="custom-select">
+                                <option value="Ad">Administrador</option>
                                 <option value="Ap">Aprendiz</option>
                                 <option value="In">Instructor</option>
                             </select>

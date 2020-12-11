@@ -1,0 +1,609 @@
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m___Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m___Default_Changelist_.xml	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m___Default_Changelist_.xml	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m__[Default_Changelist]" date="1597088624122" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m__[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 10/08/2020 02:43 p. m. [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: App/models/Categorias.php
+===================================================================
+--- App/models/Categorias.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ App/models/Categorias.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
+@@ -1,180 +0,0 @@
+-<?php
+-
+-namespace App\Models;
+-
+-require('BasicModel.php');
+-
+-class categorias extends conexion
+-{
+-    private $id;
+-    private $nombre;
+-
+-
+-
+-    /**
+-     * categorias constructor.
+-     * @param $id
+-     * @param $nombre
+-
+-     */
+-    public function __construct($categorias = array())
+-    {
+-        parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
+-        $this->id = $categorias['id'] ?? null;
+-        $this->nombre = $categorias['nombre'] ?? null;
+-
+-
+-    }
+-
+-    /* Metodo destructor cierra la conexion. */
+-    function __destruct() {
+-        $this->Disconnect();
+-    }
+-
+-    /**
+-     * @return int
+-     */
+-    public function getId() : int
+-    {
+-        return $this->id;
+-    }
+-
+-    /**
+-     * @param int $id
+-     */
+-    public function setId(int $id): void
+-    {
+-        $this->id = $id;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getNombres() : string
+-    {
+-        return $this->nombre;
+-    }
+-
+-    /**
+-     * @param string $nombre
+-     */
+-    public function setNombres(string $nombre): void
+-    {
+-        $this->nombre = $nombre;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-
+-    /**
+-     * @return string
+-     */
+-    public function getUser() : string
+-    {
+-        return $this->user;
+-    }
+-
+-    /**
+-     * @param string $user
+-     */
+-    public function setUser(string $user): void
+-    {
+-        $this->user = $user;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-
+-    public function create() : bool
+-    {
+-        $result = $this->insertRow("INSERT INTO weber.usuarios VALUES (NULL, ?)", array(
+-            $this->nombres,
+-
+-            )
+-        );
+-        $this->Disconnect();
+-        return $result;
+-    }
+-
+-    public function update() : bool
+-    {
+-        $result = $this->updateRow("UPDATE weber.usuarios SET nombre = ?, WHERE id = ?", array(
+-                $this->nombre,
+-                $this->id
+-            )
+-        );
+-        $this->Disconnect();
+-        return $result;
+-    }
+-
+-    public function deleted($id) : void
+-    {
+-        // TODO: Implement deleted() method.
+-    }
+-
+-    public static function search($query) : array
+-    {
+-        $arrUsuarios = array();
+-        $tmp = new categorias();
+-        $getrows = $tmp->getRows($query);
+-
+-        foreach ($getrows as $valor) {
+-            $Usuario = new categorias();
+-            $Usuario->id = $valor['id'];
+-            $Usuario->nombres = $valor['nombres'];
+-            $Usuario->apellidos = $valor['apellidos'];
+-            $Usuario->tipo_documento = $valor['tipo_documento'];
+-            $Usuario->documento = $valor['documento'];
+-            $Usuario->telefono = $valor['telefono'];
+-            $Usuario->direccion = $valor['direccion'];
+-            $Usuario->user = $valor['user'];
+-            $Usuario->password = $valor['password'];
+-            $Usuario->rol = $valor['rol'];
+-            $Usuario->estado = $valor['estado'];
+-            $Usuario->Disconnect();
+-            array_push($arrUsuarios, $Usuario);
+-        }
+-        $tmp->Disconnect();
+-        return $arrUsuarios;
+-    }
+-
+-    public static function searchForId($id) : categorias
+-    {
+-        $Usuario = null;
+-        if ($id > 0){
+-            $Usuario = new categorias();
+-            $getrow = $Usuario->getRow("SELECT * FROM weber.usuarios WHERE id =?", array($id));
+-            $Usuario->id = $getrow['id'];
+-            $Usuario->nombres = $getrow['nombres'];
+-            $Usuario->apellidos = $getrow['apellidos'];
+-            $Usuario->tipo_documento = $getrow['tipo_documento'];
+-            $Usuario->documento = $getrow['documento'];
+-            $Usuario->telefono = $getrow['telefono'];
+-            $Usuario->direccion = $getrow['direccion'];
+-            $Usuario->user = $getrow['user'];
+-            $Usuario->password = $getrow['password'];
+-            $Usuario->rol = $getrow['rol'];
+-            $Usuario->estado = $getrow['estado'];
+-        }
+-        $Usuario->Disconnect();
+-        return $Usuario;
+-    }
+-
+-    public static function getAll() : array
+-    {
+-        return categorias::search("SELECT * FROM weber.usuarios");
+-    }
+-
+-    public static function usuarioRegistrado ($documento) : bool
+-    {
+-        $result = categorias::search("SELECT id FROM weber.usuarios where documento = ".$documento);
+-        if (count($result) > 0){
+-            return true;
+-        }else{
+-            return false;
+-        }
+-    }
+-
+-}
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m__[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m__[Default_Changelist]/shelved.patch	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ .idea/shelf/Uncommitted_changes_before_Checkout_at_10_08_2020_02_43_p__m__[Default_Changelist]/shelved.patch	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
+@@ -1,1 +0,0 @@
+-diff --git .idea/shelf/Uncommitted_changes_before_Update_at_09_08_2020_12_53_p__m___Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_09_08_2020_12_53_p__m___Default_Changelist_.xml
+Index: App/models/Sanciones.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\n\r\nnamespace App\\Models;\r\n\r\nrequire_once('BasicModel.php');\r\n\r\n\r\nclass Sanciones extends BasicModel\r\n{\r\n    private $Id;\r\n    private $Tipo;\r\n    private $Prestamo;\r\n    private $Descripcion;\r\n    private $Estado;\r\n\r\n\r\n\r\n    /**\r\n     * Elemento constructor.\r\n     * @param $Id\r\n     * @param $Tipo\r\n     * @param $Prestamo\r\n     * @param $Descripcion\r\n     * @param $Estado\r\n\r\n\r\n     */\r\n    public function __construct($Sanciones = array())\r\n    {\r\n        parent::__construct();\r\n        $this->Id = $Sanciones['Id'] ?? null;\r\n        $this->Tipo = $Sanciones['Tipo'] ?? null;\r\n        $this->Descripcion = $Sanciones['Descripcion'] ?? null;\r\n        $this->Prestamo = $Sanciones['Prestamo'] ?? null;\r\n        $this->Estado = $Sanciones['Estado'] ?? null;\r\n\r\n\r\n    }\r\n\r\n    /**\r\n     *\r\n     */\r\n    function __destruct()\r\n    {\r\n        $this->Disconnect();\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function getId()\r\n    {\r\n        return $this->Id;\r\n    }\r\n\r\n    /**\r\n     * @param mixed $Id\r\n     */\r\n    public function setId($Id): void\r\n    {\r\n        $this->Id = $Id;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function getTipo()\r\n    {\r\n        return $this->Tipo;\r\n    }\r\n\r\n    /**\r\n     * @param mixed $Tipo\r\n     */\r\n    public function setTipo($Tipo): void\r\n    {\r\n        $this->Tipo = $Tipo;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function getDescripcion()\r\n    {\r\n        return $this->Descripcion;\r\n    }\r\n\r\n    /**\r\n     * @param mixed $Descripcion\r\n     */\r\n    public function setDescripcion($Descripcion ): void\r\n    {\r\n        $this->Descripcion = $Descripcion;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function getPrestamo()\r\n    {\r\n        return $this->Prestamo;\r\n    }\r\n\r\n    /**\r\n     * @param mixed $Prestamo\r\n     */\r\n    public function setPrestamo($Prestamo): void\r\n    {\r\n        $this->Prestamo = $Prestamo;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function getEstado()\r\n    {\r\n        return $this->Estado;\r\n    }\r\n\r\n    /**\r\n     * @param mixed $Serie\r\n     */\r\n    public function setEstado($Estado): void\r\n    {\r\n        $this->Estado = $Estado;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n\r\n    public static function search($query)\r\n    {\r\n\r\n        $arrSanciones = array();\r\n        $tmp = new Sanciones();\r\n        $getrows = $tmp->getRows($query);\r\n\r\n        foreach ($getrows as $valor) {\r\n            $Sanciones = new Sanciones();\r\n            $Sanciones->Id = $valor['Id'];\r\n            $Sanciones->Tipo = $valor['Tipo'];\r\n            $Sanciones->Descripcion = $valor['Descripcion'];\r\n            $Sanciones->Prestamo = Prestamo::searchForId($valor['Prestamo']);\r\n            $Sanciones->Estado = $valor['Estado'];\r\n            $Sanciones->Disconnect();\r\n            array_push($arrSanciones, $Sanciones);\r\n        }\r\n        $tmp->Disconnect();\r\n        return $arrSanciones;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public static function getAll()\r\n    {\r\n        return Elemento::search(\"SELECT * FROM proyecto_sena.Sanciones\");\r\n    }\r\n\r\n    /**\r\n     * @param $Id\r\n     * @return mixed\r\n     */\r\n    public static function searchForId($Id)\r\n    {\r\n        $Sanciones = null;\r\n        if ($Id > 0) {\r\n            $Sanciones = new Sanciones();\r\n            $getrow = $Sanciones->getRow(\"SELECT * FROM proyecto_sena.Sanciones WHERE Id =?\", array($Id));\r\n            $Sanciones->Id = $getrow['Id'];\r\n            $Sanciones->Tipo = $getrow['Tipo'];\r\n            $Sanciones->Descripcion = $getrow['Descripcion'];\r\n            $Sanciones->Prestamo = Prestamo::searchForId($getrow['Prestamo']);\r\n            $Sanciones->Estado = $getrow['Estado'];\r\n\r\n        }\r\n        $Sanciones->Disconnect();\r\n        return $Sanciones;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function create()\r\n    {\r\n        $result = $this->insertRow(\"INSERT INTO proyecto_sena.Sanciones VALUES (NULL, ?, ?, ?, ?)\", array(\r\n                $this->Tipo,\r\n                $this->Descripcion,\r\n                $this->Prestamo->getId(),\r\n                $this->Estado\r\n\r\n            )\r\n        );\r\n        $this->setId(($result) ? $this->getLastId() : null);\r\n        $this->Disconnect();\r\n        return $result;\r\n    }\r\n\r\n    /**\r\n     * @return mixed\r\n     */\r\n    public function update()\r\n    {\r\n        $result = $this->updateRow(\"UPDATE proyecto_sena.Sanciones SET Tipo = ?, Descripcion = ?, Prestamo= ?, Estado = ? WHERE Id = ?\", array(\r\n                $this->Tipo,\r\n                $this->Descripcion,\r\n                $this->Prestamo->getId(),\r\n                $this->Estado,\r\n                $this->Id\r\n            )\r\n        );\r\n        $this->Disconnect();\r\n        return $result;\r\n    }\r\n\r\n    /**\r\n     * @param $Id\r\n     * @return mixed\r\n     */\r\n    public function deleted($Id)\r\n    {\r\n        $Sanciones = Elemento::searchForId($Id); //Buscando una Sancion por el ID\r\n        $Sanciones->setEstado(\"Inactivo\"); //Cambia el estado de la sancion\r\n        return $Sanciones->update();                    //Guarda los cambios..\r\n    }\r\n\r\n    /**\r\n     * @return string\r\n     */\r\n    public function __toString()\r\n    {\r\n        return \"Tipo: $this->Tipo, Descripcion: $this->Descripcion, Prestamo: $this->Prestamo, Estado: $this->estado\";\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/models/Sanciones.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ App/models/Sanciones.php	(date 1607607275831)
+@@ -156,7 +156,7 @@
+      */
+     public static function getAll()
+     {
+-        return Elemento::search("SELECT * FROM proyecto_sena.Sanciones");
++        return Sanciones::search("SELECT * FROM proyecto_sena.Sanciones");
+     }
+ 
+     /**
+Index: Views/modules/Persona/create.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require_once(\"../../partials/routes.php\");\r\nrequire_once(\"../../../app/Controllers/ProgramaFormacionController.php\");\r\nrequire_once(\"../../../app/Controllers/PersonaController.php\");\r\n\r\nuse App\\Controllers\\ProgramaFormacionController;\r\nuse App\\Controllers\\PersonaController;\r\n\r\n?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Crear Persona</title>\r\n    <?php require_once(\"../../partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require_once(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require_once(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Crear un Nueva Persona</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta'])){ ?>\r\n                <?php if ($_GET['respuesta'] != \"correcto\"){ ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                            Error al crear persona: <?= $_GET['mensaje'] ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Horizontal Form -->\r\n            <div class=\"card card-info\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Horizontal Form</h3>\r\n                </div>\r\n                <!-- /.card-header -->\r\n                <!-- form start -->\r\n                <form class=\"form-horizontal\" method=\"post\" id=\"frmCreatePersona\" name=\"frmCreatePersona\" action=\"../../../App/Controllers/PersonaController.php?action=create\">\r\n                    <div class=\"card-body\">\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Documento\" class=\"col-sm-2 col-form-label\">Documento</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Documento\" name=\"Documento\" placeholder=\"Ingrese su documento\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" class=\"form-control\" id=\"Nombre\" name=\"Nombre\" placeholder=\"Ingrese su nombre\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Apellido\" class=\"col-sm-2 col-form-label\">Apellido</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" class=\"form-control\" id=\"Apellido\" name=\"Apellido\" placeholder=\"Ingrese sus apellidos\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Telefono\" class=\"col-sm-2 col-form-label\">Telefono</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"number\" minlength=\"6\" class=\"form-control\" id=\"Telefono\" name=\"Telefono\" placeholder=\"Ingrese su Telefono\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Correo\" class=\"col-sm-2 col-form-label\">Correo</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" minlength=\"6\" class=\"form-control\" id=\"Correo\" name=\"Correo\" placeholder=\"Ingrese su Correo\">\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"Rol\" class=\"col-sm-2 col-form-label\">Rol</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <select id=\"Rol\" name=\"Rol\" class=\"custom-select\">\r\n                                <option value=\"Ap\">Aprendiz</option>\r\n                                <option value=\"In\">Instructor</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"ProgramaFormacion\" class=\"col-sm-2 col-form-label\">Programa de Formacion</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <?= ProgramaFormacionController::selectProgramaFormacion(false,\r\n                                true,\r\n                                'ProgramaFormacion',\r\n                                'ProgramaFormacion',\r\n                                (!empty($dataPersona)) ? $dataPersona->getProgramaFormacion()->getId() : '',\r\n                                'form-control select2bs4 select2-info',\r\n                                \"\")\r\n                            ?>\r\n                        </div>\r\n                    <!-- /.card-body -->\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                        <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"Contraseña\" class=\"col-sm-2 col-form-label\">Contraseña</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <input required type=\"password\" minlength=\"6\" class=\"form-control\" id=\"Contraseña\" name=\"Contraseña\" placeholder=\"Ingrese su Contraseña\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group row\">\r\n                        <label for=\"Rol\" class=\"col-sm-2 col-form-label\">Estado</label>\r\n                        <div class=\"col-sm-10\">\r\n                            <select id=\"Rol\" name=\"Rol\" class=\"custom-select\">\r\n                                <option value=\"Disponible\">Disponible</option>\r\n                                <option value=\"No Disponible\">No Disponible</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <!-- /.card-body -->\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                        <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                    </div>\r\n\r\n                    <!-- /.card-footer -->\r\n                </form>\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n    <?php require_once ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require_once ('../../partials/scripts.php');?>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Persona/create.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/modules/Persona/create.php	(date 1607607275792)
+@@ -97,6 +97,7 @@
+                         <label for="Rol" class="col-sm-2 col-form-label">Rol</label>
+                         <div class="col-sm-10">
+                             <select id="Rol" name="Rol" class="custom-select">
++                                <option value="Ad">Administrador</option>
+                                 <option value="Ap">Aprendiz</option>
+                                 <option value="In">Instructor</option>
+                             </select>
+Index: Views/index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require(\"partials/routes.php\"); ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Home</title>\r\n    <?php require(\"partials/head_imports.php\"); ?>\r\n    <link rel=\"img\" href=\"/cate.ico\" type=\"image/x-icon\">\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require(\"partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Inicio</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/views/index.php\"><?= getenv('ALIASE_SITE') ?></a></li>\r\n                            <li class=\"breadcrumb-item active\">Home</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <!-- Default box -->\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">ABC</h3>\r\n                    <div class=\"card-tools\">\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\">\r\n                            <i class=\"fas fa-minus\"></i></button>\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\">\r\n                            <i class=\"fas fa-times\"></i></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    Contenido del modulo\r\n                </div>\r\n                <!-- /.card-body -->\r\n                <div class=\"card-footer\">\r\n                    Pie de Página.\r\n                </div>\r\n                <!-- /.card-footer-->\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require('partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('partials/scripts.php');?>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/index.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/index.php	(date 1607635971908)
+@@ -3,16 +3,16 @@
+ <html>
+ <head>
+     <title><?= getenv('TITLE_SITE') ?> | Home</title>
+-    <?php require("partials/head_imports.php"); ?>
++    <?php require("Partials/head_imports.php"); ?>
+     <link rel="img" href="/cate.ico" type="image/x-icon">
+ </head>
+ <body class="hold-transition sidebar-mini">
+ 
+ <!-- Site wrapper -->
+ <div class="wrapper">
+-    <?php require("partials/navbar_customization.php"); ?>
++    <?php require("Partials/navbar_customization.php"); ?>
+ 
+-    <?php require("partials/sliderbar_main_menu.php"); ?>
++    <?php require("Partials/sliderbar_main_menu.php"); ?>
+ 
+     <!-- Content Wrapper. Contains page content -->
+     <div class="content-wrapper">
+@@ -25,7 +25,7 @@
+                     </div>
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/index.php"><?= getenv('ALIASE_SITE') ?></a></li>
++                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/index.php"><?= getenv('ALIASE_SITE') ?></a></li>
+                             <li class="breadcrumb-item active">Home</li>
+                         </ol>
+                     </div>
+Index: App/Controllers/SancionesController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Controllers;\r\nrequire(__DIR__ . '/../models/Sanciones.php');\r\nrequire_once(__DIR__.'/../Models/GeneralFunctions.php');\r\n\r\nuse App\\models\\Sanciones;\r\nif(!empty($_GET['action'])){\r\n    SancionesController::main($_GET['action']);\r\n}\r\n\r\nclass SancionesController{\r\n\r\n    static function main($action)\r\n    {\r\n        if ($action == \"create\") {\r\n            SancionesController::create();\r\n        } else if ($action == \"edit\") {\r\n            SancionesController::edit();\r\n        } else if ($action == \"searchForID\") {\r\n            SancionesController::searchForId($_REQUEST['Id']);\r\n        } else if ($action == \"searchAll\") {\r\n            SancionesController::getAll();\r\n        } else if ($action == \"activate\") {\r\n            SancionesController::activate();\r\n        } else if ($action == \"inactivate\") {\r\n            SancionesController::inactivate();\r\n        }\r\n\r\n    }\r\n\r\n    static public function create()\r\n    {\r\n        try {\r\n            $arraySanciones = array();\r\n            $arraySanciones['Tipo'] = $_POST['Tipo'];\r\n            $arraySanciones['Descripcion'] = $_POST['Descripcion'];\r\n            $arraySanciones['Prestamo'] = Prestamo::searchForId ($_POST['Prestamo']);\r\n            $arraySanciones['Estado'] = 'Activo';\r\n            if(!Sanciones::SancionRegistrada($arraySanciones['Id'])){\r\n                $Sanciones = new Sanciones ($arraySanciones);\r\n                if($Sanciones->create()){\r\n                    header(\"Location: ../../Views/modules/Sanciones/index.php?respuesta=correcto\");\r\n                }\r\n            }else{\r\n                header(\"Location: ../../Views/modules/Sanciones/create.php?respuesta=error&mensaje=Sancion ya registrado\");\r\n            }\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../../Views/modules/Sanciones/create.php?respuesta=error&mensaje=\" . $e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function edit (){\r\n        try {\r\n            $arraySanciones = array();\r\n            $arraySanciones['Tipo'] = $_POST['Tipo'];\r\n            $arraySanciones['Descripcion'] = $_POST['Descripcion'];\r\n            $arraySanciones['Prestamo'] = Prestamo::searchForId ($_POST['Prestamo']);\r\n            $arraySanciones['Estado'] = $_POST['Estado'];\r\n\r\n\r\n            $user = new Sancion($arraySanciones);\r\n            $user->update();\r\n\r\n            header(\"Location: ../../Views/modules/Sanciones/show.php?id=\".$user->getId().\"&respuesta=correcto\");\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../Views/modules/Sanciones/edit.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function activate (){\r\n        try {\r\n            $ObjSanciones = Sanciones::searchForId($_GET['Id']);\r\n            $ObjSanciones->setEstado(\"Activo\");\r\n            if($ObjSanciones->update()){\r\n                header(\"Location: ../../Views/modules/Sanciones/index.php\");\r\n            }else{\r\n                header(\"Location: ../../Views/modules/Sanciones/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../Views/modules/Sanciones/index.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function inactivate (){\r\n        try {\r\n            $ObjSanciones = Sanciones::searchForId($_GET['Id']);\r\n            $ObjSanciones->setEstado(\"Inactivo\");\r\n            if($ObjSanciones->update()){\r\n                header(\"Location: ../../Views/modules/Sanciones/index.php\");\r\n            }else{\r\n                header(\"Location: ../../Views/modules/Sanciones/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../Views/modules/Sanciones/index.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function searchForId($Id){\r\n        try {\r\n            return Sanciones::searchForId($Id);\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../../views/modules/Persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function getAll (){\r\n        try {\r\n            return Persona::getAll();\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/Controllers/SancionesController.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ App/Controllers/SancionesController.php	(date 1607607275843)
+@@ -110,7 +110,7 @@
+ 
+     static public function getAll (){
+         try {
+-            return Persona::getAll();
++            return Sanciones::getAll();
+         } catch (\Exception $e) {
+             var_dump($e);
+             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+Index: Views/login.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/login.php	(date 1607607275925)
++++ Views/login.php	(date 1607607275925)
+@@ -0,0 +1,34 @@
++<!DOCTYPE html>
++<html lang="es">
++<head>
++    <?php require("partials/head_imports.php"); ?>
++    <link rel="img" href="/cate.ico" type="image/x-icon">
++    <link rel="stylesheet" type="text/css" href="components/img/estilos.css">
++    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
++    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
++    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
++    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
++    <title>Inicio de Sesion</title>
++</head>
++<body>
++<?php require("partials/navbar_customization.php"); ?>
++
++<form method="post" action="" name="signup-form">
++    <div class="form-element">
++        <label>Username</label>
++        <input type="text" name="username" pattern="[a-zA-Z0-9]+" required />
++    </div>
++    <div class="form-element">
++        <label>Password</label>
++        <input type="password" name="password" required />
++    </div>
++    <button type="submit" name="register" value="register">Iniciar</button>
++</form>
++<div class="container-lg">
++    <div class="login100-more" style="background-image: url('components/img/22.png');">
++    </div>
++</div>
++</body>
++
++<?php require ('partials/scripts.php');?>
++</html>
+\ No newline at end of file
+Index: App/models/login.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/models/login.php	(date 1607607275916)
++++ App/models/login.php	(date 1607607275916)
+@@ -0,0 +1,36 @@
++<?php
++
++include('BasicModel.php');
++session_start();
++
++if (isset($_POST['register'])) {
++
++    $username = $_POST['username'];
++    $email = $_POST['email'];
++    $Contraseña = $_POST['Contraseña'];
++    $password_hash = password_hash($Contraseña, PASSWORD_BCRYPT);
++
++    $query = $this->connect()->prepare("SELECT * FROM Persona WHERE Documento=: Documento AND Contraseña = :Contraseña");
++    $query->bindParam("documen", $email, PDO::PARAM_STR);
++    $query->execute();
++
++    if ($query->rowCount() > 0) {
++        echo '<p class="error">The email address is already registered!</p>';
++    }
++
++    if ($query->rowCount() == 0) {
++        $query = $connection->prepare("INSERT INTO users(USERNAME,PASSWORD,EMAIL) VALUES (:username,:password_hash,:email)");
++        $query->bindParam("username", $username, PDO::PARAM_STR);
++        $query->bindParam("password_hash", $password_hash, PDO::PARAM_STR);
++        $query->bindParam("email", $email, PDO::PARAM_STR);
++        $result = $query->execute();
++
++        if ($result) {
++            echo '<p class="success">Your registration was successful!</p>';
++        } else {
++            echo '<p class="error">Something went wrong!</p>';
++        }
++    }
++}
++
++?>
+\ No newline at end of file
+Index: Views/modules/Categoria/create.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require(\"../../partials/routes.php\"); ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>\r\n    <?php require(\"../../partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"../../partials/navbar_customization.php\"); ?>\r\n    <?php require(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Crear Nueva Categoria</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta'])){ ?>\r\n                <?php if ($_GET['respuesta'] != \"correcto\"){ ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                            Error al crear la categoria: <?= $_GET['mensaje'] ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Horizontal Form -->\r\n            <div class=\"card card-info\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Horizontal Form</h3>\r\n                </div>\r\n                <!-- /.card-header -->\r\n                <!-- form start -->\r\n                <form class=\"form-horizontal\" method=\"post\" id=\"frmCreateCategoria\" name=\"frmCreateCategoria\" action=\"../../../App/Controllers/PersonaController.php?action=create\">\r\n                    <div class=\"card-body\">\r\n                        <div class=\"form-group row\">\r\n                            <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                            <div class=\"col-sm-10\">\r\n                                <input required type=\"text\" class=\"form-control\" id=\"Nombre\" name=\"Nombre\" placeholder=\"Ingrese su nombre\">\r\n                            </div>\r\n                        </div>\r\n\r\n                    <!-- /.card-body -->\r\n                    <div class=\"card-footer\">\r\n                        <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                        <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                    </div>\r\n                    <!-- /.card-footer -->\r\n                </form>\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('../../partials/scripts.php');?>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Categoria/create.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/modules/Categoria/create.php	(date 1607607275857)
+@@ -51,7 +51,7 @@
+                 </div>
+                 <!-- /.card-header -->
+                 <!-- form start -->
+-                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controllers/PersonaController.php?action=create">
++                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../App/Controllers/CategoriaController.php?action=create">
+                     <div class="card-body">
+                         <div class="form-group row">
+                             <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+Index: Views/modules/Categoria/edit.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nrequire_once(\"../../partials/routes.php\");\r\nrequire_once(\"../../../app/Controllers/CategoriaController.php\");\r\n\r\nrequire(\"../../partials/routes.php\");\r\nrequire(\"../../../App/Controller/PersonaController.php\");\r\n\r\n\r\nuse App\\Controllers\\CategoriaController; ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<<<<<<< HEAD\r\n    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>\r\n=======\r\n    <title><?= getenv('TITLE_SITE') ?> | Editar Categoria</title>\r\n>>>>>>> master\r\n    <?php require(\"../../partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n<<<<<<< HEAD\r\n                        <h1>Editar Programa Formacion</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">Proyecto-ABC</a></li>\r\n=======\r\n                        <h1>Editar Nueva Categoria</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">Categoria</a></li>\r\n>>>>>>> master\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n<<<<<<< HEAD\r\n            <?php if (!empty($_GET['respuesta'])) { ?>\r\n                <?php if ($_GET['respuesta'] == \"error\") { ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                        Error al crear el usuario: <?= ($_GET['mensaje']) ?? \"\" ?>\r\n=======\r\n            <?php if(!empty($_GET['respuesta'])){ ?>\r\n                <?php if ($_GET['respuesta'] == \"error\"){ ?>\r\n                    <div class=\"alert alert-danger alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                            Error al crear la categoria: <?= ($_GET['mensaje']) ?? \"\" ?>\r\n>>>>>>> master\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } else if (empty($_GET['Id'])) { ?>\r\n                <div class=\"alert alert-danger alert-dismissible\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                    <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                    Faltan criterios de busqueda <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                </div>\r\n            <?php } ?>\r\n\r\n<<<<<<< HEAD\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        <!-- Horizontal Form -->\r\n                        <div class=\"card card-warning\">\r\n                            <div class=\"card-header\">\r\n                                <h3 class=\"card-title\"><i class=\"fas fa-edit\"></i> <strong> Categoria</strong></h3>\r\n                                <div class=\"card-tools\">\r\n                                    <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"card-refresh\"\r\n                                            data-source=\"create.php\" data-source-selector=\"#card-refresh-content\"\r\n                                            data-load-on-init=\"false\"><i class=\"fas fa-sync-alt\"></i></button>\r\n                                    <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"maximize\"><i\r\n                                                class=\"fas fa-expand\"></i></button>\r\n                                    <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\"><i\r\n                                                class=\"fas fa-minus\"></i></button>\r\n                                </div>\r\n                            </div>\r\n                            <!-- /.card-header -->\r\n                            <?php if (!empty($_GET[\"Id\"]) && isset($_GET[\"Id\"])) { ?>\r\n                                <p>\r\n                                <?php\r\n                                $Categoria = CategoriaController::searchForId($_GET[\"Id\"]);\r\n                                if (!empty($Categoria)) {\r\n                                    ?>\r\n                                    <!-- form start -->\r\n                                    <div class=\"card-body\">\r\n                                        <form class=\"form-horizontal\" method=\"post\" id=\"frmEditUsuario\"\r\n                                              name=\"frmEditUsuario\"\r\n                                              action=\"../../../App/Controllers/CategoriaController.php?action=edit\">\r\n                                            <input id=\"Id\" name=\"Id\" value=\"<?php echo $Categoria->getId(); ?>\" hidden\r\n                                                   required=\"required\" type=\"text\">\r\n\r\n                                            <div class=\"form-group row\">\r\n                                                <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                                                <div class=\"col-sm-10\">\r\n                                                    <input required type=\"text\" class=\"form-control\" id=\"Nombre\"\r\n                                                           name=\"Nombre\" value=\"<?= $Categoria->getNombre(); ?>\"\r\n                                                           placeholder=\"Ingrese sus nombre\">\r\n                                                </div>\r\n                                            </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n                                            <hr>\r\n                                            <button type=\"submit\" class=\"btn btn-warning\">Enviar</button>\r\n                                            <a href=\"show.php\" role=\"button\" class=\"btn btn-dark float-right\">Cancelar</a>\r\n                                        </form>\r\n                                    </div>\r\n                                    <!-- /.card-body -->\r\n\r\n                                <?php } else { ?>\r\n                                    <div class=\"alert alert-danger alert-dismissible\">\r\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">\r\n                                            &times;\r\n                                        </button>\r\n                                        <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                                        No se encontro ningun registro con estos parametros de\r\n                                        busqueda <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                                    </div>\r\n                                <?php } ?>\r\n                                </p>\r\n                            <?php } ?>\r\n                        </div>\r\n                        <!-- /.card -->\r\n                    </div>\r\n                </div>\r\n            </div>\r\n=======\r\n            <!-- Horizontal Form -->\r\n            <div class=\"card card-info\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Horizontal Form</h3>\r\n                </div>\r\n                <!-- /.card-header -->\r\n                <?php if(!empty($_GET[\"Id\"]) && isset($_GET[\"Id\"])){ ?>\r\n                    <p>\r\n                    <?php\r\n                    $DataCategoria = CategoriaController::searchForID($_GET[\"Id\"]);\r\n                        if(!empty($DataCategoria)){\r\n                    ?>\r\n                            <!-- form start -->\r\n                            <form class=\"form-horizontal\" method=\"post\" id=\"frmEditCategoria\" name=\"frmEditCategoria\" action=\"../../../App/Controllers/PersonaController.php?action=edit\">\r\n                                <input id=\"Id\" name=\"Id\" value=\"<?php echo $DataCategoria->getId(); ?>\" hidden required=\"required\" type=\"text\">\r\n                                <div class=\"card-body\">\r\n                                    <div class=\"form-group row\">\r\n                                        <label for=\"Nombre\" class=\"col-sm-2 col-form-label\">Nombre</label>\r\n                                        <div class=\"col-sm-10\">\r\n                                            <input required type=\"text\" class=\"form-control\" id=\"Nombre\" name=\"Nombre\" value=\"<?= $DataCategoria->getNombre(); ?>\" placeholder=\"Ingrese el nombre\">\r\n                                        </div>\r\n                                    </div>\r\n                                <!-- /.card-body -->\r\n                                <div class=\"card-footer\">\r\n                                    <button type=\"submit\" class=\"btn btn-info\">Enviar</button>\r\n                                    <a href=\"index.php\" role=\"button\" class=\"btn btn-default float-right\">Cancelar</a>\r\n                                </div>\r\n                                <!-- /.card-footer -->\r\n                            </form>\r\n                    <?php }else{ ?>\r\n                            <div class=\"alert alert-danger alert-dismissible\">\r\n                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                                <h5><i class=\"icon fas fa-ban\"></i> Error!</h5>\r\n                                No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? \"\" ?>\r\n                            </div>\r\n                    <?php } ?>\r\n                    </p>\r\n                <?php } ?>\r\n            </div>\r\n            <!-- /.card -->\r\n>>>>>>> master\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n<<<<<<< HEAD\r\n    <?php require('../../partials/footer.php'); ?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require('../../partials/scripts.php'); ?>\r\n=======\r\n    <?php require ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('../../partials/scripts.php');?>\r\n>>>>>>> master\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Categoria/edit.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/modules/Categoria/edit.php	(date 1607607275877)
+@@ -212,4 +212,4 @@
+ <?php require ('../../partials/scripts.php');?>
+ >>>>>>> master
+ </body>
+-</html>
++</html>
+\ No newline at end of file
+Index: Views/modules/Categoria/index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require(\"../../partials/routes.php\");\r\nrequire(\"../../../App/Controller/PersonaController.php\");\r\n\r\nuse App\\Controller\\CategoriaController; ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Layout</title>\r\n    <?php require(\"../../partials/head_imports.php\"); ?>\r\n    <!-- DataTables -->\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-buttons/css/buttons.bootstrap4.css\">\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Modulo Principales </h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>\r\n                <?php if ($_GET['respuesta'] == \"correcto\"){ ?>\r\n                    <div class=\"alert alert-success alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-check\"></i> Correcto!</h5>\r\n                        <?php if ($_GET['action'] == \"create\"){ ?>\r\n                            La categoria ha sido creada con exito!\r\n                        <?php }else if($_GET['action'] == \"update\"){ ?>\r\n                             la categoria ha sido actualizada correctamente!\r\n                        <?php } ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Default box -->\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Gestionar Categorias</h3>\r\n                    <div class=\"card-tools\">\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\">\r\n                            <i class=\"fas fa-minus\"></i></button>\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\">\r\n                            <i class=\"fas fa-times\"></i></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-auto mr-auto\"></div>\r\n                        <div class=\"col-auto\">\r\n                            <a role=\"button\" href=\"create.php\" class=\"btn btn-primary float-right\" style=\"margin-right: 5px;\">\r\n                                <i class=\"fas fa-plus\"></i> Crear Categoria\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col\">\r\n                            <table id=\"tblCategoria\" class=\"datatable table table-bordered table-striped\">\r\n                                <thead>\r\n                                <tr>\r\n                                    <th>Id</th>\r\n                                    <th>Nombre</th>\r\n\r\n                                </tr>\r\n                                </thead>\r\n                                <tbody>\r\n                                <?php\r\n                                $arrCategoria = CategoriaController::getAll();\r\n                                foreach ($arrCategoria as $Categoria){\r\n                                    ?>\r\n                                    <tr>\r\n                                        <td><?php echo $Categoria->getId(); ?></td>\r\n                                        <td><?php echo $Categoria->getNombre(); ?></td>\r\n\r\n                                        <td>\r\n                                            <a href=\"edit.php?Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Actualizar\" class=\"btn docs-tooltip btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></a>\r\n                                            <a href=\"show.php?Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Ver\" class=\"btn docs-tooltip btn-warning btn-xs\"><i class=\"fa fa-eye\"></i></a>\r\n                                            <?php if ($Categoria->getEstado() != \"Activo\"){ ?>\r\n                                                <a href=\"../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Activar\" class=\"btn docs-tooltip btn-success btn-xs\"><i class=\"fa fa-check-square\"></i></a>\r\n                                            <?php }else{ ?>\r\n                                                <a type=\"button\" href=\"../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>\" data-toggle=\"tooltip\" title=\"Inactivar\" class=\"btn docs-tooltip btn-danger btn-xs\"><i class=\"fa fa-times-circle\"></i></a>\r\n                                            <?php } ?>\r\n                                        </td>\r\n                                    </tr>\r\n                                <?php } ?>\r\n                                </tbody>\r\n                                <tfoot>\r\n                                <tr>\r\n                                    <th>Id</th>\r\n                                    <th>Nombre</th>\r\n\r\n                                </tr>\r\n                                </tfoot>\r\n                            </table>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!-- /.card-body -->\r\n                <div class=\"card-footer\">\r\n                    Pie de Página.\r\n                </div>\r\n                <!-- /.card-footer-->\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('../../partials/scripts.php');?>\r\n<!-- DataTables -->\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/jszip/jszip.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js\"></script>\r\n\r\n<script>\r\n    $(function () {\r\n        $('.datatable').DataTable({\r\n            \"dom\": 'Bfrtip',\r\n            \"paging\": true,\r\n            \"lengthChange\": true,\r\n            \"searching\": true,\r\n            \"ordering\": true,\r\n            \"info\": true,\r\n            \"autoWidth\": true,\r\n            \"language\": {\r\n                \"url\": \"../../components/Spanish.json\" //Idioma\r\n            },\r\n            \"buttons\": [\r\n                'copy', 'print', 'excel', 'pdf'\r\n            ],\r\n            \"pagingType\": \"full_numbers\",\r\n            \"responsive\": true,\r\n            \"stateSave\" : true, //Guardar la configuracion del Categoria\r\n        });\r\n    });\r\n</script>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Categoria/index.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/modules/Categoria/index.php	(date 1607607275894)
+@@ -1,7 +1,8 @@
+ <?php require("../../partials/routes.php");
+-require("../../../App/Controller/PersonaController.php");
++require("../../../App/Controllers/CategoriaController.php");
++require("../../../App/Controllers/PersonaController.php");
+ 
+-use App\Controller\CategoriaController; ?>
++use App\Controllers\CategoriaController; ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+@@ -88,8 +89,8 @@
+                                 </thead>
+                                 <tbody>
+                                 <?php
+-                                $arrCategoria = CategoriaController::getAll();
+-                                foreach ($arrCategoria as $Categoria){
++                                $arrayCategoria = CategoriaController::getAll();
++                                foreach ($arrayCategoria as $Categoria){
+                                     ?>
+                                     <tr>
+                                         <td><?php echo $Categoria->getId(); ?></td>
+@@ -98,11 +99,6 @@
+                                         <td>
+                                             <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                             <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+-                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
+-                                                <a href="../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+-                                            <?php }else{ ?>
+-                                                <a type="button" href="../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+-                                            <?php } ?>
+                                         </td>
+                                     </tr>
+                                 <?php } ?>
+Index: Views/Partials/sliderbar_main_menu.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!-- Main Sidebar Container -->\r\n<aside class=\"main-sidebar sidebar-dark-warning elevation-4\">\r\n    <!-- Brand Logo -->\r\n    <a href=\"../../index3.html\" class=\"brand-link\">\r\n        <img src=\"<?= $baseURL ?>/views/components/img/Sena.png\"\r\n             alt=\"AdminLTE Logo\"\r\n             class=\"brand-image img-circle elevation-3\"\r\n             style=\"opacity: .8\">\r\n        <span class=\"brand-text font-weight-light\"><?= getenv('ALIASE_SITE') ?></span>\r\n    </a>\r\n\r\n    <!-- Sidebar -->\r\n    <div class=\"sidebar\">\r\n        <!-- Sidebar user (optional) -->\r\n        <div class=\"user-panel mt-3 pb-3 mb-3 d-flex\">\r\n            <div class=\"image\">\r\n\r\n                <img src=\"<?= $baseURL ?>/views/components/img/universo.png\" class=\"img-circle elevation-2\" alt=\"User Image\">\r\n            </div>\r\n            <div class=\"info\">\r\n                <a href=\"#\" class=\"d-block\">William Diaz</a>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- Sidebar Menu -->\r\n        <nav class=\"mt-2\">\r\n            <ul class=\"nav nav-pills nav-sidebar flex-column\" data-widget=\"treeview\" role=\"menu\" data-accordion=\"false\">\r\n                <!-- Add icons to the links using the .nav-icon class\r\n                     with font-awesome or any other icon font library -->\r\n                <li class=\"nav-item\">\r\n                    <a href=\"<?= $baseURL; ?>/views/index.php\" class=\"nav-link\">\r\n                        <i class=\"fas fa-home\"></i>\r\n                        <p>\r\n                            Inicio\r\n                        </p>\r\n                    </a>\r\n\r\n                </li>\r\n                <li class=\"nav-header\">Modulos Principales</li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-university\"></i>\r\n                        <p>\r\n                            PROGRAMA FORMACION\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/programaformacion/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/programaformacion/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-toolbox\"></i>\r\n                        <p>\r\n                            Categoria\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Categoria/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Categoria/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-tools\"></i>\r\n                        <p>\r\n                            Elemento\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Elemento/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Elemento/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-tools\"></i>\r\n                        <p>\r\n                            Persona\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Persona/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Persona/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-tools\"></i>\r\n                        <p>\r\n                            Sanciones\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Sanciones/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Sanciones/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </li>\r\n                </li>\r\n                <li class=\"nav-header\">Modulos Principales</li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n\r\n                        <p>\r\n                            Unidades\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Unidades/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Unidades/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n\r\n\r\n\r\n\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n\r\n                        <p>\r\n                            Marca\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Marca/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Marca/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </li>\r\n                <li class=\"nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'menu-open' : '' ?>\">\r\n                    <a href=\"#\" class=\"nav-link <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'active' : '' ?>\">\r\n                        <i class=\"nav-icon fas fa-store\"></i>\r\n                        <p>\r\n                            Items\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Items/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Items/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </li>\r\n                </li>\r\n                <li class=\"nav-header\">Modulos Principales</li>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-tools\"></i>\r\n                        <p>\r\n                            Kit\r\n                            <i class=\"fas fa-angle-left right\"></i>\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Kit/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Kit/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                    <p>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-angle-left right\"></i>\r\n                        Prestamo\r\n                    </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Prestamo/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Prestamo/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                    <p>\r\n                <li class=\"nav-item has-treeview menu-open\">\r\n                    <a href=\"#\" class=\"nav-link active\">\r\n                        <i class=\"fas fa-angle-left right\"></i>\r\n                        Detalle Prestamo\r\n                        </p>\r\n                    </a>\r\n                    <ul class=\"nav nav-treeview\">\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Prestamo/index.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-eye\"></i>\r\n                                <p>Listar</p>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a href=\"<?= $baseURL ?>/views/modules/Prestamo/create.php\" class=\"nav-link\">\r\n                                <i class=\"fas fa-plus-circle\"></i>\r\n                                <p>Registrar</p>\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                    </a>\r\n                        </li>\r\n                    </ul>\r\n                </li>\r\n\r\n            </ul>\r\n\r\n        </nav>\r\n        <!-- /.sidebar-menu -->\r\n    </div>\r\n    <!-- /.sidebar -->\r\n</aside>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/Partials/sliderbar_main_menu.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/Partials/sliderbar_main_menu.php	(date 1607613714084)
+@@ -18,7 +18,7 @@
+                 <img src="<?= $baseURL ?>/views/components/img/universo.png" class="img-circle elevation-2" alt="User Image">
+             </div>
+             <div class="info">
+-                <a href="#" class="d-block">William Diaz</a>
++                <a href="#" class="d-block">Proyect</a>
+             </div>
+         </div>
+ 
+Index: Views/modules/Sanciones/index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require(\"../../partials/routes.php\");\r\nrequire(\"../../../App/Controller/PersonaController.php\");\r\n\r\nuse App\\Controller\\CategoriaController; ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Layout</title>\r\n    <?php require(\"../../partials/head_imports.php\"); ?>\r\n    <!-- DataTables -->\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css\">\r\n    <link rel=\"stylesheet\" href=\"<?= $adminlteURL ?>/plugins/datatables-buttons/css/buttons.bootstrap4.css\">\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"../../partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require(\"../../partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Modulo Principales </h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/Views/\">ABC</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>\r\n                <?php if ($_GET['respuesta'] == \"correcto\"){ ?>\r\n                    <div class=\"alert alert-success alert-dismissible\">\r\n                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\r\n                        <h5><i class=\"icon fas fa-check\"></i> Correcto!</h5>\r\n                        <?php if ($_GET['action'] == \"create\"){ ?>\r\n                            La categoria ha sido creada con exito!\r\n                        <?php }else if($_GET['action'] == \"update\"){ ?>\r\n                             la categoria ha sido actualizada correctamente!\r\n                        <?php } ?>\r\n                    </div>\r\n                <?php } ?>\r\n            <?php } ?>\r\n\r\n            <!-- Default box -->\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Gestionar Categorias</h3>\r\n                    <div class=\"card-tools\">\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\">\r\n                            <i class=\"fas fa-minus\"></i></button>\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\">\r\n                            <i class=\"fas fa-times\"></i></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-auto mr-auto\"></div>\r\n                        <div class=\"col-auto\">\r\n                            <a role=\"button\" href=\"create.php\" class=\"btn btn-primary float-right\" style=\"margin-right: 5px;\">\r\n                                <i class=\"fas fa-plus\"></i> Crear Categoria\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col\">\r\n                            <table id=\"tblCategoria\" class=\"datatable table table-bordered table-striped\">\r\n                                <thead>\r\n                                <tr>\r\n                                    <th>Id</th>\r\n                                    <th>Nombre</th>\r\n\r\n                                </tr>\r\n                                </thead>\r\n                                <tbody>\r\n                                <?php\r\n                                $arrCategoria = CategoriaController::getAll();\r\n                                foreach ($arrCategoria as $Categoria){\r\n                                    ?>\r\n                                    <tr>\r\n                                        <td><?php echo $Categoria->getId(); ?></td>\r\n                                        <td><?php echo $Categoria->getNombre(); ?></td>\r\n\r\n                                        <td>\r\n                                            <a href=\"edit.php?Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Actualizar\" class=\"btn docs-tooltip btn-primary btn-xs\"><i class=\"fa fa-edit\"></i></a>\r\n                                            <a href=\"show.php?Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Ver\" class=\"btn docs-tooltip btn-warning btn-xs\"><i class=\"fa fa-eye\"></i></a>\r\n                                            <?php if ($Categoria->getEstado() != \"Activo\"){ ?>\r\n                                                <a href=\"../../../App/Controllers/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>\" type=\"button\" data-toggle=\"tooltip\" title=\"Activar\" class=\"btn docs-tooltip btn-success btn-xs\"><i class=\"fa fa-check-square\"></i></a>\r\n                                            <?php }else{ ?>\r\n                                                <a type=\"button\" href=\"../../../App/Controllers/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>\" data-toggle=\"tooltip\" title=\"Inactivar\" class=\"btn docs-tooltip btn-danger btn-xs\"><i class=\"fa fa-times-circle\"></i></a>\r\n                                            <?php } ?>\r\n                                        </td>\r\n                                    </tr>\r\n                                <?php } ?>\r\n                                </tbody>\r\n                                <tfoot>\r\n                                <tr>\r\n                                    <th>Id</th>\r\n                                    <th>Nombre</th>\r\n\r\n                                </tr>\r\n                                </tfoot>\r\n                            </table>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!-- /.card-body -->\r\n                <div class=\"card-footer\">\r\n                    Pie de Página.\r\n                </div>\r\n                <!-- /.card-footer-->\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require ('../../partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('../../partials/scripts.php');?>\r\n<!-- DataTables -->\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/jszip/jszip.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js\"></script>\r\n<script src=\"<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js\"></script>\r\n\r\n<script>\r\n    $(function () {\r\n        $('.datatable').DataTable({\r\n            \"dom\": 'Bfrtip',\r\n            \"paging\": true,\r\n            \"lengthChange\": true,\r\n            \"searching\": true,\r\n            \"ordering\": true,\r\n            \"info\": true,\r\n            \"autoWidth\": true,\r\n            \"language\": {\r\n                \"url\": \"../../components/Spanish.json\" //Idioma\r\n            },\r\n            \"buttons\": [\r\n                'copy', 'print', 'excel', 'pdf'\r\n            ],\r\n            \"pagingType\": \"full_numbers\",\r\n            \"responsive\": true,\r\n            \"stateSave\" : true, //Guardar la configuracion del Categoria\r\n        });\r\n    });\r\n</script>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/modules/Sanciones/index.php	(revision ef0a58cfdbf4cf5ea88f16c342631e4f18c575f7)
++++ Views/modules/Sanciones/index.php	(date 1607607275940)
+@@ -1,7 +1,7 @@
+ <?php require("../../partials/routes.php");
+-require("../../../App/Controller/PersonaController.php");
++require("../../../App/Controllers/SancionesController.php");
+ 
+-use App\Controller\CategoriaController; ?>
++use App\Controllers\SancionesController; ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+@@ -37,29 +37,29 @@
+                     </div>
+                 </div>
+             </div><!-- /.container-fluid -->
+-        </section>
++        <Sancionesn>
+ 
+-        <!-- Main content -->
++        <!--Sancionesn content -->
+         <section class="content">
+ 
+-            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
++        <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
+                 <?php if ($_GET['respuesta'] == "correcto"){ ?>
+                     <div class="alert alert-success alert-dismissible">
+                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
+                         <?php if ($_GET['action'] == "create"){ ?>
+-                            La categoria ha sido creada con exito!
++                            La sancion ha sido creada con exito!
+                         <?php }else if($_GET['action'] == "update"){ ?>
+-                             la categoria ha sido actualizada correctamente!
++                             la sancion ha sido actualizada correctamente!
+                         <?php } ?>
+                     </div>
+-                <?php } ?>
++            <?php } ?>
+             <?php } ?>
+ 
+             <!-- Default box -->
+             <div class="card">
+                 <div class="card-header">
+-                    <h3 class="card-title">Gestionar Categorias</h3>
++                    <h3 class="card-title">Gestionar Sanciones</h3>
+                     <div class="card-tools">
+                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                             <i class="fas fa-minus"></i></button>
+@@ -72,36 +72,41 @@
+                         <div class="col-auto mr-auto"></div>
+                         <div class="col-auto">
+                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
+-                                <i class="fas fa-plus"></i> Crear Categoria
++                                <i class="fas fa-plus"></i> Crear Sancion
+                             </a>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col">
+-                            <table id="tblCategoria" class="datatable table table-bordered table-striped">
++                            <table id="tblSanciones" class="datatable table table-bordered table-striped">
+                                 <thead>
+                                 <tr>
+                                     <th>Id</th>
+-                                    <th>Nombre</th>
++                                    <th>Tipo</th>
++                                    <th>Descripcion</th>
++                                    <th>Prestamo</th>
++                                    <th>Estado</th>
+ 
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <?php
+-                                $arrCategoria = CategoriaController::getAll();
+-                                foreach ($arrCategoria as $Categoria){
++                                $arrSanciones = SancionesController::getAll();
++                                foreach ($arrSanciones as $Sanciones){
+                                     ?>
+                                     <tr>
+-                                        <td><?php echo $Categoria->getId(); ?></td>
+-                                        <td><?php echo $Categoria->getNombre(); ?></td>
+-
++                                        <td><?php echo $Sanciones->getId(); ?></td>
++                                        <td><?php echo $Sanciones->getTipo(); ?></td>
++                                        <td><?php echo $Sanciones->getDescripcion(); ?></td>
++                                        <td><?php echo $Sanciones->getPrestamo(); ?></td>
++                                        <td><?php echo $Sanciones->getEstado(); ?></td>
+                                         <td>
+-                                            <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+-                                            <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+-                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
+-                                                <a href="../../../App/Controllers/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
++                                            <a href="edit.php?Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
++                                            <a href="show.php?Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
++                                            <?php if ($Sanciones->getEstado() != "Activo"){ ?>
++                                                <a href="../../../App/Controllers/SancionesController.php?action=activate&Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+                                             <?php }else{ ?>
+-                                                <a type="button" href="../../../App/Controllers/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
++                                                <a type="button" href="../../../App/Controllers/SancionesController.php?action=inactivate&Id=<?php echo $Sanciones->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+                                             <?php } ?>
+                                         </td>
+                                     </tr>
+@@ -110,7 +115,10 @@
+                                 <tfoot>
+                                 <tr>
+                                     <th>Id</th>
+-                                    <th>Nombre</th>
++                                    <th>Tipo</th>
++                                    <th>Descripcion</th>
++                                    <th>Prestamo</th>
++                                    <th>Estado</th>
+ 
+                                 </tr>
+                                 </tfoot>
+@@ -165,7 +173,7 @@
+             ],
+             "pagingType": "full_numbers",
+             "responsive": true,
+-            "stateSave" : true, //Guardar la configuracion del Categoria
++            "stateSave" : true, //Guardar la configuracion del Sanciones
+         });
+     });
+ </script>
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_09_08_2020_12_53_p__m___Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_09_08_2020_12_53_p__m___Default_Changelist_.xml

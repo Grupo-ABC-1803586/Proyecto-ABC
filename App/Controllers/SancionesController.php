@@ -110,7 +110,7 @@ class SancionesController{
 
     static public function getAll (){
         try {
-            return Persona::getAll();
+            return Sanciones::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");

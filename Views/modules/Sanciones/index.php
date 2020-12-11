@@ -1,7 +1,7 @@
 <?php require("../../partials/routes.php");
-require("../../../App/Controller/PersonaController.php");
+require("../../../App/Controllers/SancionesController.php");
 
-use App\Controller\CategoriaController; ?>
+use App\Controllers\SancionesController; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,29 +37,29 @@ use App\Controller\CategoriaController; ?>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
-        </section>
+        <Sancionesn>
 
-        <!-- Main content -->
+        <!--Sancionesn content -->
         <section class="content">
 
-            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
+        <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
                 <?php if ($_GET['respuesta'] == "correcto"){ ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-                            La categoria ha sido creada con exito!
+                            La sancion ha sido creada con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                             la categoria ha sido actualizada correctamente!
+                             la sancion ha sido actualizada correctamente!
                         <?php } ?>
                     </div>
-                <?php } ?>
+            <?php } ?>
             <?php } ?>
 
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Categorias</h3>
+                    <h3 class="card-title">Gestionar Sanciones</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -72,36 +72,41 @@ use App\Controller\CategoriaController; ?>
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Categoria
+                                <i class="fas fa-plus"></i> Crear Sancion
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblCategoria" class="datatable table table-bordered table-striped">
+                            <table id="tblSanciones" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Descripcion</th>
+                                    <th>Prestamo</th>
+                                    <th>Estado</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrCategoria = CategoriaController::getAll();
-                                foreach ($arrCategoria as $Categoria){
+                                $arrSanciones = SancionesController::getAll();
+                                foreach ($arrSanciones as $Sanciones){
                                     ?>
                                     <tr>
-                                        <td><?php echo $Categoria->getId(); ?></td>
-                                        <td><?php echo $Categoria->getNombre(); ?></td>
-
+                                        <td><?php echo $Sanciones->getId(); ?></td>
+                                        <td><?php echo $Sanciones->getTipo(); ?></td>
+                                        <td><?php echo $Sanciones->getDescripcion(); ?></td>
+                                        <td><?php echo $Sanciones->getPrestamo(); ?></td>
+                                        <td><?php echo $Sanciones->getEstado(); ?></td>
                                         <td>
-                                            <a href="edit.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
-                                                <a href="../../../App/Controllers/PersonaController.php?action=activate&Id=<?php echo $Categoria->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+                                            <a href="edit.php?Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+                                            <?php if ($Sanciones->getEstado() != "Activo"){ ?>
+                                                <a href="../../../App/Controllers/SancionesController.php?action=activate&Id=<?php echo $Sanciones->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
                                             <?php }else{ ?>
-                                                <a type="button" href="../../../App/Controllers/PersonaController.php?action=inactivate&Id=<?php echo $Categoria->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+                                                <a type="button" href="../../../App/Controllers/SancionesController.php?action=inactivate&Id=<?php echo $Sanciones->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
                                             <?php } ?>
                                         </td>
                                     </tr>
@@ -110,7 +115,10 @@ use App\Controller\CategoriaController; ?>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Descripcion</th>
+                                    <th>Prestamo</th>
+                                    <th>Estado</th>
 
                                 </tr>
                                 </tfoot>
@@ -165,7 +173,7 @@ use App\Controller\CategoriaController; ?>
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del Categoria
+            "stateSave" : true, //Guardar la configuracion del Sanciones
         });
     });
 </script>

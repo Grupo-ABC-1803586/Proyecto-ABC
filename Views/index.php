@@ -3,16 +3,16 @@
 <html>
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Home</title>
-    <?php require("partials/head_imports.php"); ?>
+    <?php require("Partials/head_imports.php"); ?>
     <link rel="img" href="/cate.ico" type="image/x-icon">
 </head>
 <body class="hold-transition sidebar-mini">
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require("partials/navbar_customization.php"); ?>
+    <?php require("Partials/navbar_customization.php"); ?>
 
-    <?php require("partials/sliderbar_main_menu.php"); ?>
+    <?php require("Partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/index.php"><?= getenv('ALIASE_SITE') ?></a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/index.php"><?= getenv('ALIASE_SITE') ?></a></li>
                             <li class="breadcrumb-item active">Home</li>
                         </ol>
                     </div>
