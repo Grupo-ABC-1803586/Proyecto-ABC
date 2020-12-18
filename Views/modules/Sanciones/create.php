@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Sancion</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear Nueva Categoria</h1>
+                        <h1>Crear Nueva Sancion</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -39,36 +39,58 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear la categoria: <?= $_GET['mensaje'] ?>
+                            Error al crear la Sancion: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
 
             <!-- Horizontal Form -->
-            <div class="card card-warning">
+            <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-toolbox"></i>&nbsp;<strong>&nbsp;Categoria</strong></h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
-                                data-source="create.php" data-source-selector="#card-refresh-content"
-                                data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                    class="fas fa-expand"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                    class="fas fa-minus"></i></button>
-                    </div>
+                    <h3 class="card-title">Horizontal Form</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../App/Controllers/CategoriaController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateSanciones" name="frmCreateSanciones" action="../../../App/Controllers/SancionesController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                            <label for="Tipo" class="col-sm-2 col-form-label">Tipo</label><!-- COMO HACER PARA QUE SEA ENUM-->
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese el nombre">
+                                <input required type="text" class="form-control" id="Tipo" name="Tipo" placeholder="Ingrese su nombre">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                            <div class="col-sm-10">
+                                <input required type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Ingrese la Descripcion">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Prestamo" class="col-sm-2 col-form-label">Prestamo</label>
+                            <div class="col-sm-10">
+                                <?= PrestamoController::selectPrestamo(false,
+                                    true,
+                                    'Prestamo',
+                                    'Prestamo',
+                                    (!empty($dataSanciones)) ? $dataSanciones->getPrestamo()->getId() : '',
+                                    'form-control select2bs4 select2-info',
+                                    "")
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Persona" class="col-sm-2 col-form-label">Estado</label>
+                            <div class="col-sm-10">
+                                <?= PersonaController::selectEstadoPersona(false,
+                                    true,
+                                    'Persona',
+                                    'Persona',
+                                    (!empty($dataSanciones)) ? $dataSanciones->getPersona()->getId() : '',
+                                    'form-control select2bs4 select2-info',
+                                    "")
+                                ?>
+                            </div>
+                        </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">Enviar</button>

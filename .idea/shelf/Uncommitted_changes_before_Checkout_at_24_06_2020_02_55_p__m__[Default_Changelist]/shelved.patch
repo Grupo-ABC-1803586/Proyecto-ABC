@@ -1,0 +1,878 @@
+Index: Views/index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php require(\"partials/routes.php\"); ?>\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title><?= getenv('TITLE_SITE') ?> | Layout</title>\r\n    <?php require(\"partials/head_imports.php\"); ?>\r\n</head>\r\n<body class=\"hold-transition sidebar-mini\">\r\n\r\n<!-- Site wrapper -->\r\n<div class=\"wrapper\">\r\n    <?php require(\"partials/navbar_customization.php\"); ?>\r\n\r\n    <?php require(\"partials/sliderbar_main_menu.php\"); ?>\r\n\r\n    <!-- Content Wrapper. Contains page content -->\r\n    <div class=\"content-wrapper\">\r\n        <!-- Content Header (Page header) -->\r\n        <section class=\"content-header\">\r\n            <div class=\"container-fluid\">\r\n                <div class=\"row mb-2\">\r\n                    <div class=\"col-sm-6\">\r\n                        <h1>Pagina Principal</h1>\r\n                    </div>\r\n                    <div class=\"col-sm-6\">\r\n                        <ol class=\"breadcrumb float-sm-right\">\r\n                            <li class=\"breadcrumb-item\"><a href=\"<?= $baseURL; ?>/views/\">WebER</a></li>\r\n                            <li class=\"breadcrumb-item active\">Inicio</li>\r\n                        </ol>\r\n                    </div>\r\n                </div>\r\n            </div><!-- /.container-fluid -->\r\n        </section>\r\n\r\n        <!-- Main content -->\r\n        <section class=\"content\">\r\n\r\n            <!-- Default box -->\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <h3 class=\"card-title\">Título Modulo</h3>\r\n\r\n                    <div class=\"card-tools\">\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\">\r\n                            <i class=\"fas fa-minus\"></i></button>\r\n                        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\">\r\n                            <i class=\"fas fa-times\"></i></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    Contenido del modulo\r\n                </div>\r\n                <!-- /.card-body -->\r\n                <div class=\"card-footer\">\r\n                    Pie de Página.\r\n                </div>\r\n                <!-- /.card-footer-->\r\n            </div>\r\n            <!-- /.card -->\r\n        </section>\r\n        <!-- /.content -->\r\n    </div>\r\n    <!-- /.content-wrapper -->\r\n\r\n    <?php require ('partials/footer.php');?>\r\n</div>\r\n<!-- ./wrapper -->\r\n<?php require ('partials/scripts.php');?>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Views/index.php	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ Views/index.php	(date 1593028482454)
+@@ -2,7 +2,7 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+-    <title><?= getenv('TITLE_SITE') ?> | Layout</title>
++    <title><?= getenv('TITLE_SITE') ?> | Home</title>
+     <?php require("partials/head_imports.php"); ?>
+ </head>
+ <body class="hold-transition sidebar-mini">
+@@ -24,8 +24,8 @@
+                     </div>
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">WebER</a></li>
+-                            <li class="breadcrumb-item active">Inicio</li>
++                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/index.php"><?= getenv('ALIASE_SITE') ?></a></li>
++                            <li class="breadcrumb-item active">Home</li>
+                         </ol>
+                     </div>
+                 </div>
+@@ -67,4 +67,4 @@
+ <!-- ./wrapper -->
+ <?php require ('partials/scripts.php');?>
+ </body>
+-</html>
++</html>
+\ No newline at end of file
+Index: .env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>ROOT_FOLDER=\"Proyecto-ABC\"\r\nTITLE_SITE=\"⚙ Sistema Control Inventarios ABC\"\r\nCHAR_SET=\"utf-8\"
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .env	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ .env	(date 1593028482474)
+@@ -1,3 +1,4 @@
+ ROOT_FOLDER="Proyecto-ABC"
+ TITLE_SITE="⚙ Sistema Control Inventarios ABC"
++ALIASE_SITE="Proyecto-ABC"
+ CHAR_SET="utf-8"
+\ No newline at end of file
+Index: App/Models/Usuarios.php
+===================================================================
+--- App/Models/Usuarios.php	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ App/Models/Usuarios.php	(revision 800c019a41628469d4806b341edea00657632f1e)
+@@ -1,375 +0,0 @@
+-<?php
+-
+-namespace App\Models;
+-
+-require('BasicModel.php');
+-
+-class Usuarios extends BasicModel
+-{
+-    private $id;
+-    private $nombres;
+-    private $apellidos;
+-    private $tipo_documento;
+-    private $documento;
+-    private $telefono;
+-    private $direccion;
+-    private $user;
+-    private $password;
+-    private $rol;
+-    private $estado;
+-
+-    /* Relaciones */
+-    private $VentasCliente;
+-    private $VentasEmpleado;
+-
+-    /**
+-     * Usuarios constructor.
+-     * @param $id
+-     * @param $nombres
+-     * @param $apellidos
+-     * @param $tipo_documento
+-     * @param $documento
+-     * @param $telefono
+-     * @param $direccion
+-     * @param $user
+-     * @param $password
+-     * @param $rol
+-     * @param $estado
+-     */
+-    public function __construct($usuario = array())
+-    {
+-        parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
+-        $this->id = $usuario['id'] ?? null;
+-        $this->nombres = $usuario['nombres'] ?? null;
+-        $this->apellidos = $usuario['apellidos'] ?? null;
+-        $this->tipo_documento = $usuario['tipo_documento'] ?? null;
+-        $this->documento = $usuario['documento'] ?? null;
+-        $this->telefono = $usuario['telefono'] ?? null;
+-        $this->direccion = $usuario['direccion'] ?? null;
+-        $this->user = $usuario['user'] ?? null;
+-        $this->password = $usuario['password'] ?? null;
+-        $this->rol = $usuario['rol'] ?? null;
+-        $this->estado = $usuario['estado'] ?? null;
+-    }
+-
+-    /* Metodo destructor cierra la conexion. */
+-    function __destruct() {
+-        $this->Disconnect();
+-    }
+-
+-    /**
+-     * @return int
+-     */
+-    public function getId() : int
+-    {
+-        return $this->id;
+-    }
+-
+-    /**
+-     * @param int $id
+-     */
+-    public function setId(int $id): void
+-    {
+-        $this->id = $id;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getNombres() : string
+-    {
+-        return $this->nombres;
+-    }
+-
+-    /**
+-     * @param string $nombres
+-     */
+-    public function setNombres(string $nombres): void
+-    {
+-        $this->nombres = $nombres;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getApellidos() : string
+-    {
+-        return $this->apellidos;
+-    }
+-
+-    /**
+-     * @param string $apellidos
+-     */
+-    public function setApellidos(string $apellidos): void
+-    {
+-        $this->apellidos = $apellidos;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getTipoDocumento() : string
+-    {
+-        return $this->tipo_documento;
+-    }
+-
+-    /**
+-     * @param string $tipo_documento
+-     */
+-    public function setTipoDocumento(string $tipo_documento): void
+-    {
+-        $this->tipo_documento = $tipo_documento;
+-    }
+-
+-    /**
+-     * @return int
+-     */
+-    public function getDocumento() : int
+-    {
+-        return $this->documento;
+-    }
+-
+-    /**
+-     * @param int $documento
+-     */
+-    public function setDocumento(int $documento): void
+-    {
+-        $this->documento = $documento;
+-    }
+-
+-    /**
+-     * @return int
+-     */
+-    public function getTelefono() : int
+-    {
+-        return $this->telefono;
+-    }
+-
+-    /**
+-     * @param int $telefono
+-     */
+-    public function setTelefono(int $telefono): void
+-    {
+-        $this->telefono = $telefono;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getDireccion() : string
+-    {
+-        return $this->direccion;
+-    }
+-
+-    /**
+-     * @param string $direccion
+-     */
+-    public function setDireccion(string $direccion): void
+-    {
+-        $this->direccion = $direccion;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getUser() : string
+-    {
+-        return $this->user;
+-    }
+-
+-    /**
+-     * @param string $user
+-     */
+-    public function setUser(string $user): void
+-    {
+-        $this->user = $user;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getPassword() : string
+-    {
+-        return $this->password;
+-    }
+-
+-    /**
+-     * @param string $password
+-     */
+-    public function setPassword(string $password): void
+-    {
+-        $this->password = $password;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getRol() : string
+-    {
+-        return $this->rol;
+-    }
+-
+-    /**
+-     * @param string $rol
+-     */
+-    public function setRol(string $rol): void
+-    {
+-        $this->rol = $rol;
+-    }
+-
+-    /**
+-     * @return string
+-     */
+-    public function getEstado() : string
+-    {
+-        return $this->estado;
+-    }
+-
+-    /**
+-     * @param string $estado
+-     */
+-    public function setEstado(string $estado): void
+-    {
+-        $this->estado = $estado;
+-    }
+-
+-    /**
+-     * @return mixed
+-     */
+-    public function getVentasCliente()
+-    {
+-        return $this->VentasCliente;
+-    }
+-
+-    /**
+-     * @param mixed $VentasCliente
+-     */
+-    public function setVentasCliente($VentasCliente): void
+-    {
+-        $this->VentasCliente = $VentasCliente;
+-    }
+-
+-    /**
+-     * @return mixed
+-     */
+-    public function getVentasEmpleado()
+-    {
+-        return $this->VentasEmpleado;
+-    }
+-
+-    /**
+-     * @param mixed $VentasEmpleado
+-     */
+-    public function setVentasEmpleado($VentasEmpleado): void
+-    {
+-        $this->VentasEmpleado = $VentasEmpleado;
+-    }
+-
+-    public function create() : bool
+-    {
+-        $result = $this->insertRow("INSERT INTO weber.usuarios VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+-            $this->nombres,
+-            $this->apellidos,
+-            $this->tipo_documento,
+-            $this->documento,
+-            $this->telefono,
+-            $this->direccion,
+-            $this->user,
+-            $this->password,
+-            $this->rol,
+-            $this->estado
+-            )
+-        );
+-        $this->Disconnect();
+-        return $result;
+-    }
+-
+-    public function update() : bool
+-    {
+-        $result = $this->updateRow("UPDATE weber.usuarios SET nombres = ?, apellidos = ?, tipo_documento = ?, documento = ?, telefono = ?, direccion = ?, user = ?, password = ?, rol = ?, estado = ? WHERE id = ?", array(
+-                $this->nombres,
+-                $this->apellidos,
+-                $this->tipo_documento,
+-                $this->documento,
+-                $this->telefono,
+-                $this->direccion,
+-                $this->user,
+-                $this->password,
+-                $this->rol,
+-                $this->estado,
+-                $this->id
+-            )
+-        );
+-        $this->Disconnect();
+-        return $result;
+-    }
+-
+-    public function deleted($id) : void
+-    {
+-        // TODO: Implement deleted() method.
+-    }
+-
+-    public static function search($query) : array
+-    {
+-        $arrUsuarios = array();
+-        $tmp = new Usuarios();
+-        $getrows = $tmp->getRows($query);
+-
+-        foreach ($getrows as $valor) {
+-            $Usuario = new Usuarios();
+-            $Usuario->id = $valor['id'];
+-            $Usuario->nombres = $valor['nombres'];
+-            $Usuario->apellidos = $valor['apellidos'];
+-            $Usuario->tipo_documento = $valor['tipo_documento'];
+-            $Usuario->documento = $valor['documento'];
+-            $Usuario->telefono = $valor['telefono'];
+-            $Usuario->direccion = $valor['direccion'];
+-            $Usuario->user = $valor['user'];
+-            $Usuario->password = $valor['password'];
+-            $Usuario->rol = $valor['rol'];
+-            $Usuario->estado = $valor['estado'];
+-            $Usuario->Disconnect();
+-            array_push($arrUsuarios, $Usuario);
+-        }
+-        $tmp->Disconnect();
+-        return $arrUsuarios;
+-    }
+-
+-    public static function searchForId($id) : Usuarios
+-    {
+-        $Usuario = null;
+-        if ($id > 0){
+-            $Usuario = new Usuarios();
+-            $getrow = $Usuario->getRow("SELECT * FROM weber.usuarios WHERE id =?", array($id));
+-            $Usuario->id = $getrow['id'];
+-            $Usuario->nombres = $getrow['nombres'];
+-            $Usuario->apellidos = $getrow['apellidos'];
+-            $Usuario->tipo_documento = $getrow['tipo_documento'];
+-            $Usuario->documento = $getrow['documento'];
+-            $Usuario->telefono = $getrow['telefono'];
+-            $Usuario->direccion = $getrow['direccion'];
+-            $Usuario->user = $getrow['user'];
+-            $Usuario->password = $getrow['password'];
+-            $Usuario->rol = $getrow['rol'];
+-            $Usuario->estado = $getrow['estado'];
+-        }
+-        $Usuario->Disconnect();
+-        return $Usuario;
+-    }
+-
+-    public static function getAll() : array
+-    {
+-        return Usuarios::search("SELECT * FROM weber.usuarios");
+-    }
+-
+-    public static function usuarioRegistrado ($documento) : bool
+-    {
+-        $result = Usuarios::search("SELECT id FROM weber.usuarios where documento = ".$documento);
+-        if (count($result) > 0){
+-            return true;
+-        }else{
+-            return false;
+-        }
+-    }
+-
+-}
+\ No newline at end of file
+Index: App/Models/BasicModel.php
+===================================================================
+--- App/Models/BasicModel.php	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ App/Models/BasicModel.php	(revision 800c019a41628469d4806b341edea00657632f1e)
+@@ -1,113 +0,0 @@
+-<?php
+-
+-namespace App\Models;
+-
+-/**
+- * Created by PhpStorm.
+- * User: Diego-PC
+- * Date: 10/12/2019
+- * Time: 9:17
+- */
+-abstract class BasicModel {
+-
+-    public $isConnected;
+-    protected $datab;
+-    private $username = "weber";
+-    private $password = "weber2019";
+-    private $host = "localhost";
+-    private $driver = "mysql";
+-    private $dbname = "weber";
+-
+-    # métodos abstractos para ABM de clases que hereden
+-    abstract protected static function search($query);
+-    abstract protected static function getAll();
+-    abstract protected static function searchForId($id);
+-    abstract protected function create();
+-    abstract protected function update();
+-    abstract protected function deleted($id);
+-
+-    public function __construct(){
+-        $this->isConnected = true;
+-        try {
+-            $this->datab = new \PDO(
+-                ($this->driver != "sqlsrv") ?
+-                    "$this->driver:host={$this->host};dbname={$this->dbname};charset=utf8" :
+-                    "$this->driver:Server=$this->host;database=$this->dbname",
+-                $this->username, $this->password, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
+-            );
+-            $this->datab->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+-            $this->datab->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+-            $this->datab->setAttribute(\PDO::ATTR_PERSISTENT, true);
+-        }catch(\PDOException $e) {
+-            $this->isConnected = false;
+-            throw new \Exception($e->getMessage());
+-        }
+-    }
+-
+-    //disconnecting from database
+-    //$database->Disconnect();
+-    public function Disconnect(){
+-        $this->datab = null;
+-        $this->isConnected = false;
+-    }
+-
+-    //Getting row
+-    //$getrow = $database->getRow("SELECT email, username FROM users WHERE username =?", array("yusaf"));
+-    public function getRow($query, $params=array()){
+-        try{
+-            $stmt = $this->datab->prepare($query);
+-            $stmt->execute($params);
+-            return $stmt->fetch();
+-        }catch(PDOException $e){
+-            throw new Exception($e->getMessage());
+-        }
+-    }
+-
+-    //Getting multiple rows
+-    //$getrows = $database->getRows("SELECT id, username FROM users");
+-    public function getRows($query, $params=array()){
+-        try{
+-            $stmt = $this->datab->prepare($query);
+-            $stmt->execute($params);
+-            return $stmt->fetchAll();
+-        }catch(PDOException $e){
+-            throw new Exception($e->getMessage());
+-        }
+-    }
+-
+-    //Getting last id insert
+-    //$getrows = $database->getLastId();
+-    public function getLastId(){
+-        try{
+-            return $this->datab->lastInsertId();
+-        }catch(PDOException $e){
+-            throw new Exception($e->getMessage());
+-        }
+-    }
+-
+-    //inserting un campo
+-    //$insertrow = $database ->insertRow("INSERT INTO users (username, email) VALUES (?, ?)", array("Diego", "yusaf@email.com"));
+-    public function insertRow($query, $params){
+-        try{
+-            if (is_null($this->datab)){
+-                $this->__construct();
+-            }
+-            $stmt = $this->datab->prepare($query);
+-            return $stmt->execute($params);
+-        }catch(PDOException $e){
+-            throw new Exception($e->getMessage());
+-        }
+-    }
+-
+-    //updating existing row
+-    //$updaterow = $database->updateRow("UPDATE users SET username = ?, email = ? WHERE id = ?", array("yusafk", "yusafk@email.com", "1"));
+-    public function updateRow($query, $params){
+-        return $this->insertRow($query, $params);
+-    }
+-
+-    //delete a row
+-    //$deleterow = $database->deleteRow("DELETE FROM users WHERE id = ?", array("1"));
+-    public function deleteRow($query, $params){
+-        return $this->insertRow($query, $params);
+-    }
+-}
+Index: App/Controllers/UsuariosController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Controllers;\r\nrequire(__DIR__.'/../Models/Usuarios.php');\r\nuse App\\Models\\Usuarios;\r\n\r\nif(!empty($_GET['action'])){\r\n    UsuariosController::main($_GET['action']);\r\n}\r\n\r\nclass UsuariosController{\r\n\r\n    static function main($action)\r\n    {\r\n        if ($action == \"create\") {\r\n            UsuariosController::create();\r\n        } else if ($action == \"edit\") {\r\n            UsuariosController::edit();\r\n        } else if ($action == \"searchForID\") {\r\n            UsuariosController::searchForID($_REQUEST['idPersona']);\r\n        } else if ($action == \"searchAll\") {\r\n            UsuariosController::getAll();\r\n        } else if ($action == \"activate\") {\r\n            UsuariosController::activate();\r\n        } else if ($action == \"inactivate\") {\r\n            UsuariosController::inactivate();\r\n        }/*else if ($action == \"login\"){\r\n            UsuariosController::login();\r\n        }else if($action == \"cerrarSession\"){\r\n            UsuariosController::cerrarSession();\r\n        }*/\r\n\r\n    }\r\n\r\n    static public function create()\r\n    {\r\n        try {\r\n            $arrayUsuario = array();\r\n            $arrayUsuario['nombres'] = $_POST['nombres'];\r\n            $arrayUsuario['apellidos'] = $_POST['apellidos'];\r\n            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];\r\n            $arrayUsuario['documento'] = $_POST['documento'];\r\n            $arrayUsuario['telefono'] = $_POST['telefono'];\r\n            $arrayUsuario['direccion'] = $_POST['direccion'];\r\n            $arrayUsuario['rol'] = 'Cliente';\r\n            $arrayUsuario['estado'] = 'Activo';\r\n            if(!Usuarios::usuarioRegistrado($arrayUsuario['documento'])){\r\n                $Usuario = new Usuarios ($arrayUsuario);\r\n                if($Usuario->create()){\r\n                    header(\"Location: ../../views/modules/usuarios/index.php?respuesta=correcto\");\r\n                }\r\n            }else{\r\n                header(\"Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado\");\r\n            }\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=\" . $e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function edit (){\r\n        try {\r\n            $arrayUsuario = array();\r\n            $arrayUsuario['nombres'] = $_POST['nombres'];\r\n            $arrayUsuario['apellidos'] = $_POST['apellidos'];\r\n            $arrayUsuario['tipo_documento'] = $_POST['tipo_documento'];\r\n            $arrayUsuario['documento'] = $_POST['documento'];\r\n            $arrayUsuario['telefono'] = $_POST['telefono'];\r\n            $arrayUsuario['direccion'] = $_POST['direccion'];\r\n            $arrayUsuario['rol'] = $_POST['rol'];\r\n            $arrayUsuario['estado'] = $_POST['estado'];\r\n            $arrayUsuario['id'] = $_POST['id'];\r\n\r\n            $user = new Usuarios($arrayUsuario);\r\n            $user->update();\r\n\r\n            header(\"Location: ../../views/modules/usuarios/show.php?id=\".$user->getId().\"&respuesta=correcto\");\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/usuarios/edit.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function activate (){\r\n        try {\r\n            $ObjUsuario = Usuarios::searchForId($_GET['Id']);\r\n            $ObjUsuario->setEstado(\"Activo\");\r\n            if($ObjUsuario->update()){\r\n                header(\"Location: ../../views/modules/usuarios/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function inactivate (){\r\n        try {\r\n            $ObjUsuario = Usuarios::searchForId($_GET['Id']);\r\n            $ObjUsuario->setEstado(\"Inactivo\");\r\n            if($ObjUsuario->update()){\r\n                header(\"Location: ../../views/modules/usuarios/index.php\");\r\n            }else{\r\n                header(\"Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar\");\r\n            }\r\n        } catch (\\Exception $e) {\r\n            //var_dump($e);\r\n            header(\"Location: ../../views/modules/usuarios/index.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function searchForID ($id){\r\n        try {\r\n            return Usuarios::searchForId($id);\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../../views/modules/usuarios/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function getAll (){\r\n        try {\r\n            return Usuarios::getAll();\r\n        } catch (\\Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    /*public static function personaIsInArray($idPersona, $ArrPersonas){\r\n        if(count($ArrPersonas) > 0){\r\n            foreach ($ArrPersonas as $Persona){\r\n                if($Persona->getIdPersona() == $idPersona){\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n\r\n    static public function selectPersona ($isMultiple=false,\r\n                                          $isRequired=true,\r\n                                          $id=\"idConsultorio\",\r\n                                          $nombre=\"idConsultorio\",\r\n                                          $defaultValue=\"\",\r\n                                          $class=\"\",\r\n                                          $where=\"\",\r\n                                          $arrExcluir = array()){\r\n        $arrPersonas = array();\r\n        if($where != \"\"){\r\n            $base = \"SELECT * FROM persona WHERE \";\r\n            $arrPersonas = Persona::buscar($base.$where);\r\n        }else{\r\n            $arrPersonas = Persona::getAll();\r\n        }\r\n\r\n        $htmlSelect = \"<select \".(($isMultiple) ? \"multiple\" : \"\").\" \".(($isRequired) ? \"required\" : \"\").\" id= '\".$id.\"' name='\".$nombre.\"' class='\".$class.\"'>\";\r\n        $htmlSelect .= \"<option value='' >Seleccione</option>\";\r\n        if(count($arrPersonas) > 0){\r\n            foreach ($arrPersonas as $persona)\r\n                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))\r\n                    $htmlSelect .= \"<option \".(($persona != \"\") ? (($defaultValue == $persona->getIdPersona()) ? \"selected\" : \"\" ) : \"\").\" value='\".$persona->getIdPersona().\"'>\".$persona->getNombres().\" \".$persona->getApellidos().\"</option>\";\r\n        }\r\n        $htmlSelect .= \"</select>\";\r\n        return $htmlSelect;\r\n    }*/\r\n\r\n    /*\r\n    public function buscar ($Query){\r\n        try {\r\n            return Persona::buscar($Query);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    static public function asociarEspecialidad (){\r\n        try {\r\n            $Persona = new Persona();\r\n            $Persona->asociarEspecialidad($_POST['Persona'],$_POST['Especialidad']);\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=correcto&id=\".$_POST['Persona']);\r\n        } catch (Exception $e) {\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?respuesta=error&mensaje=\".$e->getMessage());\r\n        }\r\n    }\r\n\r\n    static public function eliminarEspecialidad (){\r\n        try {\r\n            $ObjPersona = new Persona();\r\n            if(!empty($_GET['Persona']) && !empty($_GET['Especialidad'])){\r\n                $ObjPersona->eliminarEspecialidad($_GET['Persona'],$_GET['Especialidad']);\r\n            }else{\r\n                throw new Exception('No se recibio la informacion necesaria.');\r\n            }\r\n            header(\"Location: ../Vista/modules/persona/managerSpeciality.php?id=\".$_GET['Persona']);\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            //header(\"Location: ../Vista/modules/persona/manager.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function login (){\r\n        try {\r\n            if(!empty($_POST['Usuario']) && !empty($_POST['Contrasena'])){\r\n                $tmpPerson = new Persona();\r\n                $respuesta = $tmpPerson->Login($_POST['Usuario'], $_POST['Contrasena']);\r\n                if (is_a($respuesta,\"Persona\")) {\r\n                    $hydrator = new ReflectionHydrator(); //Instancia de la clase para convertir objetos\r\n                    $ArrDataPersona = $hydrator->extract($respuesta); //Convertimos el objeto persona en un array\r\n                    unset($ArrDataPersona[\"datab\"],$ArrDataPersona[\"isConnected\"],$ArrDataPersona[\"relEspecialidades\"]); //Limpiamos Campos no Necesarios\r\n                    $_SESSION['UserInSession'] = $ArrDataPersona;\r\n                    echo json_encode(array('type' => 'success', 'title' => 'Ingreso Correcto', 'text' => 'Sera redireccionado en un momento...'));\r\n                }else{\r\n                    echo json_encode(array('type' => 'error', 'title' => 'Error al ingresar', 'text' => $respuesta)); //Si la llamda es por Ajax\r\n                }\r\n                return $respuesta; //Si la llamada es por funcion\r\n            }else{\r\n                echo json_encode(array('type' => 'error', 'title' => 'Datos Vacios', 'text' => 'Debe ingresar la informacion del usuario y contraseña'));\r\n                return \"Datos Vacios\"; //Si la llamada es por funcion\r\n            }\r\n        } catch (Exception $e) {\r\n            var_dump($e);\r\n            header(\"Location: ../login.php?respuesta=error\");\r\n        }\r\n    }\r\n\r\n    public static function cerrarSession (){\r\n        session_unset();\r\n        session_destroy();\r\n        header(\"Location: ../Vista/modules/persona/login.php\");\r\n    }*/\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App/Controllers/UsuariosController.php	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ App/Controllers/UsuariosController.php	(date 1593028482540)
+@@ -1,8 +1,8 @@
+ <?php
+ 
+ namespace App\Controllers;
+-require(__DIR__.'/../Models/Usuarios.php');
+-use App\Models\Usuarios;
++require(__DIR__ . '/../Models/Categorias.php');
++use App\Models\categorias;
+ 
+ if(!empty($_GET['action'])){
+     UsuariosController::main($_GET['action']);
+@@ -44,10 +44,10 @@
+             $arrayUsuario['direccion'] = $_POST['direccion'];
+             $arrayUsuario['rol'] = 'Cliente';
+             $arrayUsuario['estado'] = 'Activo';
+-            if(!Usuarios::usuarioRegistrado($arrayUsuario['documento'])){
+-                $Usuario = new Usuarios ($arrayUsuario);
++            if(!categorias::usuarioRegistrado($arrayUsuario['documento'])){
++                $Usuario = new categorias ($arrayUsuario);
+                 if($Usuario->create()){
+-                    header("Location: ../../views/modules/usuarios/index.php?respuesta=correcto");
++                    header("Location: ../../views/modules/usuarios/conexion.php?respuesta=correcto");
+                 }
+             }else{
+                 header("Location: ../../views/modules/usuarios/create.php?respuesta=error&mensaje=Usuario ya registrado");
+@@ -70,7 +70,7 @@
+             $arrayUsuario['estado'] = $_POST['estado'];
+             $arrayUsuario['id'] = $_POST['id'];
+ 
+-            $user = new Usuarios($arrayUsuario);
++            $user = new categorias($arrayUsuario);
+             $user->update();
+ 
+             header("Location: ../../views/modules/usuarios/show.php?id=".$user->getId()."&respuesta=correcto");
+@@ -82,37 +82,37 @@
+ 
+     static public function activate (){
+         try {
+-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
++            $ObjUsuario = categorias::searchForId($_GET['Id']);
+             $ObjUsuario->setEstado("Activo");
+             if($ObjUsuario->update()){
+-                header("Location: ../../views/modules/usuarios/index.php");
++                header("Location: ../../views/modules/usuarios/conexion.php");
+             }else{
+-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
++                header("Location: ../../views/modules/usuarios/conexion.php?respuesta=error&mensaje=Error al guardar");
+             }
+         } catch (\Exception $e) {
+             //var_dump($e);
+-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=".$e->getMessage());
++            header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error&mensaje=".$e->getMessage());
+         }
+     }
+ 
+     static public function inactivate (){
+         try {
+-            $ObjUsuario = Usuarios::searchForId($_GET['Id']);
++            $ObjUsuario = categorias::searchForId($_GET['Id']);
+             $ObjUsuario->setEstado("Inactivo");
+             if($ObjUsuario->update()){
+-                header("Location: ../../views/modules/usuarios/index.php");
++                header("Location: ../../views/modules/usuarios/conexion.php");
+             }else{
+-                header("Location: ../../views/modules/usuarios/index.php?respuesta=error&mensaje=Error al guardar");
++                header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error&mensaje=Error al guardar");
+             }
+         } catch (\Exception $e) {
+             //var_dump($e);
+-            header("Location: ../../views/modules/usuarios/index.php?respuesta=error");
++            header("Location: ../../views/modules/usuarios/Conexion.php?respuesta=error");
+         }
+     }
+ 
+     static public function searchForID ($id){
+         try {
+-            return Usuarios::searchForId($id);
++            return categorias::searchForId($id);
+         } catch (\Exception $e) {
+             var_dump($e);
+             //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
+@@ -121,7 +121,7 @@
+ 
+     static public function getAll (){
+         try {
+-            return Usuarios::getAll();
++            return categorias::getAll();
+         } catch (\Exception $e) {
+             var_dump($e);
+             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+Index: composer.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n    \"_readme\": [\r\n        \"This file locks the dependencies of your project to a known state\",\r\n        \"Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies\",\r\n        \"This file is @generated automatically\"\r\n    ],\r\n    \"content-hash\": \"580be2d2c3068dbb91a4c18c30cfb3f1\",\r\n    \"packages\": [\r\n        {\r\n            \"name\": \"almasaeed2010/adminlte\",\r\n            \"version\": \"v3.0.1\",\r\n            \"source\": {\r\n                \"type\": \"git\",\r\n                \"url\": \"https://github.com/ColorlibHQ/AdminLTE.git\",\r\n                \"reference\": \"5988c4f9dbed5f12c314620f1273359cffd7b887\"\r\n            },\r\n            \"dist\": {\r\n                \"type\": \"zip\",\r\n                \"url\": \"https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/5988c4f9dbed5f12c314620f1273359cffd7b887\",\r\n                \"reference\": \"5988c4f9dbed5f12c314620f1273359cffd7b887\",\r\n                \"shasum\": \"\"\r\n            },\r\n            \"type\": \"library\",\r\n            \"notification-url\": \"https://packagist.org/downloads/\",\r\n            \"license\": [\r\n                \"MIT\"\r\n            ],\r\n            \"authors\": [\r\n                {\r\n                    \"name\": \"Colorlib\"\r\n                }\r\n            ],\r\n            \"description\": \"AdminLTE - admin control panel and dashboard that's based on Bootstrap 4\",\r\n            \"homepage\": \"http://adminlte.io/\",\r\n            \"keywords\": [\r\n                \"JS\",\r\n                \"admin\",\r\n                \"back-end\",\r\n                \"css\",\r\n                \"less\",\r\n                \"responsive\",\r\n                \"template\",\r\n                \"theme\",\r\n                \"web\"\r\n            ],\r\n            \"time\": \"2019-11-20T08:41:28+00:00\"\r\n        },\r\n        {\r\n            \"name\": \"phpoption/phpoption\",\r\n            \"version\": \"1.6.0\",\r\n            \"source\": {\r\n                \"type\": \"git\",\r\n                \"url\": \"https://github.com/schmittjoh/php-option.git\",\r\n                \"reference\": \"f4e7a6a1382183412246f0d361078c29fb85089e\"\r\n            },\r\n            \"dist\": {\r\n                \"type\": \"zip\",\r\n                \"url\": \"https://api.github.com/repos/schmittjoh/php-option/zipball/f4e7a6a1382183412246f0d361078c29fb85089e\",\r\n                \"reference\": \"f4e7a6a1382183412246f0d361078c29fb85089e\",\r\n                \"shasum\": \"\"\r\n            },\r\n            \"require\": {\r\n                \"php\": \"^5.5.9 || ^7.0\"\r\n            },\r\n            \"require-dev\": {\r\n                \"phpunit/phpunit\": \"^4.8.35 || ^5.0 || ^6.0 || ^7.0\"\r\n            },\r\n            \"type\": \"library\",\r\n            \"extra\": {\r\n                \"branch-alias\": {\r\n                    \"dev-master\": \"1.6-dev\"\r\n                }\r\n            },\r\n            \"autoload\": {\r\n                \"psr-4\": {\r\n                    \"PhpOption\\\\\": \"src/PhpOption/\"\r\n                }\r\n            },\r\n            \"notification-url\": \"https://packagist.org/downloads/\",\r\n            \"license\": [\r\n                \"Apache-2.0\"\r\n            ],\r\n            \"authors\": [\r\n                {\r\n                    \"name\": \"Johannes M. Schmitt\",\r\n                    \"email\": \"schmittjoh@gmail.com\"\r\n                },\r\n                {\r\n                    \"name\": \"Graham Campbell\",\r\n                    \"email\": \"graham@alt-three.com\"\r\n                }\r\n            ],\r\n            \"description\": \"Option Type for PHP\",\r\n            \"keywords\": [\r\n                \"language\",\r\n                \"option\",\r\n                \"php\",\r\n                \"type\"\r\n            ],\r\n            \"time\": \"2019-11-30T20:20:49+00:00\"\r\n        },\r\n        {\r\n            \"name\": \"symfony/polyfill-ctype\",\r\n            \"version\": \"v1.13.1\",\r\n            \"source\": {\r\n                \"type\": \"git\",\r\n                \"url\": \"https://github.com/symfony/polyfill-ctype.git\",\r\n                \"reference\": \"f8f0b461be3385e56d6de3dbb5a0df24c0c275e3\"\r\n            },\r\n            \"dist\": {\r\n                \"type\": \"zip\",\r\n                \"url\": \"https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3\",\r\n                \"reference\": \"f8f0b461be3385e56d6de3dbb5a0df24c0c275e3\",\r\n                \"shasum\": \"\"\r\n            },\r\n            \"require\": {\r\n                \"php\": \">=5.3.3\"\r\n            },\r\n            \"suggest\": {\r\n                \"ext-ctype\": \"For best performance\"\r\n            },\r\n            \"type\": \"library\",\r\n            \"extra\": {\r\n                \"branch-alias\": {\r\n                    \"dev-master\": \"1.13-dev\"\r\n                }\r\n            },\r\n            \"autoload\": {\r\n                \"psr-4\": {\r\n                    \"Symfony\\\\Polyfill\\\\Ctype\\\\\": \"\"\r\n                },\r\n                \"files\": [\r\n                    \"bootstrap.php\"\r\n                ]\r\n            },\r\n            \"notification-url\": \"https://packagist.org/downloads/\",\r\n            \"license\": [\r\n                \"MIT\"\r\n            ],\r\n            \"authors\": [\r\n                {\r\n                    \"name\": \"Gert de Pagter\",\r\n                    \"email\": \"BackEndTea@gmail.com\"\r\n                },\r\n                {\r\n                    \"name\": \"Symfony Community\",\r\n                    \"homepage\": \"https://symfony.com/contributors\"\r\n                }\r\n            ],\r\n            \"description\": \"Symfony polyfill for ctype functions\",\r\n            \"homepage\": \"https://symfony.com\",\r\n            \"keywords\": [\r\n                \"compatibility\",\r\n                \"ctype\",\r\n                \"polyfill\",\r\n                \"portable\"\r\n            ],\r\n            \"time\": \"2019-11-27T13:56:44+00:00\"\r\n        },\r\n        {\r\n            \"name\": \"vlucas/phpdotenv\",\r\n            \"version\": \"v3.6.0\",\r\n            \"source\": {\r\n                \"type\": \"git\",\r\n                \"url\": \"https://github.com/vlucas/phpdotenv.git\",\r\n                \"reference\": \"1bdf24f065975594f6a117f0f1f6cabf1333b156\"\r\n            },\r\n            \"dist\": {\r\n                \"type\": \"zip\",\r\n                \"url\": \"https://api.github.com/repos/vlucas/phpdotenv/zipball/1bdf24f065975594f6a117f0f1f6cabf1333b156\",\r\n                \"reference\": \"1bdf24f065975594f6a117f0f1f6cabf1333b156\",\r\n                \"shasum\": \"\"\r\n            },\r\n            \"require\": {\r\n                \"php\": \"^5.4 || ^7.0\",\r\n                \"phpoption/phpoption\": \"^1.5\",\r\n                \"symfony/polyfill-ctype\": \"^1.9\"\r\n            },\r\n            \"require-dev\": {\r\n                \"phpunit/phpunit\": \"^4.8.35 || ^5.0 || ^6.0 || ^7.0\"\r\n            },\r\n            \"type\": \"library\",\r\n            \"extra\": {\r\n                \"branch-alias\": {\r\n                    \"dev-master\": \"3.6-dev\"\r\n                }\r\n            },\r\n            \"autoload\": {\r\n                \"psr-4\": {\r\n                    \"Dotenv\\\\\": \"src/\"\r\n                }\r\n            },\r\n            \"notification-url\": \"https://packagist.org/downloads/\",\r\n            \"license\": [\r\n                \"BSD-3-Clause\"\r\n            ],\r\n            \"authors\": [\r\n                {\r\n                    \"name\": \"Graham Campbell\",\r\n                    \"email\": \"graham@alt-three.com\",\r\n                    \"homepage\": \"https://gjcampbell.co.uk/\"\r\n                },\r\n                {\r\n                    \"name\": \"Vance Lucas\",\r\n                    \"email\": \"vance@vancelucas.com\",\r\n                    \"homepage\": \"https://vancelucas.com/\"\r\n                }\r\n            ],\r\n            \"description\": \"Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.\",\r\n            \"keywords\": [\r\n                \"dotenv\",\r\n                \"env\",\r\n                \"environment\"\r\n            ],\r\n            \"time\": \"2019-09-10T21:37:39+00:00\"\r\n        }\r\n    ],\r\n    \"packages-dev\": [],\r\n    \"aliases\": [],\r\n    \"minimum-stability\": \"stable\",\r\n    \"stability-flags\": [],\r\n    \"prefer-stable\": false,\r\n    \"prefer-lowest\": false,\r\n    \"platform\": {\r\n        \"php\": \">=7.2.0\"\r\n    },\r\n    \"platform-dev\": []\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- composer.lock	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ composer.lock	(date 1593028482590)
+@@ -4,20 +4,20 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "580be2d2c3068dbb91a4c18c30cfb3f1",
++    "content-hash": "351991576a24257ddebdaeaa828bb8dd",
+     "packages": [
+         {
+             "name": "almasaeed2010/adminlte",
+-            "version": "v3.0.1",
++            "version": "v3.0.5",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/ColorlibHQ/AdminLTE.git",
+-                "reference": "5988c4f9dbed5f12c314620f1273359cffd7b887"
++                "reference": "6b8b69261f1aacbb4be037c934f3c3652e6dff27"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/5988c4f9dbed5f12c314620f1273359cffd7b887",
+-                "reference": "5988c4f9dbed5f12c314620f1273359cffd7b887",
++                "url": "https://api.github.com/repos/ColorlibHQ/AdminLTE/zipball/6b8b69261f1aacbb4be037c934f3c3652e6dff27",
++                "reference": "6b8b69261f1aacbb4be037c934f3c3652e6dff27",
+                 "shasum": ""
+             },
+             "type": "library",
+@@ -43,32 +43,33 @@
+                 "theme",
+                 "web"
+             ],
+-            "time": "2019-11-20T08:41:28+00:00"
++            "time": "2020-05-19T20:41:11+00:00"
+         },
+         {
+             "name": "phpoption/phpoption",
+-            "version": "1.6.0",
++            "version": "1.7.4",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/schmittjoh/php-option.git",
+-                "reference": "f4e7a6a1382183412246f0d361078c29fb85089e"
++                "reference": "b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/f4e7a6a1382183412246f0d361078c29fb85089e",
+-                "reference": "f4e7a6a1382183412246f0d361078c29fb85089e",
++                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3",
++                "reference": "b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3",
+                 "shasum": ""
+             },
+             "require": {
+-                "php": "^5.5.9 || ^7.0"
++                "php": "^5.5.9 || ^7.0 || ^8.0"
+             },
+             "require-dev": {
++                "bamarni/composer-bin-plugin": "^1.3",
+                 "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
+             },
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.6-dev"
++                    "dev-master": "1.7-dev"
+                 }
+             },
+             "autoload": {
+@@ -97,20 +98,30 @@
+                 "php",
+                 "type"
+             ],
+-            "time": "2019-11-30T20:20:49+00:00"
++            "funding": [
++                {
++                    "url": "https://github.com/GrahamCampbell",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/phpoption/phpoption",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-06-07T10:40:07+00:00"
+         },
+         {
+             "name": "symfony/polyfill-ctype",
+-            "version": "v1.13.1",
++            "version": "v1.17.1",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/polyfill-ctype.git",
+-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
++                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
+-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
++                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
++                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                 "shasum": ""
+             },
+             "require": {
+@@ -122,7 +133,11 @@
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.13-dev"
++                    "dev-master": "1.17-dev"
++                },
++                "thanks": {
++                    "name": "symfony/polyfill",
++                    "url": "https://github.com/symfony/polyfill"
+                 }
+             },
+             "autoload": {
+@@ -155,29 +170,49 @@
+                 "polyfill",
+                 "portable"
+             ],
+-            "time": "2019-11-27T13:56:44+00:00"
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-06-06T08:46:27+00:00"
+         },
+         {
+             "name": "vlucas/phpdotenv",
+-            "version": "v3.6.0",
++            "version": "v3.6.6",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/vlucas/phpdotenv.git",
+-                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156"
++                "reference": "4669484ccbc38fe7c4e0c50456778f2010566aad"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/1bdf24f065975594f6a117f0f1f6cabf1333b156",
+-                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156",
++                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/4669484ccbc38fe7c4e0c50456778f2010566aad",
++                "reference": "4669484ccbc38fe7c4e0c50456778f2010566aad",
+                 "shasum": ""
+             },
+             "require": {
+-                "php": "^5.4 || ^7.0",
+-                "phpoption/phpoption": "^1.5",
+-                "symfony/polyfill-ctype": "^1.9"
++                "php": "^5.4 || ^7.0 || ^8.0",
++                "phpoption/phpoption": "^1.5.2",
++                "symfony/polyfill-ctype": "^1.16"
+             },
+             "require-dev": {
+-                "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
++                "ext-filter": "*",
++                "ext-pcre": "*",
++                "phpunit/phpunit": "^4.8.35 || ^5.7.27 || ^6.5.6 || ^7.0"
++            },
++            "suggest": {
++                "ext-filter": "Required to use the boolean validator.",
++                "ext-pcre": "Required to use most of the library."
+             },
+             "type": "library",
+             "extra": {
+@@ -212,7 +247,17 @@
+                 "env",
+                 "environment"
+             ],
+-            "time": "2019-09-10T21:37:39+00:00"
++            "funding": [
++                {
++                    "url": "https://github.com/GrahamCampbell",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-06-02T14:08:54+00:00"
+         }
+     ],
+     "packages-dev": [],
+@@ -224,5 +269,6 @@
+     "platform": {
+         "php": ">=7.2.0"
+     },
+-    "platform-dev": []
++    "platform-dev": [],
++    "plugin-api-version": "1.1.0"
+ }
+Index: .idea/deployment.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"PublishConfigData\" serverName=\"Laragon\">\r\n    <serverData>\r\n      <paths name=\"Laragon\">\r\n        <serverdata>\r\n          <mappings>\r\n            <mapping deploy=\"\\WebER\" local=\"$PROJECT_DIR$\" web=\"/WebER\" />\r\n          </mappings>\r\n        </serverdata>\r\n      </paths>\r\n    </serverData>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/deployment.xml	(revision 800c019a41628469d4806b341edea00657632f1e)
++++ .idea/deployment.xml	(date 1593028482614)
+@@ -5,7 +5,7 @@
+       <paths name="Laragon">
+         <serverdata>
+           <mappings>
+-            <mapping deploy="\WebER" local="$PROJECT_DIR$" web="/WebER" />
++            <mapping deploy="\Proyecto-ABC" local="$PROJECT_DIR$" web="/Proyecto-ABC" />
+           </mappings>
+         </serverdata>
+       </paths>

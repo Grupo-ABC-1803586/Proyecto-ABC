@@ -27,7 +27,15 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="<?= $baseURL; ?>/views/index.php" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <p>
+                            Inicio
+                        </p>
+                    </a>
 
+                </li>
                 <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
@@ -100,6 +108,54 @@
                         </li>
 
                     </ul>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Persona
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Persona/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Persona/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tools"></i>
+                        <p>
+                            Sanciones
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Sanciones/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Sanciones/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 </li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
@@ -181,7 +237,7 @@
 
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-user"></i>
+                        <i class="fas fa-tools"></i>
                         <p>
                             KIT
                             <i class="fas fa-angle-left right"></i>
@@ -201,11 +257,50 @@
                             </a>
                         </li>
                     </ul>
-
+                    <p>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-angle-left right"></i>
+                        Prestamo
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <p>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-angle-left right"></i>
+                        Detalle Prestamo
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/index.php" class="nav-link">
+                                <i class="fas fa-eye"></i>
+                                <p>Listar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Prestamo/create.php" class="nav-link">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-
             </ul>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>

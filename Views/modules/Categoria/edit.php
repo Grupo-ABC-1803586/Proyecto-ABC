@@ -1,6 +1,7 @@
 <?php
 require_once("../../partials/routes.php");
-require_once("../../../App/Controllers/CategoriaController.php");
+require_once("../../../app/Controllers/CategoriaController.php");
+require("../../../App/Controller/PersonaController.php");
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
@@ -95,13 +96,6 @@ use App\Controllers\CategoriaController; ?>
                                                            placeholder="Ingrese sus nombre">
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
                                             <hr>
                                             <button type="submit" class="btn btn-warning">Enviar</button>
                                             <a href="show.php" role="button" class="btn btn-dark float-right">Cancelar</a>
@@ -126,6 +120,46 @@ use App\Controllers\CategoriaController; ?>
                     </div>
                 </div>
             </div>
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Horizontal Form</h3>
+                </div>
+                <!-- /.card-header -->
+                <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){ ?>
+                    <p>
+                    <?php
+                    $DataCategoria = CategoriaController::searchForID($_GET["Id"]);
+                        if(!empty($DataCategoria)){
+                    ?>
+                            <!-- form start -->
+                            <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../App/Controllers/PersonaController.php?action=edit">
+                                <input id="Id" name="Id" value="<?php echo $DataCategoria->getId(); ?>" hidden required="required" type="text">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                                        <div class="col-sm-10"> 
+                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese el nombre">
+                                        </div>
+                                    </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-info">Enviar</button>
+                                    <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                                </div>
+                                <!-- /.card-footer -->
+                            </form>
+                    <?php }else{ ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                                No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? "" ?>
+                            </div>
+                    <?php } ?>
+                    </p>
+                <?php } ?>
+            </div>
+            <!-- /.card -->
         </section>
         <!-- /.content -->
     </div>
