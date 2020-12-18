@@ -46,9 +46,18 @@
             <?php } ?>
 
             <!-- Horizontal Form -->
-            <div class="card card-info">
+            <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title">Horizontal Form</h3>
+                    <h3 class="card-title"><i class="fab fa-steam"></i>&nbsp;&nbsp;<strong>Marca</strong></h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="create.php" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i></button>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -65,8 +74,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-info">Enviar</button>
-                <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                <button type="submit" class="btn btn-warning">Enviar</button>
+                <a href="index.php" role="button" class="btn btn-dark float-right">Cancelar</a>
             </div>
                 </form>
             </div>

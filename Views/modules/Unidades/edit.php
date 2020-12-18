@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UnidadesController.php");
+require("../../../App/Controllers/UnidadesController.php");
 
 use App\Controllers\UnidadesController; ?>
 <!DOCTYPE html>
@@ -56,9 +56,18 @@ use App\Controllers\UnidadesController; ?>
             <?php } ?>
 
             <!-- Horizontal Form -->
-            <div class="card card-info">
+            <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title">Form modificar Unidades</h3>
+                    <h3 class="card-title"><i class="fas fa-edit"></i> <strong>Unidades</strong></h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="create.php" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i></button>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){ ?>
@@ -92,8 +101,8 @@ use App\Controllers\UnidadesController; ?>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-info">Enviar</button>
-                                    <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                                    <button type="submit" class="btn btn-warning">Enviar</button>
+                                    <a href="index.php" role="button" class="btn btn-dark float-right">Cancelar</a>
                                 </div>
                                 <!-- /.card-footer -->
                         </form>

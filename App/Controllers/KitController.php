@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__ . '/../Models/Kit.php');
+require_once(__DIR__ . '/../Models/Kit.php');
 
 use App\Models\Kit;
-
 if(!empty($_GET['action'])){
     KitController::main($_GET['action']);
 }
@@ -119,10 +118,10 @@ class KitController{
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    public static function KitIsInArray($Id, $ArrKit){
+        if(count($ArrKit) > 0){
+            foreach ($ArrKit as $Kit){
+                if($Kit->getKit() == $Id){
                     return true;
                 }
             }
@@ -130,32 +129,32 @@ class KitController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
+    static public function selectKit ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
+                                          $Id="Kit",
+                                          $Nombre="Kit",
                                           $defaultValue="",
                                           $class="",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrPersonas = array();
+        $arrKit = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM Kit WHERE ";
+            $arrKit = Kit::search ($base.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrKit = Kit::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." Id= '".$Id."' name='".$Nombre."' class='".$class."'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrKit) > 0){
+            foreach ($arrKit as $Kit)
+                if (!KitController::KitIsInArray($Kit->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Kit != "") ? (($defaultValue == $Kit->getId()) ? "selected" : "" ) : "")." value='".$Kit->getId()."'>".$Kit->getNombre()." </option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){

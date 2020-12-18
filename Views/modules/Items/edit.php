@@ -1,8 +1,22 @@
 <?php
-require("../../partials/routes.php");
-require("../../../App/Controllers/ItemsController.php");
+require_once("../../partials/routes.php");
+require_once("../../../App/Controllers/MarcaController.php");
+require_once("../../../App/Controllers/ItemsController.php");
+require_once("../../../App/Controllers/UnidadesController.php");
+require_once("../../../App/Controllers/ElementoController.php");
+require_once("../../../App/Controllers/KitController.php");
+require_once("../../../App/Controllers/CategoriaController.php");
 
-use App\Controllers\ItemsController; ?>
+use App\Controllers\ItemsController;
+use App\Controllers\MarcaController;
+use App\Controllers\UnidadesController;
+use App\Controllers\ElementoController;
+use App\Controllers\KitController;
+use App\Controllers\CategoriaController;
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +61,7 @@ use App\Controllers\ItemsController; ?>
                         Error al crear el Items: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
+            <?php } else if (empty($_GET['Id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -58,9 +72,9 @@ use App\Controllers\ItemsController; ?>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Horizontal Form -->
-                        <div class="card card-info">
+                        <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-box"></i>&nbsp; Información de Items</h3>
+                                <h3 class="card-title"><i class="fas fa-edit"></i>&nbsp; Información de Items</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="create.php" data-source-selector="#card-refresh-content"
@@ -72,70 +86,125 @@ use App\Controllers\ItemsController; ?>
                                 </div>
                             </div>
                             <!-- /.card-header -->
-                            <?php if (!empty($_GET["id"]) && isset($_GET["id"])) { ?>
+                            <?php if (!empty($_GET["Id"]) && isset($_GET["Id"])) { ?>
                                 <p>
                                 <?php
-                                $DataItems = ItemsController::searchForID($_GET["id"]);
-                                if (!empty($DataItems)) {
+                                $dataitem = ItemsController::searchForID($_GET["Id"]);
+                                if (!empty($dataitem)) {
                                     ?>
                                     <div class="card-body">
                                         <!-- form start -->
-                                        <form class="form-horizontal" method="post" id="frmEditProducto"
-                                              name="frmEditProducto"
-                                              action="../../../App/Controllers/ItemsController.php?action=edit">
-                                            <input id="Id" name="Id" value="<?php echo $DataItems->getId(); ?>" hidden required="required" type="text">
+                                        <form class="form-horizontal" method="post" id="frmModificarSubcatego" name="frmModificarSubcategoria" action="../../../App/Controllers/ItemsController.php?action=edit">
+                                            <input id="Id" name="Id" value="<?php echo $dataitem->getId(); ?>" hidden required="required" type="text">
+
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <label for="placa" class="col-sm-2 col-form-label">Placa</label>
+                                                    <label for="Placa" class="col-sm-2 col-form-label">Placa</label>
                                                     <div class="col-sm-10">
-                                                        <input required type="text" class="form-control" id="Placa" name="Placa" value="<?= $DataItems->getPlaca(); ?>" placeholder="Ingrese Placa">
+                                                        <input required type="text" class="form-control" id="Placa" name="Placa" value="<?= $dataitem->getPlaca(); ?>" placeholder="Ingrese placa">
                                                     </div>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                                                    <div class="col-sm-10">
+                                                        <input required type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?= $dataitem->getDescripcion(); ?>" placeholder="Ingrese descripcion">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="Costo" class="col-sm-2 col-form-label">Costo</label>
+                                                    <div class="col-sm-10">
+                                                        <input required type="text" class="form-control" id="Costo" name="Costo" value="<?= $dataitem->getCosto(); ?>" placeholder="Ingrese costo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="Ubicacion" class="col-sm-2 col-form-label">Ubicacion</label>
+                                                    <div class="col-sm-10">
+                                                        <input required type="text" class="form-control" id="Ubicacion" name="Ubicacion" value="<?= $dataitem->getUbicacion(); ?>" placeholder="Ingrese Ubicacion">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" >
+                                                    <label for="Imagen" class="col-sm-2 col-form-label">Imagen</label>
+                                                    <div class="col-sm-20">
+                                                        <input required type="file" size="32" class="" Id="Imagen" name="Imagen" placeholder="Imagen">
+                                                    </div>
+                                                    <div class="d-flex justify-content-center" >
+                                                        <img Id="output" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="Elemento" class="col-sm-2 col-form-label">Elemento</label>
+                                                    <div class="col-sm-10">
+                                                        <?= ElementoController::selectElemento(false,
+                                                            true,
+                                                            'Elemento',
+                                                            'Elemento',
+                                                            (!empty($dataitem)) ? $dataitem->getElemento()->getId() : '',
+                                                            'form-control select2bs4 select2-info',
+                                                            "")
+
+                                                        ?>
+                                                    </div>
+                                                </div>
+
                                                     <div class="form-group row">
-                                                        <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                                                        <label for="Unidades" class="col-sm-2 col-form-label">Unidades</label>
                                                         <div class="col-sm-10">
-                                                            <input required type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?= $DataItems->getDescripcion(); ?>" placeholder="Ingrese Descripcion">
+                                                            <?= UnidadesController::selectUnidades(false,
+                                                                true,
+                                                                'Unidades',
+                                                                'Unidades',
+                                                                (!empty($dataitem)) ? $dataitem->getUnidades()->getId() : '',
+                                                                'form-control select2bs4 select2-info',
+                                                                "")
+
+                                                            ?>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
-                                                        <div class="form-group row">
-                                                            <label for="Costo" class="col-sm-2 col-form-label">Costo</label>
-                                                            <div class="col-sm-10">
-                                                                <input required type="float" class="form-control" id="Costo" name="Costo" value="<?= $DataItems->getCosto(); ?>" placeholder="Ingrese Costo">
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="form-group row">
-                                                                <label for="Ubicacion" class="col-sm-2 col-form-label">Ubicacion</label>
-                                                                <div class="col-sm-10">
-                                                                    <input required type="text" class="form-control" id="Ubicacion" name="Ubicacion" value="<?= $DataItems->getUbicacion(); ?>" placeholder="Ingrese Ubicacion">
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="form-group row">
-                                                                    <label for="Imagen" class="col-sm-2 col-form-label">Imagen</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input required type="text" class="form-control" id="Imagen" name="Imagen" value="<?= $DataItems->getImagen(); ?>" placeholder="Inserte Imagen">
-                                                                    </div>
-                                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="Marca" class="col-sm-2 col-form-label">Marca</label>
+                                                    <div class="col-sm-10">
+                                                        <?= MarcaController::selectMarca(false,
+                                                            true,
+                                                            'Marca',
+                                                            'Marca',
+                                                            (!empty($dataitem)) ? $dataitem->getMarca()->getId() : '',
+                                                            'form-control select2bs4 select2-info',
+                                                            "")
+                                                        ?>
+                                                    </div>
+                                                </div>
 
+                                                    <div class="form-group row">
+                                                        <label for="Kit" class="col-sm-2 col-form-label">Kit</label>
+                                                        <div class="col-sm-10">
+                                                            <?= KitController::selectKit(false,
+                                                                true,
+                                                                'Kit',
+                                                                'Kit',
+                                                                (!empty($dataitem)) ? $dataitem->getKit()->getId() : '',
+                                                                'form-control select2bs4 select2-info',
+                                                                "")
+
+                                                            ?>
+                                                        </div>
+                                                    </div>
                                             <div class="form-group row">
                                                 <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
                                                 <div class="col-sm-10">
-                                                    <select id="Estado" name="Estado" class="custom-select">
-                                                        <option <?= ($DataItems->getEstado() == "Activo") ? "selected" : ""; ?>
+                                                    <select Id="Estado" name="Estado" class="custom-select">
+                                                        <option <?= ($dataitem->getEstado() == "Activo") ? "selected" : ""; ?>
                                                                 value="Activo">Activo
                                                         </option>
-                                                        <option <?= ($DataItems->getEstado() == "Inactivo") ? "selected" : ""; ?>
+                                                        <option <?= ($dataitem->getEstado() == "Inactivo") ? "selected" : ""; ?>
                                                                 value="Inactivo">Inactivo
                                                         </option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <hr>
-                                            <button type="submit" class="btn btn-info">Enviar</button>
-                                            <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-warning">Enviar</button>
+                                                    <a href="index.php" role="button" class="btn btn-dark float-right">Cancelar</a>
+                                                </div>
                                         </form>
                                     </div>
                                     <!-- /.card-body -->
@@ -143,7 +212,6 @@ use App\Controllers\ItemsController; ?>
                                 <?php } else { ?>
                                     <div class="alert alert-danger alert-dismissible">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                            &times;
                                         </button>
                                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
                                         No se encontro ningun registro con estos parametros de
@@ -166,5 +234,59 @@ use App\Controllers\ItemsController; ?>
 </div>
 <!-- ./wrapper -->
 <?php require('../../partials/scripts.php'); ?>
+<!-- DataTables -->
+<script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/jszip/jszip.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js"></script>
+
+<script>
+    $(function () {
+        $('.datatable').DataTable({
+            "dom": 'Bfrtip',
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "url": "../../components/Spanish.json" //Idioma
+            },
+            "buttons": [
+                'copy', 'print', 'excel', 'pdf'
+            ],
+            "pagingType": "full_numbers",
+            "responsive": true,
+            "stateSave": true, //Guardar la configuracion del usuario
+        });
+    });
+    function removeAtributes(){
+        $("#Imagen").removeAttr("required");
+    }
+
+    function addAtributes(){
+        $("Imagen").prop("required","required");
+    }
+
+    $( "#Imagen" ).change(function() {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('output');
+            output.src = reader.result;
+            output.width = 160;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+</script>
+
+
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/Controllers/UnidadesController.php");
+require("../../../App/Controllers/UnidadesController.php");
 
 use App\Controllers\UnidadesController; ?>
 <!DOCTYPE html>
@@ -56,13 +56,13 @@ use App\Controllers\UnidadesController; ?>
             <?php } ?>
 
             <!-- Horizontal Form -->
-            <div class="card card-info">
+            <div class="card card-warning">
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
                     $DataUnidades = UnidadesController::searchForID($_GET["Id"]);
                     if(!empty($DataUnidades)){
                         ?>
                         <div class="card-header">
-                            <h3 class="card-title"><?= $DataUnidades->getNombre()  ?></h3>
+                            <h3 class="card-title"> <strong>Unidades</strong> </h3>
                         </div>
                         <div class="card-body">
                             <p>
@@ -79,14 +79,17 @@ use App\Controllers\UnidadesController; ?>
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-auto mr-auto">
-                                    <a role="button" href="create.php" class="btn btn-success float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-tasks"></i> Registrar Unidades
+                                    <a role="button" href="edit.php?Id=<?php echo $DataUnidades->getId(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-tasks"></i> Modificar Unidades
                                     </a>
                                 </div>
                                 <div class="col-auto">
-                                    <a role="button" href="edit.php?id=<?php echo $DataUnidades->getId(); ?>" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-plus"></i> editar Unidades
+                                    <a role="button" href="create.php" class="btn btn-dark float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-plus"></i> Crear Unidades
                                     </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="index.php" role="button" class="btn btn-dark float-right">Volver</a>
                                 </div>
                             </div>
                         </div>

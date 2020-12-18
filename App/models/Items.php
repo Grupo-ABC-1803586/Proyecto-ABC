@@ -289,7 +289,7 @@ class Items extends BasicModel
             $getrow = $item->getRow("SELECT * FROM proyecto_sena.Items WHERE Id =?", array($Id));
             $item->Id = $getrow['Id'];
             $item->Placa = $getrow['Placa'];
-            $item->Descripcion = $getrow['Descipcion'];
+            $item->Descripcion = $getrow['Descripcion'];
             $item->Costo = $getrow['Costo'];
             $item->Ubicacion = $getrow['Ubicacion'];
             $item->Imagen= $getrow['Imagen'];

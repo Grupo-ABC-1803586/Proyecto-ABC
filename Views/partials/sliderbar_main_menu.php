@@ -65,7 +65,7 @@
                     <a href="#" class="nav-link active">
                         <i class="fas fa-toolbox"></i>
                         <p>
-                            Categoria
+                            CATEGORIA
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -89,7 +89,7 @@
                     <a href="#" class="nav-link active">
                         <i class="fas fa-tools"></i>
                         <p>
-                            Elemento
+                            ELEMENTO
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -157,12 +157,11 @@
                     </ul>
                 </li>
                 </li>
-                <li class="nav-header">Modulos Principales</li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-
+                        <i class="fas fa-ruler-combined"></i>
                         <p>
-                            Unidades
+                            UNIDADES
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -182,16 +181,11 @@
                         </li>
 
                     </ul>
-
-
-
-
                 <li class="nav-item has-treeview menu-open">
-
                     <a href="#" class="nav-link active">
-
+                        <i class="fab fa-steam"></i>
                         <p>
-                            Marca
+                            MARCA
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -203,6 +197,7 @@
                                 <p>Listar</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Marca/create.php" class="nav-link">
                                 <i class="fas fa-plus-circle"></i>
@@ -212,36 +207,39 @@
 
                     </ul>
                 </li>
-                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'Items') ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-store"></i>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-archive"></i>
                         <p>
-                            Items
+                            ITEMS
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/index.php" class="nav-link">
                                 <i class="fas fa-eye"></i>
                                 <p>Listar</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Items/create.php" class="nav-link">
                                 <i class="fas fa-plus-circle"></i>
                                 <p>Registrar</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
-                </li>
-                <li class="nav-header">Modulos Principales</li>
+
+
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
                         <i class="fas fa-tools"></i>
                         <p>
-                            Kit
+                            KIT
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -301,13 +299,8 @@
                             </a>
                         </li>
                     </ul>
-                    </a>
-                        </li>
-                    </ul>
                 </li>
-
             </ul>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>

@@ -3,11 +3,16 @@
 require_once("../../../App/Controllers/MarcaController.php");
 require_once("../../../App/Controllers/ItemsController.php");
 require_once("../../../App/Controllers/UnidadesController.php");
+require_once("../../../App/Controllers/ElementoController.php");
+require_once("../../../App/Controllers/KitController.php");
+
 require_once("../../partials/routes.php");
 
 use App\Controllers\MarcaController;
 use App\Controllers\UnidadesController;
 use App\Controllers\ItemsController;
+use App\Controllers\ElementoController;
+use App\Controllers\KitController;
 
 ?>
 
@@ -65,9 +70,9 @@ use App\Controllers\ItemsController;
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="card card-info">
+                        <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Información de Items</h3>
+                                <h3 class="card-title"><i class="fas fa-archive"></i> &nbsp; Información de Items</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="create.php" data-source-selector="#card-refresh-content"
@@ -81,7 +86,7 @@ use App\Controllers\ItemsController;
 
                             <div class="card-body">
                                 <form class="form-horizontal" method="post" id="frmCreateVenta" name="frmCreateVenta"
-                                      action="../../../App/Controllers/ItemsController.php?action=create">
+                                      action="../../../App/Controllers/ItemsController.php?action=create" enctype="multipart/form-data">
 
                                     <?php
                                     $dataitem = null;
@@ -90,12 +95,6 @@ use App\Controllers\ItemsController;
                                     }
                                     ?>
 
-                                    <div class="form-group row">
-                                        <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
-                                        <div class="col-sm-10">
-                                            <input required type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Ingrese nombre">
-                                        </div>
-                                    </div>
                                     <div class="form-group row">
                                         <label for="Placa" class="col-sm-2 col-form-label">Placa</label>
                                         <div class="col-sm-10">
@@ -111,7 +110,7 @@ use App\Controllers\ItemsController;
                                         <div class="form-group row">
                                             <label for="Costo" class="col-sm-2 col-form-label">Costo</label>
                                             <div class="col-sm-10">
-                                                <input required type="text" class="form-control" id="Costo" name="Costo" placeholder="Ingrese costo">
+                                                <input required type="float" class="form-control" id="Costo" name="Costo" placeholder="Ingrese costo">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -120,26 +119,29 @@ use App\Controllers\ItemsController;
                                                 <input required type="text" class="form-control" Id="Ubicacion" name="Ubicacion" placeholder="Ingrese ubicacion">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                    <div class="form-group row" >
                                             <label for="Imagen" class="col-sm-2 col-form-label">Imagen</label>
-                                            <div class="col-sm-10">
-                                                <input required type="file" class="form-control" Id="Imagen" name="Imagen" placeholder="Imagen">
+                                            <div class="col-sm-20">
+                                                <input required type="file" size="32" class="" Id="Imagen" name="Imagen" placeholder="Imagen">
                                             </div>
+                                        <div class="d-flex justify-content-center" >
+                                            <img Id="output" />
+                                        </div>
                                         </div>
                                     <div class="form-group row">
-                                        <label for="Marca" class="col-sm-2 col-form-label">Marca</label>
+                                        <label for="Elemento" class="col-sm-2 col-form-label">Elemento</label>
                                         <div class="col-sm-10">
-                                            <?= MarcaController::selectMarca(false,
+                                            <?= ElementoController::selectElemento(false,
                                                 true,
-                                                'Marca',
-                                                'Marca',
-                                                (!empty($dataitem)) ? $dataitem->getMarca()->getId() : '',
+                                                'Elemento',
+                                                'Elemento',
+                                                (!empty($dataitem)) ? $dataitem->getElemento()->getId() : '',
                                                 'form-control select2bs4 select2-info',
                                                 "")
+
                                             ?>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <label for="Unidades" class="col-sm-2 col-form-label">Unidades</label>
                                         <div class="col-sm-10">
@@ -154,102 +156,54 @@ use App\Controllers\ItemsController;
                                             ?>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="Marca" class="col-sm-2 col-form-label">Marca</label>
+                                        <div class="col-sm-10">
+                                            <?= MarcaController::selectMarca(false,
+                                                true,
+                                                'Marca',
+                                                'Marca',
+                                                (!empty($dataitem)) ? $dataitem->getMarca()->getId() : '',
+                                                'form-control select2bs4 select2-info',
+                                                "")
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Kit" class="col-sm-2 col-form-label">Kit</label>
+                                        <div class="col-sm-10">
+                                            <?= KitController::selectKit(false,
+                                                true,
+                                                'Kit',
+                                                'Kit',
+                                                (!empty($dataitem)) ? $dataitem->getKit()->getId() : '',
+                                                'form-control select2bs4 select2-info',
+                                                "")
 
-
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                                        <div class="col-sm-10">
+                                            <select id="rol" name="Estado" class="custom-select">
+                                                <option value="Activo">Activo</option>
+                                                <option value="Inactivo">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-warning">Enviar</button>
+                                        <a href="index.php" role="button" class="btn btn-dark float-right">Cancelar</a>
+                                    </div>
                                     </div>
 
-                                    <hr>
-                                    <button type="submit" class="btn btn-info">Enviar</button>
-                                    <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
                                 </form>
                             </div>
                         </div>
                         <!-- /.card -->
                     </div>
-                    <div class="col-md-8">
-                        <div class="card card-lightblue">
-                            <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-parachute-box"></i>Detalle de prestamo</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
-                                            data-source="create.php" data-source-selector="#card-refresh-content"
-                                            data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                            class="fas fa-expand"></i></button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                            class="fas fa-minus"></i></button>
-                                </div>
-                            </div>
 
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-auto mr-auto"></div>
-                                    <div class="col-auto">
-                                        <a role="button" href="#" data-toggle="modal" data-target="#modal-add-producto"
-                                           class="btn btn-primary float-right"
-                                           style="margin-right: 5px;">
-                                            <i class="fas fa-plus"></i> Añadir Prestamo
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <table id="tblDetalleProducto"
-                                               class="datatable table table-bordered table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Observaciones</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php
-                                            $arrDetallePrestamo = DetallePrestamo::getAll();
-                                            foreach ($arrDetallePrestamo as $detallePrestamo) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $detallePrestamo->getId(); ?></td>
-                                                    <td><?php echo $detallePrestamo->getPrestamo()->getNombre(); ?></td>
-                                                    <td><?php echo $detallePrestamo->getCantidad(); ?></td>
-                                                    <td><?php echo $detallePrestamo->getPrecio(); ?></td>
-                                                    <td>
-                                                        <a href="edit.php?id=<?php echo $detallePrestamo->getId(); ?>"
-                                                           type="button" data-toggle="tooltip" title="Actualizar"
-                                                           class="btn docs-tooltip btn-primary btn-xs"><i
-                                                                class="fa fa-edit"></i></a>
-                                                        <a href="show.php?id=<?php echo $detallePrestamo->getId(); ?>"
-                                                           type="button" data-toggle="tooltip" title="Ver"
-                                                           class="btn docs-tooltip btn-warning btn-xs"><i
-                                                                class="fa fa-eye"></i></a>
-                                                        <?php if ($detallePrestamo->getEstado() != "Activo") { ?>
-                                                            <a href="../../../App/Controllers/ProductosController.php?action=activate&Id=<?php echo $detallePrestamo->getId(); ?>"
-                                                               type="button" data-toggle="tooltip" title="Activar"
-                                                               class="btn docs-tooltip btn-success btn-xs"><i
-                                                                    class="fa fa-check-square"></i></a>
-                                                        <?php } else { ?>
-                                                            <a type="button"
-                                                               href="../../../App/Controllers/ProductosController.php?action=inactivate&Id=<?php echo $detallePrestamo->getId(); ?>"
-                                                               data-toggle="tooltip" title="Inactivar"
-                                                               class="btn docs-tooltip btn-danger btn-xs"><i
-                                                                    class="fa fa-times-circle"></i></a>
-                                                        <?php } ?>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>FechaPrestamo</th>
-                                                <th>FechaEntrega</th>
-                                                <th>Observaciones</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -262,53 +216,6 @@ use App\Controllers\ItemsController;
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-    <div id="modals">
-        <div class="modal fade" id="modal-add-producto">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Agregar Prestamo</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="../../../App/Controllers/ItemsController.php?action=create" method="post">
-                        <div class="modal-body">
-                            <input id="venta_id" name="venta_id" value="<?= !empty($dataitem) ? $dataitem->getId() : ''; ?>" hidden
-                                   required="required" type="text">
-                            <div class="form-group row">
-                                <label for="producto_id" class="col-sm-4 col-form-label">Prestamo</label>
-                                <div class="col-sm-8">
-                                    <?= PrestamoController::selectProducto(false,
-                                        true,
-                                        'producto_id',
-                                        'producto_id',
-                                        '',
-                                        'form-control select2bs4 select2-info',
-                                        "estado = 'Activo'")
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="producto_id" class="col-sm-4 col-form-label">Producto</label>
-                                <div class="col-sm-8">
-                                    <input required type="number" class="form-control" id="cantidad" name="cantidad"
-                                           placeholder="Ingrese la cantidad">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Agregar</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
     </div>
 
     <?php require('../../partials/footer.php'); ?>
@@ -348,6 +255,23 @@ use App\Controllers\ItemsController;
             "responsive": true,
             "stateSave": true, //Guardar la configuracion del usuario
         });
+    });
+    function removeAtributes(){
+        $("#Imagen").removeAttr("required");
+    }
+
+    function addAtributes(){
+        $("Imagen").prop("required","required");
+    }
+
+    $( "#Imagen" ).change(function() {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('output');
+            output.src = reader.result;
+            output.width = 160;
+        };
+        reader.readAsDataURL(event.target.files[0]);
     });
 </script>
 

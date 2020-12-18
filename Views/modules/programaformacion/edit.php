@@ -1,12 +1,12 @@
 <?php
 require_once("../../partials/routes.php");
-require_once("../../../app/Controllers/ProgramaFormacionController.php");
+require_once("../../../App/Controllers/ProgramaFormacionController.php");
 
 use App\Controllers\ProgramaFormacionController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> | Editar Programa Formacion</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">

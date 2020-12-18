@@ -39,7 +39,6 @@ class ProgramaFormacionController{
             $arrayProgramaFormacion['FechaFinalizacion'] = $_POST['FechaFinalizacion'];
             $arrayProgramaFormacion['NombrePrograma'] = $_POST['NombrePrograma'];
             $arrayProgramaFormacion['NivelPrograma'] = $_POST['NivelPrograma'];
-
             if(!ProgramaFormacion::ProgramaformacionRegistrado($arrayProgramaFormacion['NumeroFicha'])){
                 $ProgramaFormacion = new ProgramaFormacion ($arrayProgramaFormacion);
                 if($ProgramaFormacion->create()){
@@ -85,7 +84,6 @@ class ProgramaFormacionController{
                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
-            //var_dump($e);
             header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }

@@ -1,21 +1,13 @@
 <?php
-
 require_once("../../partials/routes.php");
 require_once("../../../app/Controllers/CategoriaController.php");
-
-require("../../partials/routes.php");
 require("../../../App/Controller/PersonaController.php");
-
 
 use App\Controllers\CategoriaController; ?>
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
-    <title><?= getenv('TITLE_SITE') ?> | Editar Usuario</title>
-=======
     <title><?= getenv('TITLE_SITE') ?> | Editar Categoria</title>
->>>>>>> master
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -33,19 +25,11 @@ use App\Controllers\CategoriaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-<<<<<<< HEAD
-                        <h1>Editar Programa Formacion</h1>
+                        <h1>Editar Categoria</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
-=======
-                        <h1>Editar Nueva Categoria</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Categoria</a></li>
->>>>>>> master
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -56,21 +40,12 @@ use App\Controllers\CategoriaController; ?>
         <!-- Main content -->
         <section class="content">
 
-<<<<<<< HEAD
             <?php if (!empty($_GET['respuesta'])) { ?>
                 <?php if ($_GET['respuesta'] == "error") { ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear el usuario: <?= ($_GET['mensaje']) ?? "" ?>
-=======
-            <?php if(!empty($_GET['respuesta'])){ ?>
-                <?php if ($_GET['respuesta'] == "error"){ ?>
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear la categoria: <?= ($_GET['mensaje']) ?? "" ?>
->>>>>>> master
+                        Error al editar  la Categoria: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['Id'])) { ?>
@@ -81,7 +56,6 @@ use App\Controllers\CategoriaController; ?>
                 </div>
             <?php } ?>
 
-<<<<<<< HEAD
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -94,9 +68,9 @@ use App\Controllers\CategoriaController; ?>
                                             data-source="create.php" data-source-selector="#card-refresh-content"
                                             data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
                                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                                class="fas fa-expand"></i></button>
+                                            class="fas fa-expand"></i></button>
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                                class="fas fa-minus"></i></button>
+                                            class="fas fa-minus"></i></button>
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -122,13 +96,6 @@ use App\Controllers\CategoriaController; ?>
                                                            placeholder="Ingrese sus nombre">
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
                                             <hr>
                                             <button type="submit" class="btn btn-warning">Enviar</button>
                                             <a href="show.php" role="button" class="btn btn-dark float-right">Cancelar</a>
@@ -153,7 +120,6 @@ use App\Controllers\CategoriaController; ?>
                     </div>
                 </div>
             </div>
-=======
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
@@ -172,7 +138,7 @@ use App\Controllers\CategoriaController; ?>
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-10"> 
                                             <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese el nombre">
                                         </div>
                                     </div>
@@ -194,22 +160,14 @@ use App\Controllers\CategoriaController; ?>
                 <?php } ?>
             </div>
             <!-- /.card -->
->>>>>>> master
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-<<<<<<< HEAD
     <?php require('../../partials/footer.php'); ?>
 </div>
 <!-- ./wrapper -->
 <?php require('../../partials/scripts.php'); ?>
-=======
-    <?php require('../../partials/footer.php');?>
-</div>
-<!-- ./wrapper -->
-<?php require('../../partials/scripts.php');?>
->>>>>>> master
 </body>
 </html>
