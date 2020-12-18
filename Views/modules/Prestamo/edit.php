@@ -90,9 +90,9 @@ use App\Controllers\PrestamoController; ?>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                                        <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
                                         <div class="col-sm-10">
-                                            <select id="estado" name="estado" class="custom-select">
+                                            <select id="Estado" name="Estado" class="custom-select">
                                                 <option value="Activo">Activo </option>
                                                 <option value="Inactivo">Inactivo </option>
                                             </select>
@@ -130,6 +130,6 @@ use App\Controllers\PrestamoController; ?>
     <?php require('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php');?>
 </body>
 </html>

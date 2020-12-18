@@ -7,7 +7,6 @@ use Exception;
 use PDOException;
 
 abstract class BasicModel {
-
     public $isConnected;
     protected $datab;
     private $username = "proyecto_sena";

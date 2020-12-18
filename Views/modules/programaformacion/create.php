@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Programa Formacion</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Programa de Formacion</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear  Programa Formacion</h1>
+                        <h1>Crear un Nuevo Programa Formacion</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -123,6 +123,6 @@
     <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php');?>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <?php
 require("../../partials/routes.php");
-require("../../../App/Controllers/UnidadesController.php");
+require("../../../app/Controllers/KitController.php");
 
-use App\Controllers\UnidadesController; ?>
+use App\Controllers\KitController; ?>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> |  Datos de Unidades</title>
-    <?php require("../../partials/head_imports.php"); ?>
+    <title><?= getenv('TITLE_SITE') ?> | Datos del Kit</title>
+    <?php require("../../partials/head_Imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -24,7 +24,7 @@ use App\Controllers\UnidadesController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Informacion de Unidades</h1>
+                        <h1>Informacion del Kit</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -44,7 +44,7 @@ use App\Controllers\UnidadesController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al consultar Unidades: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al consultar el Kit: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['Id'])) { ?>
@@ -56,43 +56,42 @@ use App\Controllers\UnidadesController; ?>
             <?php } ?>
 
             <!-- Horizontal Form -->
-            <div class="card card-warning">
+            <div class="card card-info">
                 <?php if(!empty($_GET["Id"]) && isset($_GET["Id"])){
-                    $DataUnidades = UnidadesController::searchForID($_GET["Id"]);
-                    if(!empty($DataUnidades)){
-                        ?>
-                        <div class="card-header">
-                            <h3 class="card-title"> <strong>Unidades</strong> </h3>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                <strong><i class="far fa-file-alt mr-1"></i>Tipo</strong>
-                            <p class="text-muted"><?= $DataUnidades->getTipo() ?></p>
-                            <hr>
-                            <strong><i class="fas fa-book mr-1"></i>Nombre</strong>
-                            <p class="text-muted">
-                                <?= $DataUnidades->getNombre() ?>
-                            </p>
-                            </p>
+                    $DataKit = KitController::searchForID($_GET["Id"]);
+                    if(!empty($DataKit)){
+                ?>
+                <div class="card-header">
+                    <h3 class="card-title"><?= $DataKit->getNombre()  ?></h3>
+                </div>
+                <div class="card-body">
+                    <p>
 
+                        <strong><i class="fas fa-book mr-1"></i> Nombre y Descripcion </strong>
+                        <p class="text-muted">
+                            <?= $DataKit->getNombre()." ".$DataKit->getDescripcion() ?>
+                        </p>
+                        <hr>
+                        <strong><i class="fas fa-user mr-1"></i> Placa</strong>
+                        <p class="text-muted"><?= $DataKit->getPlaca().": ".$DataKit->getPlaca() ?></p>
+                        <hr>
+                    </p>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-auto mr-auto">
+                            <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
+                                <i class="fas fa-tasks"></i> Gestionar Kit
+                            </a>
                         </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-auto mr-auto">
-                                    <a role="button" href="edit.php?Id=<?php echo $DataUnidades->getId(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-tasks"></i> Modificar Unidades
-                                    </a>
-                                </div>
-                                <div class="col-auto">
-                                    <a role="button" href="create.php" class="btn btn-dark float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-plus"></i> Crear Unidades
-                                    </a>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="index.php" role="button" class="btn btn-dark float-right">Volver</a>
-                                </div>
-                            </div>
+                        <div class="col-auto">
+                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                <i class="fas fa-plus"></i> Crear Kit
+                            </a>
                         </div>
+                    </div>
+                </div>
                     <?php }else{ ?>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

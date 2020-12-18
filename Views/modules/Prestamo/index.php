@@ -140,7 +140,7 @@ use App\Controllers\PrestamoController; ?>
     <?php require('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php');?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

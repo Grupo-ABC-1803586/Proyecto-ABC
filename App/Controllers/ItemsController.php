@@ -90,40 +90,30 @@ class ItemsController{
             $arrayitem['Estado'] = $_POST['Estado'];
             $arrayitem['Id'] = $_POST['Id'];
 
+            //Subir el archivo
+            if (!empty($_FILES['Imagen']) && ($_FILES['Imagen']["name"] != "" )){
+                var_dump($_FILES['Imagen']);
+                $NameFile = GeneralFunctions::SubirArchivo($_FILES['Imagen'],'../Vista/filesUploaded/');
+                if ($NameFile != false){
+                $arrayitem['Imagen'] = $NameFile;
+                }else{
+                    throw new Exception('La imagen no se pudo subir.');
+                }
+            }else{
+                    $item = ItemsController::buscarID($arrayitem['Id']);
+                    $arrayitem['Imagen'] = $item->getImagen();
+            }
 
             $item = new Items($arrayitem);
-            $item->update();
+            $item->editar();
 
             header("Location: ../../views/modules/Items/show.php?Id=".$item->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Items/edit.php?respuesta=error&mensaje=".$e->getMessage());
 
-
-    //Subir el archivo
-            if (!empty($_FILES['Imagen']) && ($_FILES['Imagen']["name"] != "" )){
-            var_dump($_FILES['Imagen']);
-            $NameFile = GeneralFunctions::SubirArchivo($_FILES['Imagen'],'../Vista/filesUploaded/');
-            if ($NameFile != false){
-            $arrayitem['Imagen'] = $NameFile;
-            }else{
-                throw new Exception('La imagen no se pudo subir.');
-            }
-            }else{
-                $item = ItemsController::buscarID($arrayitem['Id']);
-                $arrayitem['Imagen'] = $item->getImagen();
-            }
-
-            $item = new Items($arrayitem);
-            $item->editar();
-
-            header("Location: ../Vista/modules/Items/view.php?Id=".$item->getId()."&respuesta=correcto");
-            } catch (Exception $e) {
-                var_dump($e);
-                //header("Location: ../Vista/modules/persona/edit.php?respuesta=error");
-            }
-                }
-
+        }
+    }
 
     static public function activate (){
         try {

@@ -15,7 +15,7 @@ class ProgramaFormacion extends BasicModel
     private $FechaInicio;
     private $FechaFinalizacion;
     private $NombrePrograma;
-    private  $NivelPrograma;
+    private $NivelPrograma;
 
     /**
      * ProgramaFormacion  constructor.

@@ -29,8 +29,7 @@ class ProgramaFormacionController{
         }
     }
 
-    static public function create()
-    {
+    static public function create()    {
         try {
 
             $arrayProgramaFormacion = array();
@@ -91,9 +90,9 @@ class ProgramaFormacionController{
 
     static public function inactivate (){
         try {
-            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-            $ObProgramaFormacion->setEstado("Inactivo");
-            if($ObProgramaFormacion->update()){
+            $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
+            $ObjProgramaFormacion->setEstado("Inactivo");
+            if($ObjProgramaFormacion->update()){
                 header("Location: ../../views/modules/ProgramaFormacion/index.php");
             }else{
                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");

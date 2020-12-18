@@ -8,8 +8,6 @@ use App\Models\GeneralFunctions;
 use App\Models\Elemento;
 use App\Models\Categoria;
 
-
-
 if(!empty($_GET['action'])){
     ElementoController::main($_GET['action']);
 }
