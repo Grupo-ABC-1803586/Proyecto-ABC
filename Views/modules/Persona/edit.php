@@ -112,6 +112,8 @@ use App\Controllers\PersonaController; ?>
                                         </select>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group row">
                                     <label for="ProgramaFormacion" class="col-sm-2 col-form-label">Programa de Formacion</label>
                                     <div class="col-sm-10">
@@ -126,9 +128,23 @@ use App\Controllers\PersonaController; ?>
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
+                                    <div class="col-sm-10">
+                                        <select id="Estado" name="Estado" class="custom-select">
+                                            <option <?= ($Persona->getEstado() == "Disponible") ? "selected" : ""; ?>
+                                                    value="Disponible">Disponible
+                                            </option>
+                                            <option <?= ($Persona->getEstado() == "No Disponible") ? "selected" : ""; ?>
+                                                    value="No Disponible">No Disponible
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="Contraseña" class="col-sm-2 col-form-label">Contraseña</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
+                                        <input required type="password" minlength="6" class="form-control" id="Contraseña" name="Contraseña" placeholder="Ingrese su Contraseña">
                                     </div>
                                 </div>
 

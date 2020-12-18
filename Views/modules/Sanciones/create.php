@@ -59,7 +59,38 @@
                                 <input required type="text" class="form-control" id="Tipo" name="Tipo" placeholder="Ingrese su nombre">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                            <div class="col-sm-10">
+                                <input required type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Ingrese la Descripcion">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Prestamo" class="col-sm-2 col-form-label">Prestamo</label>
+                            <div class="col-sm-10">
+                                <?= PrestamoController::selectPrestamo(false,
+                                    true,
+                                    'Prestamo',
+                                    'Prestamo',
+                                    (!empty($dataSanciones)) ? $dataSanciones->getPrestamo()->getId() : '',
+                                    'form-control select2bs4 select2-info',
+                                    "")
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Persona" class="col-sm-2 col-form-label">Estado</label>
+                            <div class="col-sm-10">
+                                <?= PersonaController::selectEstadoPersona(false,
+                                    true,
+                                    'Persona',
+                                    'Persona',
+                                    (!empty($dataSanciones)) ? $dataSanciones->getPersona()->getId() : '',
+                                    'form-control select2bs4 select2-info',
+                                    "")
+                                ?>
+                            </div>
+                        </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">Enviar</button>

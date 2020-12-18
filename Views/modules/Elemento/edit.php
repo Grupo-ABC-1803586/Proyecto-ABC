@@ -1,9 +1,9 @@
 <?php
-require_once("../../../App/Controllers/CategoriaController.php");
+require_once("../../../App/Controllers/PrestamoController.php");
 require_once("../../../App/Controllers/ElementoController.php");
 require("../../partials/routes.php");
 
-use App\Controllers\CategoriaController;
+use App\Controllers\PrestamoController;
 use App\Controllers\ElementoController;
 
 
@@ -49,7 +49,7 @@ use App\Controllers\ElementoController;
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al editar la Subcategoria: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al editar la SubPrestamo: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['Id'])) { ?>
@@ -82,47 +82,46 @@ use App\Controllers\ElementoController;
                     if(!empty($DataElemento)){
                         ?>
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" id="frmModificarSubcatego" name="frmModificarSubcategoria" action="../../../App/Controllers/ElementoController.php?action=edit">
+                        <form class="form-horizontal" method="post" id="frmModificarSubcatego" name="frmModificarSubPrestamo" action="../../../App/Controllers/ElementoController.php?action=edit">
                             <input id="Id" name="Id" value="<?php echo $DataElemento->getId(); ?>" hidden required="required" type="text">
 
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataElemento->getNombre(); ?>" placeholder="Ingrese nombre de la Categoria">
+                                        <input required type="text" class="form-control" id="Nombre" name="Nombre" value="<?= $DataElemento->getNombre(); ?>" placeholder="Ingrese nombre de la Prestamo">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="Descripcion" class="col-sm-2 col-form-label">Descripcion</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?= $DataElemento->getDescripcion(); ?>" placeholder="Ingrese nombre de la Categoria">
+                                        <input required type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?= $DataElemento->getDescripcion(); ?>" placeholder="Ingrese nombre de la Prestamo">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="Serie" class="col-sm-2 col-form-label">Serie</label>
+                                    <label for="Prestamo" class="col-sm-2 col-form-label">Prestamo</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="Serie" name="Serie" value="<?= $DataElemento->getSerie(); ?>" placeholder="Ingrese nombre de la Categoria">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label for="Categoria" class="col-sm-2 col-form-label">Categoria</label>
-                                    <div class="col-sm-10">
-                                        <?= CategoriaController::selectCategoria(false,
+                                        <?= PrestamoController::selectPrestamo(false,
                                             true,
-                                            'Categoria',
-                                            'Categoria',
-                                            (!empty($dataElemento)) ? $dataElemento->getCategoria()->getId() : '',
+                                            'Prestamo',
+                                            'Prestamo',
+                                            (!empty($dataElemento)) ? $dataElemento->getPrestamo()->getId() : '',
                                             'form-control select2bs4 select2-info',
                                             "")
                                         ?>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="Material" class="col-sm-2 col-form-label">Material</label>
+                                    <label for="Persona" class="col-sm-2 col-form-label">Estado</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="Material" name="Material" value="<?= $DataElemento->getMaterial(); ?>" placeholder="Ingrese nombre de la Categoria">
+                                        <?= PersonaController::selectEstadoPersona(false,
+                                            true,
+                                            'Persona',
+                                            'Persona',
+                                            (!empty($dataSanciones)) ? $dataSanciones->getPersona()->getId() : '',
+                                            'form-control select2bs4 select2-info',
+                                            "")
+                                        ?>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
