@@ -1,19 +1,12 @@
-<<<<<<< HEAD:Views/modules/Persona/index.php
-<?php require_once("../../partials/routes.php");
-require_once("../../../App/Controller/PersonaController.php");
-
-use App\Controller\PersonaController; ?>
-=======
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/MarcaController.php");
+require("../../../App/Controllers/MarcaController.php");
 
 use App\Controllers\MarcaController; ?>
->>>>>>> Yolixs:Views/modules/Marca/index.php
 <!DOCTYPE html>
 <html>
 <head>
     <title><?= getenv('TITLE_SITE') ?> | Layout</title>
-    <?php require_once("../../partials/head_imports.php"); ?>
+    <?php require("../../partials/head_imports.php"); ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css">
@@ -23,9 +16,9 @@ use App\Controllers\MarcaController; ?>
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require_once("../../partials/navbar_customization.php"); ?>
+    <?php require("../../partials/navbar_customization.php"); ?>
 
-    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -34,19 +27,11 @@ use App\Controllers\MarcaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                        <h1>CATEGORIAS</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">ABC</a></li>
-=======
-                        <h1>Marca</h1>
+                        <h1>Pagina Principal</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-ABC</a></li>
->>>>>>> Yolixs:Views/modules/Marca/index.php
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -63,32 +48,29 @@ use App\Controllers\MarcaController; ?>
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                            La persona ha sido creada con exito!
-                        <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos de la persona ha sido actualizada correctamente!
-=======
                             La marca ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
                             Los datos de Marca se han sido actualizados correctamente!
->>>>>>> Yolixs:Views/modules/Marca/index.php
                         <?php } ?>
                     </div>
                 <?php } ?>
             <?php } ?>
 
             <!-- Default box -->
-            <div class="card">
+            <div class="card card-warning">
                 <div class="card-header">
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                    <h3 class="card-title">Gestionar Persona</h3>
-=======
-                    <h3><strong><i class="fas fa-eye"></i>Listar Marca</strong></h3>
->>>>>>> Yolixs:Views/modules/Marca/index.php
+                    <h3 class="card-title"><i class="fas fa-eye""></i> &nbsp;<strong> Listar Marca</strong></h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="index.php" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                data-toggle="tooltip" title="Remove">
                             <i class="fas fa-times"></i></button>
                     </div>
                 </div>
@@ -96,64 +78,26 @@ use App\Controllers\MarcaController; ?>
                     <div class="row">
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                                <i class="fas fa-plus"></i> Crear Persona
-=======
+                            <a role="button" href="create.php" class="btn btn-warning float-right"
+                               style="margin-right: 5px;">
                                 <i class="fas fa-plus"></i> Crear Marca
->>>>>>> Yolixs:Views/modules/Marca/index.php
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblPersona" class="datatable table table-bordered table-striped">
+                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                                    <th>Documento</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Contraseña</th>
-                                    <th>Programa de Formacion</th>
-                                    <th>Estado</th>
-=======
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Acciones</th>
->>>>>>> Yolixs:Views/modules/Marca/index.php
 
 
                                 </tr>
                                 </thead>
-                                <body>
+                                <tbody>
                                 <?php
-<<<<<<< HEAD:Views/modules/Persona/index.php
-                                $arrPersona = PersonaController::getAll();
-                                foreach ($arrPersona as $Persona){
-                                    ?>
-                                    <tr>
-
-                                        <td><?php echo $Persona->getNombre(); ?></td>
-                                        <td><?php echo $Persona->getApellido(); ?></td>
-                                        <td><?php echo $Persona->getTelefono(); ?></td>
-                                        <td><?php echo $Persona->getCorreo(); ?></td>
-                                        <td><?php echo $Persona->getRol(); ?></td>
-                                        <td><?php echo $Persona->getContraseña(); ?></td>
-                                        <td><?php echo $Persona->getProgramaformacion(); ?></td>
-                                        <td><?php echo $Persona->getEstado(); ?></td>
-                                        <td>
-                                            <a href="edit.php?id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Persona->getEstado() != "Activo"){ ?>
-                                                <a href="../../../App/Controller/PersonaController.php?action=activate&Id=<?php echo $Persona->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../App/Controller/PersonaController.php?action=inactivate&Id=<?php echo $Persona->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
-=======
                                 $arrMarca = MarcaController::getAll();
                                 foreach ($arrMarca as $Marca){
                                     ?>
@@ -165,29 +109,15 @@ use App\Controllers\MarcaController; ?>
                                             <a href="edit.php?Id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                                             <a href="show.php?Id=<?php echo $Marca->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
 
->>>>>>> Yolixs:Views/modules/Marca/index.php
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                </body>
+                                </tbody>
                                 <tfoot>
                                 <tr>
-<<<<<<< HEAD:Views/modules/Persona/index.php
-
-                                    <th>Documento</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Telefono</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Contraseña</th>
-                                    <th>Programa de Formacion</th>
-                                    <th>Estado</th>
-=======
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Acciones</th>
->>>>>>> Yolixs:Views/modules/Marca/index.php
                                 </tr>
                                 </tfoot>
 
@@ -207,14 +137,10 @@ use App\Controllers\MarcaController; ?>
     </div>
     <!-- /.content-wrapper -->
 
-<<<<<<< HEAD:Views/modules/Persona/index.php
-    <?php require_once ('../../partials/footer.php');?>
-=======
     <?php require('../../partials/footer.php');?>
->>>>>>> Yolixs:Views/modules/Marca/index.php
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require ('../../partials/scripts.php');?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

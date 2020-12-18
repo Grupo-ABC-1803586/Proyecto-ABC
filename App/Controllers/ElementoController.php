@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-
 require_once(__DIR__.'/../Models/Elemento.php');
 require_once(__DIR__.'/../Models/Categoria.php');
 
@@ -64,7 +63,7 @@ class ElementoController{
             $Elemento = new Elemento($arrayElemento);
             $Elemento->update();
 
-            header("Location: ../../views/modules/Elemento/show.php?id=".$Elemento->getId()."&respuesta=correcto");
+            header("Location: ../../views/modules/Elemento/show.php?Id=".$Elemento->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Elemento/edit.php?respuesta=error&mensaje=".$e->getMessage());
@@ -101,7 +100,7 @@ class ElementoController{
         }
     }
 
-    static public function searchForID ($Id){
+    static public function searchForID ($id){
         try {
             return Elemento::searchForId($id);
         } catch (\Exception $e) {
@@ -110,8 +109,7 @@ class ElementoController{
         }
     }
 
-    static public function getAll()
-    {
+    static public function getAll (){
         try {
             return Elemento::getAll();
         } catch (\Exception $e) {
@@ -120,10 +118,10 @@ class ElementoController{
         }
     }
 
-    /*public static function personaIsInArray($idPersona, $ArrPersonas){
-        if(count($ArrPersonas) > 0){
-            foreach ($ArrPersonas as $Persona){
-                if($Persona->getIdPersona() == $idPersona){
+    public static function ElementoIsInArray($Id, $ArrElemento){
+        if(count($ArrElemento) > 0){
+            foreach ($ArrElemento as $Elemento){
+                if($Elemento->getId() == $Id){
                     return true;
                 }
             }
@@ -131,32 +129,32 @@ class ElementoController{
         return false;
     }
 
-    static public function selectPersona ($isMultiple=false,
+    static public function selectElemento ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idConsultorio",
-                                          $nombre="idConsultorio",
+                                          $Id="Elemento",
+                                          $Nombre="Elemento",
                                           $defaultValue="",
                                           $class="",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrPersonas = array();
+        $arrElemento = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrPersonas = Persona::buscar($base.$where);
+            $base = "SELECT * FROM Elemento WHERE ";
+            $arrElemento = Elemento:: search($base.$where);
         }else{
-            $arrPersonas = Persona::getAll();
+            $arrElemento = Elemento::getAll();
         }
 
-        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."'>";
+        $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." Id= '".$Id."' name='".$Nombre."' class='".$class."'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrPersonas) > 0){
-            foreach ($arrPersonas as $persona)
-                if (!UsuariosController::personaIsInArray($persona->getIdPersona(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getIdPersona()) ? "selected" : "" ) : "")." value='".$persona->getIdPersona()."'>".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrElemento) > 0){
+            foreach ($arrElemento as $Elemento)
+                if (!ElementoController::ElementoIsInArray($Elemento->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($Elemento != "") ? (($defaultValue == $Elemento->getId()) ? "selected" : "" ) : "")." value='".$Elemento->getId()."'>".$Elemento->getNombre()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
-    }*/
+    }
 
     /*
     public function buscar ($Query){

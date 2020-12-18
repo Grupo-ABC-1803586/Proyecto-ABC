@@ -6,16 +6,7 @@ require(__DIR__ .'/../../vendor/autoload.php');
 use Exception;
 use PDOException;
 
-/**
- * Created by PhpStorm.
- * User: Diego-PC
- * Date: 10/12/2019
- * Time: 9:17
- */
-
 abstract class BasicModel {
-    //TODO: Agregar PHPDoc
-
     public $isConnected;
     protected $datab;
     private $username = "proyecto_sena";

@@ -40,7 +40,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al crear el Prestamo: <?= $_GET['mensaje'] ?>
+                        Error al crear el Programa Formacion: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -64,47 +64,47 @@
                 <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../App/Controllers/ProgramaFormacionController.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="FechaRegistro" class="col-sm-2 col-form-label">FECHA REGISTRO</label>
+                            <label for="FechaRegistro" class="col-sm-2 col-form-label">Fecha Registro</label>
                             <div class="col-sm-10">
                                 <input required type="date" class="form-control" id="FechaRegistro" name="FechaRegistro" placeholder="Ingrese la  fecha registro">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="NumeroFicha" class="col-sm-2 col-form-label">NUMERO FICHA</label>
+                            <label for="NumeroFicha" class="col-sm-2 col-form-label">Numero Ficha</label>
                             <div class="col-sm-10">
                                 <input required type="text" class="form-control" id="NumeroFicha" name="NumeroFicha" placeholder="Ingrese el numero ficha">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="FechaInicio" class="col-sm-2 col-form-label">FECHA INICIO</label>
+                            <label for="FechaInicio" class="col-sm-2 col-form-label">Fecha Inicio</label>
                             <div class="col-sm-10">
                                 <input required type="date" minlength="6" class="form-control" id="FechaInicio" name="FechaInicio" placeholder="Ingrese su documento">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="FechaFinalizacion" class="col-sm-2 col-form-label">FECHA FINALIZACION</label>
+                            <label for="FechaFinalizacion" class="col-sm-2 col-form-label">Fecha Finalizacion</label>
                             <div class="col-sm-10">
                                 <input required type="date" minlength="6" class="form-control" id="FechaFinalizacion" name="FechaFinalizacion" placeholder="Ingrese su telefono">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="NombrePrograma" class="col-sm-2 col-form-label">NOMBRE PROGRAMA</label>
+                            <label for="NombrePrograma" class="col-sm-2 col-form-label">Nombre Programa</label>
                             <div class="col-sm-10">
                                 <input required type="text" class="form-control" id="NombrePrograma" name="NombrePrograma" placeholder="Ingrese el  Nombre Programa">
                             </div>
                         </div>
 
-                            <div class="form-group row">
-                                <label for="NivelPrograma" class="col-sm-2 col-form-label">Nivel Programa</label>
-                                <div class="col-sm-10">
-                                    <select id="NivelPrograma" name="NivelPrograma" class="custom-select">
-                                        <option value="TECNICO">Tecnico</option>
-                                        <option value="TECNOLOGO"> Tecnologo </option>
+                        <div class="form-group row">
+                            <label for="NivelPrograma" class="col-sm-2 col-form-label">Nivel Programa</label>
+                            <div class="col-sm-10">
+                                <select id="NivelPrograma" name="NivelPrograma" class="custom-select">
+                                    <option value="TECNICO">Tecnico</option>
+                                    <option value="TECNOLOGO"> Tecnologo </option>
 
-                                    </select>
-                                </div>
+                                </select>
                             </div>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
@@ -120,7 +120,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require('../../partials/footer.php');?>
+    <?php require ('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
 <?php require('../../partials/scripts.php');?>

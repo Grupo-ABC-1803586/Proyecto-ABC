@@ -142,7 +142,7 @@ class Elemento extends BasicModel
         $this->Material = $Material;
     }
 
-   
+
     public static function search($query)
     {
 
@@ -241,14 +241,6 @@ class Elemento extends BasicModel
         $Elemento = Elemento::searchForId($Id); //Buscando un usuario por el ID
         $Elemento->setEstado("Inactivo"); //Cambia el estado del Usuario
         return $Elemento->update();                    //Guarda los cambios..
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return "Numero Serie: $this->numero_serie, Categoria: $this->Categoria->getNombre(),  Fecha Venta: $this->fecha_venta, Monto: $this->monto, Estado: $this->estado";
     }
 
 }

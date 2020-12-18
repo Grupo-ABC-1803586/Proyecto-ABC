@@ -1,13 +1,19 @@
 <?php
 
 
-namespace App\models;
+namespace App\Models;
 
-
+require(__DIR__.'/../../vendor/autoload.php');
+use Verot\Upload\Upload;
 class GeneralFunctions
 {
+    /**
+     * @param $File = $FILES['Archivo'];
+     * @param $Ruta
+     * @return bool|string
+     */
     static function SubirArchivo($File, $Ruta){
-        $archivos = new upload($File);
+        $archivos = new Upload($File);
         if ($archivos->uploaded){
             $archivos->file_new_name_body = (date('H-M-s')."-".$archivos->file_src_name_body);
             $archivos->Process($Ruta);

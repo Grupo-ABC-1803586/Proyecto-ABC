@@ -134,13 +134,13 @@ class CategoriaController{
     }
 
     static public function selectCategoria ($isMultiple=false,
-                                          $isRequired=true,
-                                          $Id="IdCategoria",
-                                          $Name="IdCategoria",
-                                          $defaultValue="",
-                                          $class="form-control",
-                                          $where="",
-                                          $arrExcluir = array()){
+                                            $isRequired=true,
+                                            $Id="IdCategoria",
+                                            $Name="IdCategoria",
+                                            $defaultValue="",
+                                            $class="form-control",
+                                            $where="",
+                                            $arrExcluir = array()){
         $arrCategoria = array();
         if($where != ""){
             $base = "SELECT * FROM Categoria WHERE ";

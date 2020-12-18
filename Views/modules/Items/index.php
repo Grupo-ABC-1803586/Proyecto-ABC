@@ -54,7 +54,7 @@ use App\Controllers\ItemsController;
                         <?php if ($_GET['action'] == "create") { ?>
                             Items ha sido creado con exito!
                         <?php } else if ($_GET['action'] == "update") { ?>
-                            Los datos de la venta han sido actualizados correctamente!
+                            Los datos de Items han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -64,9 +64,9 @@ use App\Controllers\ItemsController;
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Default box -->
-                        <div class="card card-dark">
+                        <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Listar Items</h3>
+                                <h3 class="card-title"><i class="fas fa-eye""></i> &nbsp; Listar Items</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                             data-source="index.php" data-source-selector="#card-refresh-content"
@@ -85,7 +85,7 @@ use App\Controllers\ItemsController;
                                 <div class="row">
                                     <div class="col-auto mr-auto"></div>
                                     <div class="col-auto">
-                                        <a role="button" href="create.php" class="btn btn-primary float-right"
+                                        <a role="button" href="create.php" class="btn btn-warning float-right"
                                            style="margin-right: 5px;">
                                             <i class="fas fa-plus"></i> Crear Items
                                         </a>
@@ -103,9 +103,9 @@ use App\Controllers\ItemsController;
                                                 <th>Ubicacion</th>
                                                 <th>Imagen</th>
                                                 <th>Elemento</th>
+                                                <th>Unidades</th>
                                                 <th>Marca</th>
                                                 <th>Kit</th>
-                                                <th>Unidades</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -124,12 +124,12 @@ use App\Controllers\ItemsController;
                                                     <td><?= $item->getUbicacion(); ?></td>
                                                     <td><?= $item->getImagen(); ?></td>
                                                     <td><?= $item->getElemento()->getNombre(); ?></td>
+                                                    <td><?= $item->getUnidades()->getNombre(); ?></td>
                                                     <td><?= $item->getMarca()->getNombre(); ?></td>
                                                     <td><?= $item->getKit()->getNombre(); ?></td>
-                                                    <td><?= $item->getUnidades()->getNombre(); ?></td>
                                                     <td><?= $item->getEstado(); ?></td>
                                                     <td>
-                                                        <a href="show.php?id=<?php echo $item->getId(); ?>"
+                                                        <a href="show.php?Id=<?php echo $item->getId(); ?>"
                                                            type="button" data-toggle="tooltip" title="Ver"
                                                            class="btn docs-tooltip btn-warning btn-xs"><i
                                                                 class="fa fa-eye"></i></a>
@@ -137,7 +137,7 @@ use App\Controllers\ItemsController;
                                                             <a href="../../../App/Controllers/ItemsController.php?action=activate&Id=<?php echo $item->getId(); ?>"
                                                                type="button" data-toggle="tooltip" title="Activar"
                                                                class="btn docs-tooltip btn-success btn-xs"><i
-                                                                    class="fa fa-check-square"></i></a>
+                                                                    class="fa fa-edit"></i></a>
                                                         <?php } else { ?>
                                                             <a type="button"
                                                                href="../../../App/Controllers/ItemsController.php?action=inactivate&Id=<?php echo $item->getId(); ?>"
@@ -159,9 +159,9 @@ use App\Controllers\ItemsController;
                                                 <th>Ubicacion</th>
                                                 <th>Imagen</th>
                                                 <th>Elemento</th>
+                                                <th>Unidades</th>
                                                 <th>Marca</th>
                                                 <th>Kit</th>
-                                                <th>Unidades</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -225,6 +225,7 @@ use App\Controllers\ItemsController;
             "stateSave": true, //Guardar la configuracion del usuario
         });
     });
+
 </script>
 
 </body>

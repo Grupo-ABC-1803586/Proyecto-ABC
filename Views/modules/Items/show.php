@@ -58,15 +58,14 @@ use App\Controllers\ItemsController; ?>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Horizontal Form -->
-                        <div class="card card-green">
+
                             <?php if (!empty($_GET["Id"]) && isset($_GET["Id"])) {
-                                $DataItems = ItemsController::searchForID($_GET["Id"]);
-                                if (!empty($DataItems)) {
+                                $dataitem = ItemsController::searchForID($_GET["Id"]);
+                                if (!empty($dataitem)) {
                                     ?>
-                                    <div class="card-header">
-                                        <h3 class="card-title"><i class="fas fa-shopping-cart"></i> &nbsp; Ver
-                                            Información de <?= $DataItems->getId() ?>
-                                            -<?= $DataItems->getId() ?></h3>
+                                    <div class="card card-warning">
+                                     <div class="card-header">
+                                      <h3 class="card-title"> <strong>Items</strong> </h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
                                                     data-source="show.php" data-source-selector="#card-refresh-content"
@@ -81,61 +80,59 @@ use App\Controllers\ItemsController; ?>
                                                 <i class="fas fa-times"></i></button>
                                         </div>
                                     </div>
+
                                     <div class="card-body">
-                                        <p>
-                                            <strong><i class="fas fa-sort-numeric-down mr-1"></i> Numero</strong>
-                                        <p class="text-muted">
-                                            <?= $DataItems->getId() . "-" . $DataItems->getId(); ?>
-                                        </p>
                                         <hr>
                                         <strong><i class="far fa-calendar mr-1"></i> Placa</strong>
-                                        <p class="text-muted"><?= $DataItems->getPlaca(); ?></p>
+                                        <p class="text-muted"><?= $dataitem->getPlaca(); ?></p>
                                         <hr>
-                                        <strong><i class="fas fa-money-bill mr-1"></i> Descripcion</strong>
-                                        <p class="text-muted"><?= $DataItems->getDescripcion(); ?></p>
+                                        <strong><i class="fas fa-sticky-note"></i> Descripcion</strong>
+                                        <p class="text-muted"><?= $dataitem->getDescripcion(); ?></p>
                                         <hr>
-                                        <strong><i class="fas fa-cog mr-1"></i> Costo</strong>
-                                        <p class="text-muted"><?= $DataItems->getCosto(); ?></p>
+                                        <strong><i class="fas fa-donate"></i> Costo</strong>
+                                        <p class="text-muted"><?= $dataitem->getCosto(); ?></p>
                                         <hr>
-                                        <strong><i class="fas fa-money-bill mr-1"></i> Ubicacion</strong>
-                                        <p class="text-muted"><?= $DataItems->getUbicacion(); ?></p>
+                                        <strong><i class="fas fa-globe"></i> Ubicacion</strong>
+                                        <p class="text-muted"><?= $dataitem->getUbicacion(); ?></p>
                                         <hr>
-                                        <strong><i class="fas fa-cog mr-1"></i> Imagen</strong>
-                                        <p class="text-muted"><?= $DataItems->getImagen(); ?></p>
+                                        <strong><i class="fas fa-camera"></i> Imagen</strong>
+                                        <p class="text-muted"><img src="../../public/filesUploaded/<?= $dataitem->getImagen(); ?>" alt="Imagen del item" width="250" height="250"></p>
                                         <hr>
-                                        <strong><i class="fas fa-user-ninja mr-1"></i> Elemento</strong>
-                                        <p class="text-muted"><?= $DataItems->getElemento()->getNombre()?></p>
+                                        <strong><i class="fas fa-tools"></i> Elemento</strong>
+                                        <p class="text-muted"><?= $dataitem->getElemento()->getNombre()?></p>
                                         <hr>
-                                        <strong><i class="far fa-user mr-1"></i> Marca</strong>
-                                        <p class="text-muted"><?= $DataItems->getMarca()->getNombre() ?></p>
+                                        <strong><i class="fas fa-ruler-combined"></i> Unidades</strong>
+                                        <p class="text-muted"><?= $dataitem->getUnidades()->getNombre() ?></p>
+                                        <hr>
+                                        <strong><i class="fab fa-steam"></i> Marca</strong>
+                                        <p class="text-muted"><?= $dataitem->getMarca()->getNombre() ?></p>
                                         <hr>
                                         <strong><i class="fas fa-user-ninja mr-1"></i>Kit</strong>
-                                        <p class="text-muted"><?= $DataItems->getKit()->getNombre()?></p>
+                                        <p class="text-muted"><?= $dataitem->getKit()->getNombre()?></p>
                                         <hr>
-                                        <strong><i class="far fa-user mr-1"></i> Unidades</strong>
-                                        <p class="text-muted"><?= $DataItems->getUnidades()->getNombre() ?></p>
-                                        <hr>
-                                        <strong><i class="fas fa-cog mr-1"></i> Estado</strong>
-                                        <p class="text-muted"><?= $DataItems->getEstado(); ?></p>
+                                        <strong><i class="fas fa-pen-square"></i> Estado</strong>
+                                        <p class="text-muted"><?= $dataitem->getEstado(); ?></p>
                                         </p>
 
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">
                                             <div class="col-auto mr-auto">
-                                                <a role="button" href="index.php" class="btn btn-success float-right"
-                                                   style="margin-right: 5px;">
-                                                    <i class="fas fa-tasks"></i> Listar Items
+                                                <a role="button" href="edit.php?Id=<?php echo $dataitem->getId(); ?>" class="btn btn-warning float-right" style="margin-right: 5px;">
+                                                    <i class="fas fa-tasks"></i> Modificar Items
                                                 </a>
                                             </div>
                                             <div class="col-auto">
-                                                <a role="button" href="create.php" class="btn btn-primary float-right"
-                                                   style="margin-right: 5px;">
-                                                    <i class="fas fa-plus"></i> Registrar Items
+                                                <a role="button" href="create.php" class="btn btn-dark float-right" style="margin-right: 5px;">
+                                                    <i class="fas fa-plus"></i> Crear Items
                                                 </a>
                                             </div>
+                                            <div class="col-auto">
+                                                <a href="index.php" role="button" class="btn btn-dark float-right">Volver</a>
+                                            </div>
                                         </div>
-                                    </div>
+                                        </div>
+
                                 <?php } else { ?>
                                     <div class="alert alert-danger alert-dismissible">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">

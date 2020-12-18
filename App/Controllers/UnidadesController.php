@@ -112,7 +112,7 @@ class UnidadesController{
             return Unidades ::getAll();
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            //header("Location: ../Vista/modules/Unidades/manager.php?respuesta=error");
         }
     }
 

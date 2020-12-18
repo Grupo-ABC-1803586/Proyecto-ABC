@@ -2,20 +2,27 @@
 
 namespace App\Controllers;
 
-require_once(__DIR__.'/../Models/Marca.php');
 require_once(__DIR__.'/../Models/Items.php');
+require_once(__DIR__.'/../Models/Elemento.php');
+require_once(__DIR__.'/../Models/Marca.php');
+require_once(__DIR__.'/../Models/Kit.php');
 require_once(__DIR__.'/../Models/Unidades.php');
+require_once(__DIR__.'/../Models/Categoria.php');
+require_once(__DIR__.'/../Models/GeneralFunctions.php');
 
 use App\Models\GeneralFunctions;
 use App\Models\Items;
+use App\Models\Elemento;
 use App\Models\Marca;
+use App\Models\Kit;
 use App\Models\Unidades;
+use App\Models\Categoria;
 
 if(!empty($_GET['action'])){
     ItemsController::main($_GET['action']);
 }
 
-class ItemsController {
+class ItemsController{
 
     static function main($action)
     {
@@ -40,14 +47,26 @@ class ItemsController {
             $arrayitem = array();
             $arrayitem['Placa'] = $_POST['Placa'];
             $arrayitem['Descripcion'] = $_POST['Descripcion'];
+            $arrayitem['Costo'] = $_POST['Costo'];
             $arrayitem['Ubicacion'] = $_POST['Ubicacion'];
-            $arrayitem['Imagen'] = 'Imagen';
+            $arrayitem['Imagen'] = $_POST['Imagen'];
+            $arrayitem['Elemento'] = Elemento::searchForId($_POST['Elemento']);
             $arrayitem['Marca'] = Marca::searchForId($_POST['Marca']);
-            $arrayitem['Unidades'] = Marca::searchForId($_POST['Unidades']);
+            $arrayitem['Kit'] = Kit::searchForId($_POST['Kit']);
+            $arrayitem['Unidades'] = Unidades::searchForId($_POST['Unidades']);
             $arrayitem['Estado'] = 'Activo';
+
+            if (!empty($_FILES['Imagen']) && ($_FILES['Imagen']["name"] != "" )){
+                $NameFile = GeneralFunctions::SubirArchivo($_FILES['Imagen'],'../../Views/public/filesUploaded/');
+                if ($NameFile != false){
+                    $arrayitem['Imagen'] = $NameFile;
+                }else{
+                    throw new Exception('La imagen no se pudo subir.');
+                }
+            }
             $item = new Items($arrayitem);
             if($item->create()){
-                header("Location: ../../views/modules/Items/create.php?Id=".$item->getId());
+                header("Location: ../../views/modules/Items/index.php?Id=".$item->getId());
             }
         } catch (Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
@@ -55,28 +74,44 @@ class ItemsController {
         }
     }
 
+
     static public function edit (){
         try {
             $arrayitem = array();
             $arrayitem['Placa'] = $_POST['Placa'];
             $arrayitem['Descripcion'] = $_POST['Descripcion'];
+            $arrayitem['Costo'] = $_POST['Costo'];
             $arrayitem['Ubicacion'] = $_POST['Ubicacion'];
-            $arrayitem['Imagen'] = $_POST ['Imagen'];
+            $arrayitem['Imagen'] = $_POST['Imagen'];
             $arrayitem['Elemento'] = Elemento::searchForId($_POST['Elemento']);
             $arrayitem['Marca'] = Marca::searchForId($_POST['Marca']);
             $arrayitem['Kit'] = Kit::searchForId($_POST['Kit']);
-            $arrayitem['Unidades'] = Marca::searchForId($_POST['Unidades']);
-            $arrayitem['Estado'] = 'Activo';
+            $arrayitem['Unidades'] = Unidades::searchForId($_POST['Unidades']);
+            $arrayitem['Estado'] = $_POST['Estado'];
             $arrayitem['Id'] = $_POST['Id'];
 
+            //Subir el archivo
+            if (!empty($_FILES['Imagen']) && ($_FILES['Imagen']["name"] != "" )){
+                var_dump($_FILES['Imagen']);
+                $NameFile = GeneralFunctions::SubirArchivo($_FILES['Imagen'],'../Vista/filesUploaded/');
+                if ($NameFile != false){
+                $arrayitem['Imagen'] = $NameFile;
+                }else{
+                    throw new Exception('La imagen no se pudo subir.');
+                }
+            }else{
+                    $item = ItemsController::buscarID($arrayitem['Id']);
+                    $arrayitem['Imagen'] = $item->getImagen();
+            }
 
             $item = new Items($arrayitem);
-            $item->update();
+            $item->editar();
 
             header("Location: ../../views/modules/Items/show.php?Id=".$item->getId()."&respuesta=correcto");
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Items/edit.php?respuesta=error&mensaje=".$e->getMessage());
+
         }
     }
 
