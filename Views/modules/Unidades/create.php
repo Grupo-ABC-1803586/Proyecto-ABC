@@ -139,12 +139,12 @@
     <!-- /.content-wrapper -->
 
 <<<<<<< HEAD:Views/modules/Persona/create.php
-    <?php require_once ('../../partials/footer.php');?>
+    <?php require_once('../../partials/footer.php');?>
 =======
     <?php require('../../partials/footer.php');?>
 >>>>>>> Yolixs:Views/modules/Unidades/create.php
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require_once('../../partials/scripts.php');?>
 </body>
 </html>

@@ -2,13 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD:Views/modules/Prestamo/create.php
-    <title><?= getenv('TITLE_SITE') ?> | Agregar Prestamo</title>
-    <?php require("../../partials/head_Imports.php"); ?>
-=======
-    <title><?= getenv('TITLE_SITE') ?> | Crear Usuarixo</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Programa de Formacion</title>
     <?php require("../../partials/head_imports.php"); ?>
->>>>>>> Yolixs:Views/modules/programaformacion/create.php
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -25,12 +20,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-<<<<<<< HEAD:Views/modules/Prestamo/create.php
-                        <h1>Crear nuevo Prestamo
-                                                                                                                         </h1>
-=======
                         <h1>Crear un Nuevo Programa Formacion</h1>
->>>>>>> Yolixs:Views/modules/programaformacion/create.php
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -58,24 +48,6 @@
             <!-- Horizontal Form -->
             <div class="card card-warning">
                 <div class="card-header">
-<<<<<<< HEAD:Views/modules/Prestamo/create.php
-                    <h3 class="card-title">Prestamo</h3>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form class="Modificar Prestamo" method="post" id="frmCreateKit" name="frmCreateKit" action="../../../app/Controllers/PrestamoController.php?action=create">
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label for="Fecha Prestamo" class="col-sm-2 col-form-label">Fecha Prestamo</label>
-                            <div class="col-sm-10">
-                                <input required type="date" class="form-control" id="Fecha Prestamo" name="Fecha Prestamo" placeholder="Ingrese la fecha del prestamo">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Fecha Entrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
-                            <div class="col-sm-10">
-                                <input required type="date" class="form-control" id="Fecha Entrega" name="Fecha Entrega" placeholder="Ingrese la fecha del devolución del prestamo">
-=======
                     <h3 class="card-title"><i class="fas fa-university"></i>&nbsp;&nbsp;<strong>Programa Formacion</strong></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
@@ -101,31 +73,10 @@
                             <label for="NumeroFicha" class="col-sm-2 col-form-label">NUMERO FICHA</label>
                             <div class="col-sm-10">
                                 <input required type="text" class="form-control" id="NumeroFicha" name="NumeroFicha" placeholder="Ingrese el numero ficha">
->>>>>>> Yolixs:Views/modules/programaformacion/create.php
                             </div>
                         </div>
 
                         <div class="form-group row">
-<<<<<<< HEAD:Views/modules/Prestamo/create.php
-                            <label for="Observaciones" class="col-sm-2 col-form-label">Observaciones</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="Observaciones" name="Observaciones" placeholder="Ingrese una breve descripcion del Kit">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Estado" class="col-sm-2 col-form-label">Estado</label>
-                            <div class="col-sm-10">
-                                <input required type="number" minlength="6" class="form-control" id="Estado" name="Estado" placeholder="Ingrese la placa del Kit">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Persona" class="col-sm-2 col-form-label">Persona</label>
-                            <div class="col-sm-10">
-                                <input required type="number" minlength="6" class="form-control" id="Persona" name="Persona" placeholder="Ingrese la placa del Kit">
-                            </div>
-                        </div>
-
-=======
                             <label for="FechaInicio" class="col-sm-2 col-form-label">FECHA INICIO</label>
                             <div class="col-sm-10">
                                 <input required type="date" minlength="6" class="form-control" id="FechaInicio" name="FechaInicio" placeholder="Ingrese su documento">
@@ -155,7 +106,6 @@
                                 </div>
                             </div>
                     </div>
->>>>>>> Yolixs:Views/modules/programaformacion/create.php
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-warning">Enviar</button>
@@ -173,6 +123,6 @@
     <?php require('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php');?>
 </body>
 </html>

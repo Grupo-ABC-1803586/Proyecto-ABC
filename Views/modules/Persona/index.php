@@ -150,10 +150,10 @@ use App\Controllers\ProgramaFormacionController;?>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php require_once ('../../partials/footer.php');?>
+    <?php require_once('../../partials/footer.php');?>
 </div>
 <!-- ./wrapper -->
-<?php require_once ('../../partials/scripts.php');?>
+<?php require_once('../../partials/scripts.php');?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

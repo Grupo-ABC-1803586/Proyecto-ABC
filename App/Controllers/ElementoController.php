@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-<<<<<<< HEAD:App/Controllers/ElementoController.php
+
 require_once(__DIR__.'/../Models/Elemento.php');
 require_once(__DIR__.'/../Models/Categoria.php');
 
@@ -9,36 +9,15 @@ use App\Models\GeneralFunctions;
 use App\Models\Elemento;
 use App\Models\Categoria;
 
-
-
 if(!empty($_GET['action'])){
     ElementoController::main($_GET['action']);
 }
 
 class ElementoController{
-=======
-
-require_once(__DIR__.'/../Models/Marca.php');
-require_once(__DIR__.'/../Models/Items.php');
-require_once(__DIR__.'/../Models/Unidades.php');
-
-use App\Models\GeneralFunctions;
-use App\Models\Items;
-use App\Models\Marca;
-
-use App\Models\Unidades;
-
-if(!empty($_GET['action'])){
-    ItemsController::main($_GET['action']);
-}
-
-class ItemsController{
->>>>>>> Yolixs:App/Controllers/ItemsController.php
 
     static function main($action)
     {
         if ($action == "create") {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             ElementoController::create();
         } else if ($action == "edit") {
             ElementoController::edit();
@@ -50,26 +29,12 @@ class ItemsController{
             ElementoController::activate();
         } else if ($action == "inactivate") {
             ElementoController::inactivate();
-=======
-            ItemsController::create();
-        } else if ($action == "edit") {
-            ItemsController::edit();
-        } else if ($action == "searchForID") {
-            ItemsController::searchForID($_REQUEST['Id']);
-        } else if ($action == "searchAll") {
-            ItemsController::getAll();
-        } else if ($action == "activate") {
-            ItemsController::activate();
-        } else if ($action == "inactivate") {
-            ItemsController::inactivate();
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function create()
     {
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             $arrayElemento = array();
             $arrayElemento['Nombre'] = $_POST['Nombre'];
             $arrayElemento['Descripcion'] = $_POST['Descripcion'];
@@ -83,29 +48,11 @@ class ItemsController{
         } catch (Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Elemento/create.php?respuesta=error&mensaje=" . $e->getMessage());
-=======
-            $arrayitem = array();
-            $arrayitem['Placa'] = $_POST['Placa'];
-            $arrayitem['Descripcion'] = $_POST['Descripcion'];
-            $arrayitem['Ubicacion'] = $_POST['Ubicacion'];
-            $arrayitem['Imagen'] = 'Imagen';
-            $arrayitem['Marca'] = Marca::searchForId($_POST['Marca']);
-            $arrayitem['Unidades'] = Marca::searchForId($_POST['Unidades']);
-            $arrayitem['Estado'] = 'Activo';
-            $item = new Items($arrayitem);
-            if($item->create()){
-                header("Location: ../../views/modules/Items/create.php?Id=".$item->getId());
-            }
-        } catch (Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/Items/create.php?respuesta=error&mensaje=" . $e->getMessage());
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function edit (){
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             $arrayElemento = array();
             $arrayElemento['Nombre'] = $_POST['Nombre'];
             $arrayElemento['Descripcion'] = $_POST['Descripcion'];
@@ -121,34 +68,11 @@ class ItemsController{
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Elemento/edit.php?respuesta=error&mensaje=".$e->getMessage());
-=======
-            $arrayitem = array();
-            $arrayitem['Placa'] = $_POST['Placa'];
-            $arrayitem['Descripcion'] = $_POST['Descripcion'];
-            $arrayitem['Ubicacion'] = $_POST['Ubicacion'];
-            $arrayitem['Imagen'] = $_POST ['Imagen'];
-            $arrayitem['Elemento'] = Elemento::searchForId($_POST['Elemento']);
-            $arrayitem['Marca'] = Marca::searchForId($_POST['Marca']);
-            $arrayitem['Kit'] = Kit::searchForId($_POST['Kit']);
-            $arrayitem['Unidades'] = Marca::searchForId($_POST['Unidades']);
-            $arrayitem['Estado'] = 'Activo';
-            $arrayitem['Id'] = $_POST['Id'];
-
-
-            $item = new Items($arrayitem);
-            $item->update();
-
-            header("Location: ../../views/modules/Items/show.php?Id=".$item->getId()."&respuesta=correcto");
-        } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/Items/edit.php?respuesta=error&mensaje=".$e->getMessage());
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function activate (){
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             $ObjElemento = Elemento::searchForId($_GET['Id']);
             $ObjElemento->setEstado("Activo");
             if($ObjElemento->update()){
@@ -159,24 +83,11 @@ class ItemsController{
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Elemento/index.php?respuesta=error&mensaje=".$e->getMessage());
-=======
-            $Objitem = Items::searchForId($_GET['Id']);
-            $Objitem->setEstado("Activo");
-            if($Objitem->update()){
-                header("Location: ../../views/modules/Items/index.php");
-            }else{
-                header("Location: ../../views/modules/Items/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/Items/index.php?respuesta=error&mensaje=".$e->getMessage());
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function inactivate (){
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             $ObjElemento = Elemento::searchForId($_GET['Id']);
             $ObjElemento->setEstado("Inactivo");
             if($ObjElemento->update()){
@@ -187,51 +98,25 @@ class ItemsController{
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             header("Location: ../../views/modules/Elemento/index.php?respuesta=error");
-=======
-            $Objitem = Items::searchForId($_GET['Id']);
-            $Objitem->setEstado("Inactivo");
-            if($Objitem->update()){
-                header("Location: ../../views/modules/Items/index.php");
-            }else{
-                header("Location: ../../views/modules/Items/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/Items/index.php?respuesta=error");
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function searchForID ($Id){
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             return Elemento::searchForId($id);
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'error', 'errorStack');
             //header("Location: ../../views/modules/Elemento/manager.php?respuesta=error");
-=======
-            return Items::searchForId($Id);
-        } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            //header("Location: ../../views/modules/ventas/manager.php?respuesta=error");
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 
     static public function getAll()
     {
         try {
-<<<<<<< HEAD:App/Controllers/ElementoController.php
             return Elemento::getAll();
         } catch (\Exception $e) {
             GeneralFunctions::console( $e, 'log', 'errorStack');
             header("Location: ../Vista/modules/Categoria/manager.php?respuesta=error");
-=======
-            return Items::getAll();
-        } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../Views/Modules/Compra/manager.php?respuesta=error");
->>>>>>> Yolixs:App/Controllers/ItemsController.php
         }
     }
 

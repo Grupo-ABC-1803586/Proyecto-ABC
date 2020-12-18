@@ -26,10 +26,10 @@ class ProgramaFormacionController{
             ProgramaFormacionController::activate();
         } else if ($action == "inactivate") {
             ProgramaFormacionController::inactivate();
+        }
     }
 
-    static public function create()
-    {
+    static public function create()    {
         try {
 
             $arrayProgramaFormacion = array();
@@ -95,22 +95,6 @@ class ProgramaFormacionController{
             $ObjProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
             $ObjProgramaFormacion->setEstado("Inactivo");
             if($ObjProgramaFormacion->update()){
-                header("Location: ../../views/modules/ProgramaFormacion/index.php");
-            }else{
-                header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error");
-        }
-    }
-
-    static public function searchForID ($Id){
-        try {
-            return Prestamo::searchForId($Id);
-            $ObProgramaFormacion = ProgramaFormacion::searchForId($_GET['Id']);
-            $ObProgramaFormacion->setEstado("Inactivo");
-            if($ObProgramaFormacion->update()){
                 header("Location: ../../views/modules/ProgramaFormacion/index.php");
             }else{
                 header("Location: ../../views/modules/ProgramaFormacion/index.php?respuesta=error&mensaje=Error al guardar");

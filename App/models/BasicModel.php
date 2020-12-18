@@ -15,6 +15,7 @@ use PDOException;
 
 abstract class BasicModel {
     //TODO: Agregar PHPDoc
+
     public $isConnected;
     protected $datab;
     private $username = "proyecto_sena";
